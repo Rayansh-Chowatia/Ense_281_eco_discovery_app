@@ -4,13 +4,6 @@
 
 ---
 
-## Quick Links
-- 📄 **Activity 1 Deliverables:** see [Project Activity #1](#project-activity-1--project-initialization--planning)
-- 📁 **Documents Folder:** [`/documents`](documents)
-- 🧩 **Planned Architecture:** [MVC Overview](#mvc-architecture-overview)
-
----
-
 ## Table of Contents
 - [Project Summary](#project-summary)
 - [Team](#team)
