@@ -61,7 +61,7 @@ Environmental education is often **abstract and passive**, making it hard for le
 
 ## Project Scope
 
-### ✅ In Scope
+###  In Scope
 - One ecosystem
 - 6–8 animals/resources to discover
 - Sticker-book style “collection”
@@ -69,7 +69,7 @@ Environmental education is often **abstract and passive**, making it hard for le
 - Simple user interactions (no advanced animation)
 - MVC-based structure
 
-### ❌ Out of Scope
+###  Out of Scope
 - Multiplayer
 - Accounts/authentication
 - Complex simulations or physics engines
