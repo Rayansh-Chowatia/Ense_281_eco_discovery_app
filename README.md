@@ -1,6 +1,6 @@
 # Ecosystem Educational Discovery Application 🌿
 
-> A web-based learning experience that helps users explore a single ecosystem, discover animals/resources, and understand conservation through simple interactive discovery.
+> A web-based educational application designed to help **elementary school children** explore a **freshwater ecosystem**, discover animals, and learn basic conservation concepts through simple, interactive discovery.
 
 ---
 
@@ -17,77 +17,81 @@
 ---
 
 ## Project Summary
-The **Ecosystem Educational Discovery Application** is a web-based software project designed to make environmental learning more engaging and easier to understand. Instead of passive reading, users interact with a **single ecosystem** by discovering a small set of animals/resources (sticker-book style) and learning short conservation facts.  
+The **Ecosystem Educational Discovery Application** is a web-based learning project focused on **elementary-level environmental education**. The application introduces young learners to a **freshwater ecosystem** by allowing them to discover a small set of animals through a **sticker-book–style interface**.
 
-This project is developed as part of **ENSE 281** and focuses on applying:
-- Domain-driven thinking (clear domain concepts)
+Instead of passive reading, users interact with visual elements and short, age-appropriate descriptions to understand how freshwater animals live and why conservation matters.  
+
+This project is developed as part of **ENSE 281** and emphasizes:
+- Domain-driven design (clear ecosystem concepts)
 - **Model–View–Controller (MVC)** architecture
-- Agile project practices
-- Collaborative development using GitHub
+- Agile project planning practices
+- Team collaboration using GitHub
 
 ---
 
 ## Team
 **Group G**
-- Jeremiah Onunkwo
+- Jeremiah Onunkwo  
 - Rayansh Chowatia  
-- Abrianna  Primavera
-- Aubin Chriss Izere
+- Abrianna Primavera  
+- Aubin Chriss Izere  
 
 ---
 
 ## Problem / Opportunity
-Environmental education is often **abstract and passive**, making it hard for learners to connect concepts to real-world outcomes. This project provides a simple interactive format that helps users explore an ecosystem and understand conservation concepts in a more **visual and memorable** way.
+Environmental education for young learners is often **text-heavy or too abstract**, making it difficult for elementary school children to understand ecosystems and conservation. There is an opportunity to provide a **simple, visual, and interactive learning experience** that introduces freshwater animals in a way that is engaging, memorable, and age-appropriate.
 
 ---
 
 ## Target Users
-**Primary Users**
-- Students and learners interested in environmental education  
-- Anyone seeking an introduction to ecosystems and sustainability  
 
-**Secondary Users**
-- Educators (for quick classroom demonstrations)
-- General public interested in conservation basics  
+### Primary Users
+- Elementary school children (introductory level)
+- Young learners beginning to explore environmental and science concepts
+
+### Secondary Users
+- Elementary school educators (classroom demonstrations)
+- Parents or guardians supporting learning at home
 
 ---
 
 ## Project Scope
 
-###  In Scope
-- One ecosystem
-- 6–8 animals/resources to discover
-- Sticker-book style “collection”
-- Educational info cards/panels
-- Simple user interactions (no advanced animation)
-- MVC-based structure
+### In Scope
+- One **freshwater ecosystem**
+- 6–8 freshwater animals to discover
+- Sticker-book–style collection interface
+- Short, child-friendly educational information cards
+- Simple click-based interactions (no complex animations)
+- MVC-based application structure
+- Database-backed storage of ecosystem items and discovery progress
 
-###  Out of Scope
-- Multiplayer
-- Accounts/authentication
-- Complex simulations or physics engines
-- Multiple ecosystems (future extension only)
+### Out of Scope
+- Multiplayer functionality
+- User accounts or authentication
+- Advanced simulations or game physics
+- Multiple ecosystems (possible future extension)
 
 ---
 
 ## MVC Architecture Overview
-This project will follow **MVC** to match ENSE 281 requirements:
+This project follows the **Model–View–Controller (MVC)** architecture as required by ENSE 281:
 
-- **Model (Database + Domain objects)**  
-  Stores ecosystem items (animals/resources), facts, and discovery state.
+- **Model (Database + Domain Objects)**  
+  Stores freshwater animals, educational facts, and user discovery progress.
 
-- **View (UI)**  
-  Pages/components to browse the ecosystem, view item cards, and track discoveries.
+- **View (User Interface)**  
+  Provides a simple, child-friendly interface for exploring the ecosystem and viewing discovered animals.
 
 - **Controller (Interactions)**  
-  Handles user actions (discover, view details, filter/search) and updates the model + UI.
+  Manages user actions such as discovering animals and opening information panels.
 
 ---
 
 ## Planned Technology
 - HTML, CSS, Bootstrap
 - JavaScript
-- Database-backed model (to be finalized)
+- Database-backed model (technology to be finalized)
 - MVC architectural pattern
 - GitHub Projects (Kanban) for task tracking
 
