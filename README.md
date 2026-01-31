@@ -1,4 +1,4 @@
-# Ecosystem Educational Discovery Application 🌿
+# Ecosystem Discovery Application 🌿
 
 > A web-based educational application designed to help *elementary school children (approximately ages 5–9)* explore a *freshwater ecosystem*, discover animals, and learn basic conservation concepts through simple, interactive discovery.
 
