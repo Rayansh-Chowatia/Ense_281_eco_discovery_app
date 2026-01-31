@@ -109,6 +109,6 @@ This activity introduces the project concept, business justification, and initia
 ### Required Deliverables (Activity 1)
 > PDFs are stored in the documents/ folder and linked here for quick access.
 
-- [Business Case](documents/Business_Case_GroupG_EcosystemApp_Activity1.pdf)
-- [Project Charter](documents/Project_Charter_GroupG_EcosystemApp.pdf)
-- [Project Pitch Deck](documents/Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf)
+- [Business Case](documents/pdf/Business_Case_GroupG_Ecosystem_App.pdf)
+- [Project Charter](documents/pdf/Project_Charter_GroupG_Ecosystem_App.pdf)
+- [Project Pitch Deck](documents/pdf/Pitch_Deck_GroupG_Ecosystem_App.pdf)
