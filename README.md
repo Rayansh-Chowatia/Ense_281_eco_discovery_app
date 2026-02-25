@@ -10,8 +10,7 @@
 
 ## 🔗 Quick Links
 - 📄 **Activity 1 Documents:** [Go to docs/activity-1](docs/activity-1)
-- 📌 **Project Board (Kanban):** *(add link once created)*
-- 🌐 **Live Demo:** *(add link once deployed)*
+
 
 ---
 
@@ -93,14 +92,14 @@ To keep scope realistic and high-quality, we will:
 - Keep interactions **simple and clear** (click → reveal → collect)
 - Avoid accounts/login, multiplayer, and complex simulations
 
-✅ **In Scope**
+ **In Scope**
 - Single ecosystem scene + 6–8 animals
 - Sticker book collection
 - Animal fact cards (kid-friendly language)
 - One negative event + one positive action (simple cause/effect)
 - MVC structure with database-backed model
 
-❌ **Out of Scope**
+ **Out of Scope**
 - Multiple ecosystems
 - User accounts/authentication
 - Physics-heavy simulation, 3D game engine complexity
@@ -140,27 +139,6 @@ A working web app where a user can:
 - GitHub Issues + GitHub Projects (Kanban)
 
 > Note: We will prioritize a polished 2D experience (cartoon style) rather than complex 3D.
-
----
-
-## 📊 Project Status Tracker
-
-### Overall Project Completion
-**Overall:** 20% (Activity 1 complete)
-<progress value="20" max="100"></progress>
-
-**Milestone Levels**
-- ✅ Activity 1 complete → **20%**
-- ⏳ Activity 2 complete → **50%**
-- ⏳ Activity 3 complete → **75%**
-- ⏳ Activity 4 complete → **100%**
-
-### Activity Progress
-**Activity 1 (Project Initialization):** 100%
-<progress value="100" max="100"></progress>
-
-**Activity 2 (Prerequisites & System Design):** 0%
-<progress value="0" max="100"></progress>
 
 ---
 
