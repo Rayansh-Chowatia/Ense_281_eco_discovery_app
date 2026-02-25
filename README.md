@@ -66,7 +66,7 @@ This project creates a **simple, visual, interactive** learning experience that 
 - Parents/guardians (learning at home)
 
 ### Classroom Stakeholders
-- ENSE 281 instructor + TAs (evaluation and feedback)
+- ENSE 281 instructor Dr Tim Macaig
 - Class peers (peer review / usability feedback during milestones)
 
 ---
