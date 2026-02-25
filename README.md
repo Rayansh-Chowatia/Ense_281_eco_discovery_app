@@ -24,7 +24,6 @@
 - [MVP](#mvp)
 - [MVC Architecture Overview](#mvc-architecture-overview)
 - [Planned Technology](#planned-technology)
-- [Project Status Tracker](#project-status-tracker)
 - [Project Activity 1 – Deliverables](#project-activity-1--deliverables)
 
 ---
