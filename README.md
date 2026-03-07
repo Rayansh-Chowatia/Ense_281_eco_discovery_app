@@ -16,9 +16,10 @@
 - [Scope Summary](#scope-summary)
 - [Minimum Viable Product (MVP)](#minimum-viable-product-mvp)
 - [System Architecture Overview](#system-architecture-overview)
+- [Prototype (Figma)](#prototype-figma)
 - [GitHub Project Boards (Kanban)](#github-project-boards-kanban)
-- [Activity 1 Deliverables](#activity-1-deliverables)
-- [Activity 2 Deliverables](#activity-2-deliverables)
+- [Project Initialization Deliverables](#project-initialization-deliverables)
+- [Project Planning and System Design Deliverables](#project-planning-and-system-design-deliverables)
 - [Team Members](#team-members)
 
 ---
@@ -33,9 +34,10 @@
 - [Scope Summary](#scope-summary)
 - [Minimum Viable Product (MVP)](#minimum-viable-product-mvp)
 - [System Architecture Overview](#system-architecture-overview)
+- [Prototype (Figma)](#prototype-figma)
 - [GitHub Project Boards (Kanban)](#github-project-boards-kanban)
-- [Activity 1 Deliverables](#activity-1-deliverables)
-- [Activity 2 Deliverables](#activity-2-deliverables)
+- [Project Initialization Deliverables](#project-initialization-deliverables)
+- [Project Planning and System Design Deliverables](#project-planning-and-system-design-deliverables)
 - [Final Remark](#final-remark)
 
 ---
@@ -165,60 +167,69 @@ Handles:
 
 ---
 
+## Prototype (Figma)
+
+The high-fidelity prototype for the Ecosystem Discovery Application was designed in **Figma** and demonstrates the primary user interaction flow, interface layout, and system navigation.
+
+🔗 **Figma Prototype:**  
+https://www.figma.com/design/TSUWRBOK4Zgi3H7ILobe8K/ENSE-281-%E2%80%93-Ecosystem-Discovery-%E2%80%93-HiFi-Prototype?node-id=1-3&t=Y3GKeEVgYxKuTtlO-1
+
+---
+
 ## GitHub Project Boards (Kanban)
 
 The team used **two GitHub Project Boards** to organize and track work.
 
 ### Project Management Board
-Tracks documentation, planning, Activity-2 deliverables, and presentation preparation.  
+Tracks documentation, planning, Activity-2 deliverables, and presentation preparation.
 
 🔗 **Management Tasks Board:**  
-[https://github.com/users/Rayansh-Chowatia/projects/2]
+https://github.com/users/Rayansh-Chowatia/projects/2
 
 ### Development Tasks Board
-Tracks system design, MVC planning, UML diagrams, interaction logic, and feature implementation planning.  
+Tracks system design, MVC planning, UML diagrams, interaction logic, and feature implementation planning.
 
 🔗 **Development Tasks Board:**  
-[https://github.com/users/Rayansh-Chowatia/projects/1]
+https://github.com/users/Rayansh-Chowatia/projects/1
 
 ---
 
-## Activity 1 Deliverables
+## Project Initialization Deliverables
 
 ### PDF Documents
-- [Business Case (PDF)](Activity-1/Business_Case_GroupG_EcosystemApp.pdf)
-- [Charter Document (PDF)](Activity-1/Charter_Document_GroupG_EcosystemApp.pdf)
-- [Pitch Deck (PDF)](Activity-1/Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf)
+- [Business Case (PDF)](Project_Initialization/Business_Case_GroupG_EcosystemApp.pdf)
+- [Charter Document (PDF)](Project_Initialization/Charter_Document_GroupG_EcosystemApp.pdf)
+- [Pitch Deck (PDF)](Project_Initialization/Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf)
 
 ---
 
-## Activity 2 Deliverables
+## Project Planning and System Design Deliverables
 
 ### Project Management and Requirements
-- [Project Stakeholder Register (PDF)](Activity-2/Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.pdf)
-- [Stakeholder Engagement Plan (PDF)](Activity-2/StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.pdf)
-- [Project Roles and Responsibilities (PDF)](Activity-2/Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.pdf)
-- [Project Scope (PDF)](Activity-2/Project_Scope_GroupG_EcosystemApp_Activity2.pdf)
-- [Project Requirements Document (PDF)](Activity-2/Project_Requirements_Document_GroupG_EcosystemApp_Activity2.pdf)
-- [MVP Definition and Rationale (PDF)](Activity-2/MVP_GroupG_EcosystemApp_Activity2.pdf)
-- [RBAC Document (PDF)](Activity-2/RBAC_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Stakeholder Register (PDF)](Project_Planning_and_System_Design/Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.pdf)
+- [Stakeholder Engagement Plan (PDF)](Project_Planning_and_System_Design/StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Roles and Responsibilities (PDF)](Project_Planning_and_System_Design/Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Scope (PDF)](Project_Planning_and_System_Design/Project_Scope_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Requirements Document (PDF)](Project_Planning_and_System_Design/Project_Requirements_Document_GroupG_EcosystemApp_Activity2.pdf)
+- [MVP Definition and Rationale (PDF)](Project_Planning_and_System_Design/MVP_GroupG_EcosystemApp_Activity2.pdf)
+- [RBAC Document (PDF)](Project_Planning_and_System_Design/RBAC_GroupG_EcosystemApp_Activity2.pdf)
 
 ### UML and System Design Diagrams
-- [MVC Architecture Diagram (PDF)](Activity-2/MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.pdf)
-- [Class Diagram (PDF)](Activity-2/Class_Diagram_GroupG_EcosystemApp_Activity2.pdf)
-- [Data Flow Diagram (PDF)](Activity-2/DataFlow_Diagram_GroupG_EcosystemApp_Activity2.pdf)
-- [Use Case Diagram (PDF)](Activity-2/UseCase_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+- [MVC Architecture Diagram (PDF)](Project_Planning_and_System_Design/MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+- [Class Diagram (PDF)](Project_Planning_and_System_Design/Class_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+- [Data Flow Diagram (PDF)](Project_Planning_and_System_Design/DataFlow_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+- [Use Case Diagram (PDF)](Project_Planning_and_System_Design/UseCase_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 
 ### Prototype Design
-- [Low Fidelity Prototype (PDF)](Activity-2/Lo_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
-- [High Fidelity Prototype (PDF)](Activity-2/High_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
+- [Low Fidelity Prototype (PDF)](Project_Planning_and_System_Design/Lo_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
+- [High Fidelity Prototype (PDF)](Project_Planning_and_System_Design/High_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
 
 ### Evaluation and Reporting
-- [User Questionnaire (PDF)](Activity-2/User_Questionnaire_EcosystemApp_Activity2.pdf)
-- [Scrum Report / Presentation (PDF)](Activity-2/Scrum_Report_GroupG_Ecosystem_Activity2.pdf)
+- [User Questionnaire (PDF)](Project_Planning_and_System_Design/User_Questionnaire_EcosystemApp_Activity2.pdf)
+- [Scrum Report / Presentation (PDF)](Project_Planning_and_System_Design/Scrum_Report_GroupG_Ecosystem_Activity2.pdf)
 
 ---
 
 ## Final Remark
 
-This repository documents the planning, design, and early system engineering work for the **Ecosystem Discovery Application**, including project management artifacts, user interface prototypes, UML and system design diagrams, evaluation materials, and presentation deliverables for **Activity 1** and **Activity 2**.
+This repository documents the planning, design, and early development stages of the **Ecosystem Discovery Application** project. The work demonstrates structured software engineering practices including requirements analysis, stakeholder planning, UML-based system design, prototype development, and Agile project management.
