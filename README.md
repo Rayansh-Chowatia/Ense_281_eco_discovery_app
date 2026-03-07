@@ -205,7 +205,7 @@ Tracks system design, MVC planning, UML diagrams, interaction logic, and feature
 
 ### UML and System Design Diagrams
 - [MVC Architecture Diagram (PDF)](Activity-2/MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.pdf)
-- [Class Diagram (PDF)](Activity-2/Class_Digram_GroupG_EcosystemApp_Activity2.pdf)
+- [Class Diagram (PDF)](Activity-2/Class_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 - [Data Flow Diagram (PDF)](Activity-2/DataFlow_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 - [Use Case Diagram (PDF)](Activity-2/UseCase_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 
