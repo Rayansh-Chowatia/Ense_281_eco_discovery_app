@@ -1,173 +1,260 @@
 # Ecosystem Discovery Application 🌿🐟
 
 <p align="center">
-  <img src="assets/hero.png" alt="Ecosystem Discovery App Hero" width="900">
+  <img src="assets/hero.png" alt="Ecosystem Discovery Application Hero" width="950">
 </p>
 
-> A web-based educational application for **elementary school children (ages 5–9)** to explore a **Saskatchewan-inspired freshwater ecosystem**, discover animals, and learn conservation through a **sticker-book style** experience.
+> A web-based interactive educational application designed to help elementary school students explore a **Saskatchewan-inspired freshwater ecosystem** through discovery-based learning, sticker rewards, and environmental awareness.
 
 ---
 
-## 🔗 Quick Links
-- 📄 **Activity 1 Documents:** [Go to docs/activity-1](docs/activity-1)
+## Project Overview
 
+The **Ecosystem Discovery Application** is an educational software project developed for **ENSE 281 – Software Engineering Management** at the **University of Regina**.
 
----
+The system is designed for **Grade 3 learners** and focuses on introducing freshwater ecosystems through a visual and interactive experience. Users explore an ecosystem scene, discover animals, unlock stickers, and learn age-appropriate ecological facts in a simple and engaging way.
 
-## 📚 Table of Contents
-- [Project Summary](#project-summary)
-- [Team](#team)
-- [Problem / Opportunity](#problem--opportunity)
-- [Target Users](#target-users)
-- [Core Experience](#core-experience)
-- [Scope Control](#scope-control)
-- [MVP](#mvp)
-- [MVC Architecture Overview](#mvc-architecture-overview)
-- [Planned Technology](#planned-technology)
-- [Project Activity 1 – Deliverables](#project-activity-1--deliverables)
+The project emphasizes:
+
+- **user-centered educational design**
+- **Model–View–Controller (MVC) architecture**
+- **domain-driven system design**
+- **Agile planning using GitHub Projects / Kanban**
+- **structured documentation and prototype development**
 
 ---
 
-## Project Summary
-The **Ecosystem Discovery Application** is a web-based learning project focused on **elementary-level environmental education**.  
-Kids explore a **single freshwater scene**, click animals to “discover” them, and collect them in a **sticker book** with short, age-appropriate facts.
+## Course Information
 
-This project is developed for **ENSE 281** and emphasizes:
-- Domain-driven design (ecosystem concepts as clear domain objects)
-- **Model–View–Controller (MVC)** architecture
-- Agile planning and progress tracking (GitHub Projects / Kanban)
-- Team collaboration using GitHub
+- **Course:** ENSE 281 – Software Engineering Management  
+- **Instructor:** Dr. Tim Maciag  
+- **Project:** Ecosystem Discovery Application  
+- **Team:** Group G  
 
 ---
 
-## Team
-**Group G**
-- Jeremiah Onunkwo  
+## Team Members
+
 - Rayansh Chowatia  
+- Jeremiah Onunkwo  
 - Abrianna Primavera  
 - Aubin Chriss Izere  
 
 ---
 
-## Problem / Opportunity
-Environmental education for young learners is often **text-heavy** or **too abstract**, making ecosystem concepts hard to understand and remember.  
-This project creates a **simple, visual, interactive** learning experience that helps children learn freshwater animals and conservation in a fun way.
+## Problem Definition
+
+Traditional classroom methods often rely on static diagrams and text-heavy materials to teach environmental and ecological concepts. For younger learners, these approaches can make it difficult to understand how animals, habitats, and environmental changes interact within an ecosystem.
+
+This project addresses that challenge by providing an **interactive digital learning experience** that helps students visually explore a freshwater ecosystem and learn through discovery-based interaction.
 
 ---
 
-## Target Users
-### Primary Users
-- Elementary school children (**ages 5–9**)
+## Core Learning Experience
 
-### Secondary Users
-- Teachers (classroom use / demos)
-- Parents/guardians (learning at home)
+The application is centered around a simple educational interaction loop:
 
-### Classroom Stakeholders
-- ENSE 281 instructor Dr Tim Macaig
-- Class peers (peer review / usability feedback during milestones)
+1. The user opens the application from the home screen  
+2. The user enters the ecosystem exploration page  
+3. The user clicks an animal in the ecosystem  
+4. The system displays educational information about that animal  
+5. The sticker book unlocks the corresponding sticker  
+6. Discovery progress is updated  
+7. The user continues exploring the ecosystem  
 
----
-
-## Core Experience
-On one screen:
-- **Left:** a freshwater ecosystem scene (animals visible / animated movement later)
-- **Right:** a sticker book panel with:
-  - silhouettes / hints for undiscovered animals
-  - discovered stickers
-  - simple facts (reading level ~9 years)
-
-**Interaction loop:**
-1) Child sees a hint in the sticker book  
-2) Child finds the animal in the ecosystem  
-3) Child clicks it → sticker appears + facts shown
+This interaction supports both **engagement** and **learning reinforcement**.
 
 ---
 
-## Scope Control
-To keep scope realistic and high-quality, we will:
-- Build **ONE** ecosystem scene only (Saskatchewan-inspired freshwater)
-- Include **6–8 animals max**
-- Keep interactions **simple and clear** (click → reveal → collect)
-- Avoid accounts/login, multiplayer, and complex simulations
+## Scope Summary
 
- **In Scope**
-- Single ecosystem scene + 6–8 animals
-- Sticker book collection
-- Animal fact cards (kid-friendly language)
-- One negative event + one positive action (simple cause/effect)
-- MVC structure with database-backed model
+### In Scope
+- One Saskatchewan-inspired freshwater ecosystem
+- 6–8 clickable animals
+- Animal information pop-up cards
+- Sticker-book collection system
+- Discovery progress tracking
+- One negative ecosystem impact example
+- One positive restoration interaction
+- MVC-based system design
+- JSON / lightweight structured data model
 
- **Out of Scope**
-- Multiple ecosystems
-- User accounts/authentication
-- Physics-heavy simulation, 3D game engine complexity
-- Multiplayer
-
----
-
-## MVP
-A working web app where a user can:
-- Explore the ecosystem scene
-- Discover **at least 6 animals**
-- Open a fact card for each discovered animal
-- See collected animals in the sticker book
-- Save progress via database-backed model
+### Out of Scope
+- Multiplayer functionality
+- User accounts / authentication
+- Multiple ecosystems or biomes
+- More than 8 animals
+- Complex scoring systems
+- Physics-heavy or 3D simulation
 
 ---
 
-## MVC Architecture Overview
-- **Model:** Animals, facts, discovery status (database-backed)
-- **View:** Ecosystem scene + sticker book UI
-- **Controller:** Click interactions, reveal logic, collect logic, progress saving
+## Minimum Viable Product (MVP)
+
+The MVP for the Ecosystem Discovery Application includes the minimum functional features required to deliver the intended educational experience:
+
+- Interactive freshwater ecosystem scene
+- Clickable animal discovery
+- Animal information display
+- Sticker-book reward system
+- Progress tracking
+- Structured animal data model
+- MVC-based application structure
+
+The MVP demonstrates the core learning flow:
+
+**Explore ecosystem → Discover animal → View information → Unlock sticker → Update progress**
 
 ---
 
-## Planned Technology
-**Frontend (View + interactions)**
-- HTML, CSS (Bootstrap optional)
-- JavaScript (animations via CSS + JS)
+## System Architecture Overview
 
-**Backend (Controller + API)**
-- Node.js + Express *(recommended for team collaboration)*
+The application is designed using the **Model–View–Controller (MVC)** pattern.
 
-**Database (Model)**
-- MongoDB *(simple JSON-like documents for animals/facts/progress)*
+### Model
+Stores:
+- animal data
+- discovery status
+- progress information
 
-**Project Management**
-- GitHub Issues + GitHub Projects (Kanban)
+### View
+Displays:
+- home page
+- ecosystem scene
+- sticker-book interface
+- prototype screens and interactions
 
-> Note: We will prioritize a polished 2D experience (cartoon style) rather than complex 3D.
-
----
-
-## Project Activity 1 – Deliverables
-
-> All Activity 1 deliverables are stored in: **docs/activity-1/**
-
-### 📄 Documents (PDF)
-- [Business Case (PDF)](docs/activity-1/Business_Case_GroupG_EcosystemApp.pdf)
-- [Project Charter (PDF)](docs/activity-1/Charter_Document_GroupG_EcosystemApp.pdf)
-- [Pitch Deck (PDF)](docs/activity-1/Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf)
-
-### 📝 Documents (DOCX)
-- [Business Case (DOCX)](docs/activity-1/Business_Case_GroupG_EcosystemApp.docx)
-- [Project Charter (DOCX)](docs/activity-1/Charter_Document_GroupG_EcosystemApp.docx)
-- [Pitch Deck (DOCX)](docs/activity-1/Pitch_Deck_GroupG_EcosystemApp_Activity1.docx)
+### Controller
+Handles:
+- user click interactions
+- discovery logic
+- sticker unlocking
+- progress updates
 
 ---
 
-## 📁 Repository Structure (Current)
+## GitHub Project Boards (Kanban)
+
+The team used **two GitHub Project Boards** to organize and track work.
+
+### 1. Project Management Board
+Tracks documentation, planning, Activity-2 deliverables, and presentation preparation.
+
+🔗 **Management Tasks Board:**  
+[Add Management Board Link Here]
+
+### 2. Development Tasks Board
+Tracks system design, MVC planning, UML diagrams, interaction logic, and feature implementation planning.
+
+🔗 **Development Tasks Board:**  
+[Add Development Board Link Here]
+
+> Replace the placeholder links above with your actual GitHub Project Board URLs.
+
+---
+
+## Repository Deliverables
+
+This repository contains all required deliverables for **Activity 1** and **Activity 2**.
+
+---
+
+## Activity 1 Deliverables
+
+### Documents
+- [Business Case (DOCX)](Activity-1/Business_Case_GroupG_EcosystemApp.docx)
+- [Business Case (PDF)](Activity-1/Business_Case_GroupG_EcosystemApp.pdf)
+- [Charter Document (DOCX)](Activity-1/Charter_Document_GroupG_EcosystemApp.docx)
+- [Charter Document (PDF)](Activity-1/Charter_Document_GroupG_EcosystemApp.pdf)
+- [Pitch Deck (DOCX)](Activity-1/Pitch_Deck_GroupG_EcosystemApp_Activity1.docx)
+- [Pitch Deck (PDF)](Activity-1/Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf)
+
+---
+
+## Activity 2 Deliverables
+
+### Project Management & Requirements
+- [Project Stakeholder Register (DOCX)](Activity-2/Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.docx)
+- [Project Stakeholder Register (PDF)](Activity-2/Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.pdf)
+- [Stakeholder Engagement Plan (DOCX)](Activity-2/StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.docx)
+- [Stakeholder Engagement Plan (PDF)](Activity-2/StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Roles and Responsibilities (DOCX)](Activity-2/Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.docx)
+- [Project Roles and Responsibilities (PDF)](Activity-2/Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Scope (DOCX)](Activity-2/Project_Scope_GroupG_EcosystemApp_Activity2.docx)
+- [Project Scope (PDF)](Activity-2/Project_Scope_GroupG_EcosystemApp_Activity2.pdf)
+- [Project Requirements Document (DOCX)](Activity-2/Project_Requirements_Document_GroupG_EcosystemApp_Activity2.docx)
+- [Project Requirements Document (PDF)](Activity-2/Project_Requirements_Document_GroupG_EcosystemApp_Activity2.pdf)
+- [MVP Definition and Rationale (DOCX)](Activity-2/MVP_GroupG_EcosystemApp_Activity2.docx)
+- [MVP Definition and Rationale (PDF)](Activity-2/MVP_GroupG_EcosystemApp_Activity2.pdf)
+- [RBAC Document (DOCX)](Activity-2/RBAC_GroupG_EcosystemApp_Activity2.docx)
+- [RBAC Document (PDF)](Activity-2/RBAC_GroupG_EcosystemApp_Activity2.pdf)
+
+### UML / System Design Diagrams
+- [MVC Architecture Diagram (DOCX)](Activity-2/MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.docx)
+- [MVC Architecture Diagram (PDF)](Activity-2/MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+- [Class Diagram (DOCX)](Activity-2/Class_Digram_GroupG_EcosystemApp_Activity2.docx)
+- [Class Diagram (PDF)](Activity-2/Class_Digram_GroupG_EcosystemApp_Activity2.pdf)
+- [Data Flow Diagram (DOCX)](Activity-2/DataFlow_Diagram_GroupG_EcosystemApp_Activity2.docx)
+- [Data Flow Diagram (PDF)](Activity-2/DataFlow_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+- [Use Case Diagram (DOCX)](Activity-2/UseCase_Diagram_GroupG_EcosystemApp_Activity2.docx)
+- [Use Case Diagram (PDF)](Activity-2/UseCase_Diagram_GroupG_EcosystemApp_Activity2.pdf)
+
+### Prototype Design
+- [Low Fidelity Prototype (DOCX)](Activity-2/Lo_Fidelity_GroupG_EcosystemApp_Activity2.docx)
+- [Low Fidelity Prototype (PDF)](Activity-2/Lo_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
+- [High Fidelity Prototype (DOCX)](Activity-2/High_Fidelity_GroupG_EcosystemApp_Activity2.docx)
+- [High Fidelity Prototype (.fig)](Activity-2/High_Fidelity_GroupG_EcosystemApp_Activity2.fig)
+
+### Evaluation & Reporting
+- [User Questionnaire (DOCX)](Activity-2/User_Questionnaire_EcosystemApp_Activity2.docx)
+- [User Questionnaire (PDF)](Activity-2/User_Questionnaire_EcosystemApp_Activity2.pdf)
+- [Scrum Report / Presentation (PPTX)](Activity-2/Scrum_Report_GroupG_Ecosystem_Activity2.pptx)
+- [Scrum Report / Presentation (PDF)](Activity-2/Scrum_Report_GroupG_Ecosystem_Activity2.pdf)
+
+---
+
+## Repository Structure
+
 ```text
-/
-├─ README.md
-├─ assets/
-│  └─ hero.png
-└─ docs/
-   └─ activity-1/
-      ├─ Business_Case_GroupG_EcosystemApp.pdf
-      ├─ Business_Case_GroupG_EcosystemApp.docx
-      ├─ Charter_Document_GroupG_EcosystemApp.pdf
-      ├─ Charter_Document_GroupG_EcosystemApp.docx
-      ├─ Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf
-      └─ Pitch_Deck_GroupG_EcosystemApp_Activity1.docx
+ENSE_281_ECO_DISCOVERY_APP
+├── README.md
+├── assets
+│   └── hero.png
+├── Activity-1
+│   ├── Business_Case_GroupG_EcosystemApp.docx
+│   ├── Business_Case_GroupG_EcosystemApp.pdf
+│   ├── Charter_Document_GroupG_EcosystemApp.docx
+│   ├── Charter_Document_GroupG_EcosystemApp.pdf
+│   ├── Pitch_Deck_GroupG_EcosystemApp_Activity1.docx
+│   └── Pitch_Deck_GroupG_EcosystemApp_Activity1.pdf
+└── Activity-2
+    ├── Scrum_Report_GroupG_Ecosystem_Activity2.pptx
+    ├── Scrum_Report_GroupG_Ecosystem_Activity2.pdf
+    ├── Class_Digram_GroupG_EcosystemApp_Activity2.docx
+    ├── Class_Digram_GroupG_EcosystemApp_Activity2.pdf
+    ├── DataFlow_Diagram_GroupG_EcosystemApp_Activity2.docx
+    ├── DataFlow_Diagram_GroupG_EcosystemApp_Activity2.pdf
+    ├── High_Fidelity_GroupG_EcosystemApp_Activity2.docx
+    ├── High_Fidelity_GroupG_EcosystemApp_Activity2.fig
+    ├── Lo_Fidelity_GroupG_EcosystemApp_Activity2.docx
+    ├── Lo_Fidelity_GroupG_EcosystemApp_Activity2.pdf
+    ├── MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.docx
+    ├── MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.pdf
+    ├── MVP_GroupG_EcosystemApp_Activity2.docx
+    ├── MVP_GroupG_EcosystemApp_Activity2.pdf
+    ├── Project_Requirements_Document_GroupG_EcosystemApp_Activity2.docx
+    ├── Project_Requirements_Document_GroupG_EcosystemApp_Activity2.pdf
+    ├── Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.docx
+    ├── Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.pdf
+    ├── Project_Scope_GroupG_EcosystemApp_Activity2.docx
+    ├── Project_Scope_GroupG_EcosystemApp_Activity2.pdf
+    ├── Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.docx
+    ├── Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.pdf
+    ├── RBAC_GroupG_EcosystemApp_Activity2.docx
+    ├── RBAC_GroupG_EcosystemApp_Activity2.pdf
+    ├── StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.docx
+    ├── StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.pdf
+    ├── UseCase_Diagram_GroupG_EcosystemApp_Activity2.docx
+    ├── UseCase_Diagram_GroupG_EcosystemApp_Activity2.pdf
+    ├── User_Questionnaire_EcosystemApp_Activity2.docx
+    └── User_Questionnaire_EcosystemApp_Activity2.pdf
