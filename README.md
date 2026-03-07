@@ -42,7 +42,7 @@
 
 ---
 
-## Project Overview
+# Project Overview
 
 The **Ecosystem Discovery Application** is an educational software project developed for **ENSE 281 – Software Engineering Management** at the **University of Regina**.
 
@@ -58,7 +58,7 @@ The project emphasizes:
 
 ---
 
-## Course Information
+# Course Information
 
 - **Course:** ENSE 281 – Software Engineering Management  
 - **Instructor:** Dr. Tim Maciag  
@@ -67,7 +67,7 @@ The project emphasizes:
 
 ---
 
-## Team Members
+# Team Members
 
 - Rayansh Chowatia  
 - Jeremiah Onunkwo  
@@ -76,7 +76,7 @@ The project emphasizes:
 
 ---
 
-## Problem Definition
+# Problem Definition
 
 Traditional classroom methods often rely on static diagrams and text-heavy materials to teach environmental and ecological concepts. For younger learners, these approaches can make it difficult to understand how animals, habitats, and environmental changes interact within an ecosystem.
 
@@ -84,7 +84,7 @@ This project addresses that challenge by providing an **interactive digital lear
 
 ---
 
-## Core Learning Experience
+# Core Learning Experience
 
 The application is centered around a simple educational interaction loop:
 
@@ -100,9 +100,9 @@ This interaction supports both **engagement** and **learning reinforcement**.
 
 ---
 
-## Scope Summary
+# Scope Summary
 
-### In Scope
+## In Scope
 - One Saskatchewan-inspired freshwater ecosystem  
 - 6–8 clickable animals  
 - Animal information pop-up cards  
@@ -113,7 +113,7 @@ This interaction supports both **engagement** and **learning reinforcement**.
 - MVC-based system design  
 - JSON / lightweight structured data model  
 
-### Out of Scope
+## Out of Scope
 - Multiplayer functionality  
 - User accounts / authentication  
 - Multiple ecosystems or biomes  
@@ -123,7 +123,7 @@ This interaction supports both **engagement** and **learning reinforcement**.
 
 ---
 
-## Minimum Viable Product (MVP)
+# Minimum Viable Product (MVP)
 
 The MVP for the Ecosystem Discovery Application includes the minimum functional features required to deliver the intended educational experience:
 
@@ -141,7 +141,7 @@ The MVP demonstrates the core learning flow:
 
 ---
 
-## System Architecture Overview
+# System Architecture Overview
 
 The application is designed using the **Model–View–Controller (MVC)** pattern.
 
@@ -167,34 +167,31 @@ Handles:
 
 ---
 
-## Prototype (Figma)
+# Prototype (Figma)
 
 The high-fidelity prototype for the Ecosystem Discovery Application was designed in **Figma** and demonstrates the primary user interaction flow, interface layout, and system navigation.
 
-🔗 **Figma Prototype:**  
-https://www.figma.com/design/TSUWRBOK4Zgi3H7ILobe8K/ENSE-281-%E2%80%93-Ecosystem-Discovery-%E2%80%93-HiFi-Prototype?node-id=1-3&t=Y3GKeEVgYxKuTtlO-1
+🔗 **[View Figma High-Fidelity Prototype](https://www.figma.com/design/TSUWRBOK4Zgi3H7ILobe8K/ENSE-281-%E2%80%93-Ecosystem-Discovery-%E2%80%93-HiFi-Prototype?node-id=1-3&t=Y3GKeEVgYxKuTtlO-1)**
 
 ---
 
-## GitHub Project Boards (Kanban)
+# GitHub Project Boards (Kanban)
 
-The team used **two GitHub Project Boards** to organize and track work.
+The team used **two GitHub Project Boards** to organize and track project work.
 
 ### Project Management Board
-Tracks documentation, planning, Activity-2 deliverables, and presentation preparation.
+Tracks documentation, planning tasks, Activity-2 deliverables, and presentation preparation.
 
-🔗 **Management Tasks Board:**  
-https://github.com/users/Rayansh-Chowatia/projects/2
+🔗 **[View Project Management Kanban Board](https://github.com/users/Rayansh-Chowatia/projects/2)**
 
 ### Development Tasks Board
-Tracks system design, MVC planning, UML diagrams, interaction logic, and feature implementation planning.
+Tracks system design tasks, MVC planning, UML diagrams, feature planning, and development workflow.
 
-🔗 **Development Tasks Board:**  
-https://github.com/users/Rayansh-Chowatia/projects/1
+🔗 **[View Development Tasks Kanban Board](https://github.com/users/Rayansh-Chowatia/projects/1)**
 
 ---
 
-## Project Initialization Deliverables
+# Project Initialization Deliverables
 
 ### PDF Documents
 - [Business Case (PDF)](Project_Initialization/Business_Case_GroupG_EcosystemApp.pdf)
@@ -203,9 +200,9 @@ https://github.com/users/Rayansh-Chowatia/projects/1
 
 ---
 
-## Project Planning and System Design Deliverables
+# Project Planning and System Design Deliverables
 
-### Project Management and Requirements
+## Project Management and Requirements
 - [Project Stakeholder Register (PDF)](Project_Planning_and_System_Design/Project_Stakeholder_Register_GroupG_EcosystemApp_Activity2.pdf)
 - [Stakeholder Engagement Plan (PDF)](Project_Planning_and_System_Design/StakeholderEngagementPlan_GroupG_EcosystemApp_Activity2.pdf)
 - [Project Roles and Responsibilities (PDF)](Project_Planning_and_System_Design/Project_Roles_and_Responsibilities_GroupG_EcosystemApp_Activity2.pdf)
@@ -214,22 +211,22 @@ https://github.com/users/Rayansh-Chowatia/projects/1
 - [MVP Definition and Rationale (PDF)](Project_Planning_and_System_Design/MVP_GroupG_EcosystemApp_Activity2.pdf)
 - [RBAC Document (PDF)](Project_Planning_and_System_Design/RBAC_GroupG_EcosystemApp_Activity2.pdf)
 
-### UML and System Design Diagrams
+## UML and System Design Diagrams
 - [MVC Architecture Diagram (PDF)](Project_Planning_and_System_Design/MVC_Architecture_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 - [Class Diagram (PDF)](Project_Planning_and_System_Design/Class_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 - [Data Flow Diagram (PDF)](Project_Planning_and_System_Design/DataFlow_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 - [Use Case Diagram (PDF)](Project_Planning_and_System_Design/UseCase_Diagram_GroupG_EcosystemApp_Activity2.pdf)
 
-### Prototype Design
+## Prototype Design
 - [Low Fidelity Prototype (PDF)](Project_Planning_and_System_Design/Lo_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
 - [High Fidelity Prototype (PDF)](Project_Planning_and_System_Design/High_Fidelity_GroupG_EcosystemApp_Activity2.pdf)
 
-### Evaluation and Reporting
+## Evaluation and Reporting
 - [User Questionnaire (PDF)](Project_Planning_and_System_Design/User_Questionnaire_EcosystemApp_Activity2.pdf)
 - [Scrum Report / Presentation (PDF)](Project_Planning_and_System_Design/Scrum_Report_GroupG_Ecosystem_Activity2.pdf)
 
 ---
 
-## Final Remark
+# Final Remark
 
 This repository documents the planning, design, and early development stages of the **Ecosystem Discovery Application** project. The work demonstrates structured software engineering practices including requirements analysis, stakeholder planning, UML-based system design, prototype development, and Agile project management.
