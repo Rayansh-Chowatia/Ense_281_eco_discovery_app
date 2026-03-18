@@ -8,7 +8,7 @@
 
 ---
 
-## Project Overview
+## Project Overvie
 
 The Ecosystem Discovery Application is developed as part of ENSE 281 – Software Engineering Management at the University of Regina.
 
