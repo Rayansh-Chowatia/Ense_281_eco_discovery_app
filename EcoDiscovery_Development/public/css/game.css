@@ -1,0 +1,488 @@
+.top-bar {
+  color: #ffffff;
+  padding: 30px 0;
+}
+
+.top-bar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-bar-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+.nav-bar {
+  color: #ffffff;
+  padding: 2px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  width: 95%;
+}
+
+.site-logo {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-start;
+}
+
+.site-logo-img {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+}
+
+.site-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-link-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nav-link-icon:hover {
+  transform: translateY(-4px) scale(1.1);
+  filter: brightness(1.1);
+}
+
+.nav-link-icon.active {
+  filter: brightness(1.25) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+
+.nav-icon-img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-icon-label {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+/* Hero / Game area */
+#hero-section {
+  width: 100%;
+}
+
+.game-hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #DEF7FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Birds */
+.game-bird {
+  position: absolute;
+  height: auto;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.game-bird-1 {
+  width: 40px;
+  top: 18%;
+  left: -50px;
+  animation: gameBirdFly1 28s linear infinite, gameBirdFlap1 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes gameBirdFly1 {
+  0%   { left: 15%;  top: 20%; }
+  40%  { top: 16%; }
+  70%  { top: 22%; }
+  100% { left: 80%;  top: 18%; }
+}
+
+@keyframes gameBirdFlap1 {
+  0%   { transform: scaleY(1); }
+  100% { transform: scaleY(0.8); }
+}
+
+.game-bird-2 {
+  width: 28px;
+  top: 14%;
+  right: -40px;
+  transform: scaleX(-1);
+  animation: gameBirdFly2 35s linear 5s infinite, gameBirdFlap2 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes gameBirdFly2 {
+  0%   { left: 70%; top: 15%; }
+  35%  { top: 12%; }
+  65%  { top: 17%; }
+  100% { left: 20%; top: 14%; }
+}
+
+@keyframes gameBirdFlap2 {
+  0%   { transform: scaleX(-1) scaleY(1); }
+  100% { transform: scaleX(-1) scaleY(0.78); }
+}
+
+.game-bird-3 {
+  width: 22px;
+  top: 22%;
+  left: -30px;
+  animation: gameBirdFly3 40s linear 12s infinite, gameBirdFlap3 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes gameBirdFly3 {
+  0%   { left: 20%;  top: 24%; }
+  30%  { top: 19%; }
+  70%  { top: 26%; }
+  100% { left: 75%;  top: 22%; }
+}
+
+@keyframes gameBirdFlap3 {
+  0%   { transform: scaleY(1); }
+  100% { transform: scaleY(0.84); }
+}
+
+.nav-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  line-height: 0;
+}
+
+.nav-wave svg {
+  width: 100%;
+  height: 45px;
+  display: block;
+}
+
+.game-canvas-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 45px; /* clear nav wave */
+}
+
+.game-scene-container {
+  position: relative;
+  /* Lock to the image's native 3:2 ratio (1536×1024).
+     width is whichever is smaller: 85% of viewport width
+     OR the width that fits within 88% of viewport height at 3:2. */
+  width: min(85vw, calc(88vh * 1.5));
+  aspect-ratio: 3 / 2;
+}
+
+.game-scene-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  display: block;
+}
+
+.game-crab {
+  position: absolute;
+  bottom: 7%;
+  width: 85px;
+  height: auto;
+  z-index: 3;
+  filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.4));
+  animation: crabWalk 32s linear infinite, crabBob 1.4s ease-in-out infinite;
+}
+
+@keyframes crabWalk {
+  /* Start left, face right */
+  0%   { left: 12%; transform: scaleX(-1); }
+  /* Pause at left edge briefly */
+  3%   { left: 12%; transform: scaleX(-1); }
+  /* Walk to right */
+  47%  { left: 70%; transform: scaleX(-1); }
+  /* Arrive right edge, turn around */
+  50%  { left: 70%; transform: scaleX(1); }
+  /* Pause at right edge briefly */
+  53%  { left: 70%; transform: scaleX(1); }
+  /* Walk back to left */
+  97%  { left: 12%; transform: scaleX(1); }
+  /* Arrive left, turn around */
+  100% { left: 12%; transform: scaleX(-1); }
+}
+
+@keyframes crabBob {
+  0%, 100% { margin-bottom: 0px; }
+  50%       { margin-bottom: 5px; }
+}
+
+.game-fish {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  z-index: 3;
+  filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.28));
+  animation: fishDive 11s ease-in-out infinite;
+}
+
+@keyframes fishDive {
+  /* River bed — heading up-right at 35° */
+  0%   { left: 20%; bottom: 10%; transform: rotate(-20deg); }
+  /* Slow into surface — ceiling of water */
+  44%  { left: 56%; bottom: 46%; transform: rotate(-20deg); }
+  /* Pause briefly at surface then turn */
+  50%  { left: 56%; bottom: 46%; transform: scaleX(-1) rotate(20deg); }
+  /* Descend diagonally back down-left */
+  94%  { left: 20%; bottom: 10%; transform: scaleX(-1) rotate(20deg); }
+  /* Pause briefly at bed then turn */
+  100% { left: 20%; bottom: 10%; transform: rotate(-20deg); }
+}
+
+.game-fish2 {
+  position: absolute;
+  width: 115px;
+  height: auto;
+  z-index: 3;
+  filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.28));
+  animation: fishSwimDeep 25s ease-in-out infinite;
+}
+
+@keyframes fishSwimDeep {
+  /* Outward: right surface → river bed → left surface */
+  0%   { left: 72%; bottom: 42%; transform: scaleX(-1) rotate(18deg);  }  /* facing left, diving */
+  30%  { left: 38%; bottom: 13%; transform: scaleX(-1) rotate(18deg);  }  /* mid river bed */
+  43%  { left: 18%; bottom: 11%; transform: scaleX(-1) rotate(3deg);   }  /* left river bed, level */
+  50%  { left: 9%;  bottom: 42%; transform: scaleX(-1) rotate(-18deg); }  /* arrived left surface */
+  /* Turn around at left surface */
+  52%  { left: 9%;  bottom: 42%; transform: scaleX(1)  rotate(18deg);  }  /* now facing right, diving */
+  /* Return: left surface → river bed → right surface */
+  65%  { left: 38%; bottom: 13%; transform: scaleX(1)  rotate(18deg);  }  /* mid river bed */
+  80%  { left: 58%; bottom: 11%; transform: scaleX(1)  rotate(3deg);   }  /* right river bed, level */
+  97%  { left: 72%; bottom: 42%; transform: scaleX(1)  rotate(-18deg); }  /* arrived right surface */
+  /* Turn around at right surface */
+  100% { left: 72%; bottom: 42%; transform: scaleX(-1) rotate(18deg);  }  /* facing left again, ready to dive */
+}
+
+/* Footer */
+.footer-bar {
+  color: #ffffff;
+  padding: 22px 0;
+}
+
+.footer-content {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.footer-top {
+  width: 100%;
+  min-height: 300px;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.footer-top-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-frog {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+}
+
+.footer-frog-img {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.footer-links-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  width: auto;
+}
+
+.footer-link-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.footer-link {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: opacity 0.2s ease;
+}
+
+.footer-link:hover {
+  opacity: 0.8;
+}
+
+.footer-link-highlight {
+  color: #fff3a6;
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+
+.footer-social-links {
+  gap: 20px;
+}
+
+.social-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: rgba(41, 101, 99, 0.75);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.social-circle:hover {
+  transform: translateY(-2px);
+  background-color: rgba(41, 101, 99, 0.95);
+}
+
+.footer-bottom {
+  width: 100%;
+  min-height: 180px;
+  padding: 40px 60px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-bottom-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-quote {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .site-logo {
+    text-align: center;
+    font-size: 1.45rem;
+  }
+
+  .nav-menu {
+    justify-content: center;
+  }
+
+  .game-hero-wrapper {
+    height: 60vh;
+  }
+
+  .footer-top {
+    padding: 30px 20px;
+  }
+
+  .footer-top-layout {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+    text-align: center;
+    column-gap: 0;
+  }
+
+  .footer-frog {
+    justify-content: center;
+  }
+
+  .footer-frog-img {
+    width: 145px;
+  }
+
+  .footer-links-area {
+    gap: 22px;
+  }
+
+  .footer-link-row {
+    gap: 18px;
+  }
+
+  .social-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 0.95rem;
+  }
+
+  .footer-bottom {
+    min-height: 120px;
+    padding: 28px 20px;
+  }
+
+  .footer-quote {
+    font-size: 1.2rem;
+  }
+}
