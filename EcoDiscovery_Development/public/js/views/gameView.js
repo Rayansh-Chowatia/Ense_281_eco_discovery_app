@@ -55,6 +55,9 @@ function renderHero(navBarColor, game) {
               role="button"
               tabindex="0"
               aria-label="Mystery creature — click for a hint">
+          <span class="sb-spark sb-spark-1" aria-hidden="true"></span>
+          <span class="sb-spark sb-spark-2" aria-hidden="true"></span>
+          <span class="sb-spark sb-spark-3" aria-hidden="true"></span>
           <div class="sb-card-face">
             <span class="sb-card-qmark" aria-hidden="true">?</span>
           </div>
@@ -120,6 +123,9 @@ function renderHero(navBarColor, game) {
           <!-- 3c. Action buttons -->
           <div class="sb-actions">
             <button class="sb-btn sb-btn-hint" id="btn-hint" type="button">
+              <span class="btn-spark btn-spark-1" aria-hidden="true"></span>
+              <span class="btn-spark btn-spark-2" aria-hidden="true"></span>
+              <span class="btn-spark btn-spark-3" aria-hidden="true"></span>
               <i class="fa-solid fa-lightbulb sb-btn-icon" aria-hidden="true"></i>
               <div class="sb-btn-body">
                 <span class="sb-btn-title">Hint</span>
@@ -127,6 +133,9 @@ function renderHero(navBarColor, game) {
               </div>
             </button>
             <button class="sb-btn sb-btn-facts" id="btn-facts" type="button">
+              <span class="btn-spark btn-spark-1" aria-hidden="true"></span>
+              <span class="btn-spark btn-spark-2" aria-hidden="true"></span>
+              <span class="btn-spark btn-spark-3" aria-hidden="true"></span>
               <i class="fa-solid fa-book-open sb-btn-icon" aria-hidden="true"></i>
               <div class="sb-btn-body">
                 <span class="sb-btn-title">Fish Facts</span>

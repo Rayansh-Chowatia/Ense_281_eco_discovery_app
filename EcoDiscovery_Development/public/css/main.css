@@ -28,3 +28,23 @@ a {
   width: min(1200px, 92%);
   margin: 0 auto;
 }
+
+/* ── Top Bar (shared across all pages) ──────── */
+.top-bar {
+  color: #ffffff;
+  padding: 8px 0;
+}
+
+.top-bar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-bar-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.4px;
+  text-align: center;
+}

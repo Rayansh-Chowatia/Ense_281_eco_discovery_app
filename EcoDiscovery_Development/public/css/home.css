@@ -2,25 +2,6 @@
    ECO DISCOVERY — HOME PAGE STYLES
    ═══════════════════════════════════════════════ */
 
-/* ── Top Bar ────────────────────────────────── */
-.top-bar {
-  color: #ffffff;
-  padding: 14px 0;
-}
-
-.top-bar-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.top-bar-text {
-  font-size: 1.1rem;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 0.4px;
-  text-align: center;
-}
 
 /* ── Navigation Bar ─────────────────────────── */
 .nav-bar {
