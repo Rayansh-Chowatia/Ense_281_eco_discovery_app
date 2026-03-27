@@ -97,20 +97,142 @@
   letter-spacing: 0.3px;
 }
 
+/* Full-height flex column so hero fills space between header and footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#game-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Hero / Game area */
 #hero-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
 .game-hero-wrapper {
-  position: relative;
+  flex: 1;
   width: 100%;
-  height: 100vh;
-  background-color: #DEF7FF;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Game HUD title strip ────────────────────────── */
+.game-title-strip {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 16px 4px 0;
+  background: linear-gradient(to right, #f7d93c 0%, #f0bc10 100%);
+  border-bottom: 2px solid #c9960a;
+  box-shadow: 0 3px 8px rgba(160, 100, 0, 0.22);
+  overflow: visible;
+  position: relative;
+  z-index: 2;
+}
+
+.strip-deco {
+  flex-shrink: 0;
+  width: 160px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+  align-self: stretch;
+}
+
+.strip-earth-img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
+  margin-bottom: -55px; /* overflow only downward into the game scene */
+}
+
+.strip-title-text {
+  flex: 1;
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+  font-weight: 400;
+  color: #7b1a00;
+  letter-spacing: 1px;
+  text-shadow:
+    2px 2px 0 rgba(255, 255, 255, 0.5),
+    0 3px 8px rgba(120, 40, 0, 0.25);
+  -webkit-text-stroke: 0.5px rgba(80, 20, 0, 0.3);
+}
+
+.strip-timer-wrap {
+  flex-shrink: 0;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+}
+
+.strip-timer-sticker {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
+}
+
+.strip-timer-sticker-img {
+  width: 220px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+  margin-top: -20px;
+  margin-bottom: -30px;
+}
+
+.strip-timer-value {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 4px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* ── Stage 1: Content row ───────────────────────── */
+.game-content-row {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
   overflow: hidden;
+}
+
+/* ── Stage 1: Sticker book panel (placeholder) ── */
+.sticker-book-panel {
+  flex: 1;
+  background-color: #fdf3e3;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-left: 2px solid #e8d5b0;
 }
 
 /* Birds */
@@ -122,17 +244,17 @@
 }
 
 .game-bird-1 {
-  width: 40px;
-  top: 18%;
-  left: -50px;
+  width: clamp(32px, 2.8vw, 52px);
+  top: 12%;
+  left: -40px;
   animation: gameBirdFly1 28s linear infinite, gameBirdFlap1 0.7s ease-in-out infinite alternate;
 }
 
 @keyframes gameBirdFly1 {
-  0%   { left: 15%;  top: 20%; }
-  40%  { top: 16%; }
-  70%  { top: 22%; }
-  100% { left: 80%;  top: 18%; }
+  0%   { left: 38%;  top: 14%; }
+  40%  { top: 10%; }
+  70%  { top: 16%; }
+  100% { left: 88%;  top: 12%; }
 }
 
 @keyframes gameBirdFlap1 {
@@ -141,18 +263,18 @@
 }
 
 .game-bird-2 {
-  width: 28px;
-  top: 14%;
-  right: -40px;
+  width: clamp(24px, 2.2vw, 42px);
+  top: 8%;
+  right: -30px;
   transform: scaleX(-1);
   animation: gameBirdFly2 35s linear 5s infinite, gameBirdFlap2 0.6s ease-in-out infinite alternate;
 }
 
 @keyframes gameBirdFly2 {
-  0%   { left: 70%; top: 15%; }
-  35%  { top: 12%; }
-  65%  { top: 17%; }
-  100% { left: 20%; top: 14%; }
+  0%   { left: 82%; top: 10%; }
+  35%  { top: 7%; }
+  65%  { top: 12%; }
+  100% { left: 35%; top: 9%; }
 }
 
 @keyframes gameBirdFlap2 {
@@ -161,17 +283,17 @@
 }
 
 .game-bird-3 {
-  width: 22px;
-  top: 22%;
-  left: -30px;
+  width: clamp(18px, 1.7vw, 32px);
+  top: 18%;
+  left: -25px;
   animation: gameBirdFly3 40s linear 12s infinite, gameBirdFlap3 0.8s ease-in-out infinite alternate;
 }
 
 @keyframes gameBirdFly3 {
-  0%   { left: 20%;  top: 24%; }
-  30%  { top: 19%; }
-  70%  { top: 26%; }
-  100% { left: 75%;  top: 22%; }
+  0%   { left: 42%;  top: 20%; }
+  30%  { top: 15%; }
+  70%  { top: 22%; }
+  100% { left: 85%;  top: 18%; }
 }
 
 @keyframes gameBirdFlap3 {
@@ -180,50 +302,41 @@
 }
 
 .nav-wave {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  line-height: 0;
-}
-
-.nav-wave svg {
-  width: 100%;
-  height: 45px;
-  display: block;
+  display: none; /* flush layout — no wave needed */
 }
 
 .game-canvas-placeholder {
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  flex-shrink: 0;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 45px; /* clear nav wave */
+  flex-direction: column;
+  background: #c8e8f5;
 }
 
 .game-scene-container {
   position: relative;
-  /* Lock to the image's native 3:2 ratio (1536×1024).
-     width is whichever is smaller: 85% of viewport width
-     OR the width that fits within 88% of viewport height at 3:2. */
-  width: min(85vw, calc(88vh * 1.5));
-  aspect-ratio: 3 / 2;
+  flex: 1;
+  margin: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
 }
 
 .game-scene-img {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  box-shadow: none;
   display: block;
 }
 
 .game-crab {
   position: absolute;
-  bottom: 7%;
-  width: 85px;
+  bottom: 6%;
+  width: clamp(60px, 5.5vw, 100px);
   height: auto;
   z-index: 3;
   filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.4));
@@ -231,20 +344,20 @@
 }
 
 @keyframes crabWalk {
-  /* Start left, face right */
-  0%   { left: 12%; transform: scaleX(-1); }
-  /* Pause at left edge briefly */
-  3%   { left: 12%; transform: scaleX(-1); }
-  /* Walk to right */
-  47%  { left: 70%; transform: scaleX(-1); }
-  /* Arrive right edge, turn around */
-  50%  { left: 70%; transform: scaleX(1); }
-  /* Pause at right edge briefly */
-  53%  { left: 70%; transform: scaleX(1); }
-  /* Walk back to left */
-  97%  { left: 12%; transform: scaleX(1); }
+  /* Start at riverbank left, face right */
+  0%   { left: 30%; transform: scaleX(-1); }
+  /* Pause briefly */
+  3%   { left: 30%; transform: scaleX(-1); }
+  /* Walk across the bank to the right */
+  47%  { left: 78%; transform: scaleX(-1); }
+  /* Arrive right, turn around */
+  50%  { left: 78%; transform: scaleX(1); }
+  /* Pause briefly */
+  53%  { left: 78%; transform: scaleX(1); }
+  /* Walk back left */
+  97%  { left: 30%; transform: scaleX(1); }
   /* Arrive left, turn around */
-  100% { left: 12%; transform: scaleX(-1); }
+  100% { left: 30%; transform: scaleX(-1); }
 }
 
 @keyframes crabBob {
@@ -254,7 +367,7 @@
 
 .game-fish {
   position: absolute;
-  width: 120px;
+  width: clamp(90px, 8vw, 150px);
   height: auto;
   z-index: 3;
   filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.28));
@@ -262,21 +375,21 @@
 }
 
 @keyframes fishDive {
-  /* River bed — heading up-right at 35° */
-  0%   { left: 20%; bottom: 10%; transform: rotate(-20deg); }
-  /* Slow into surface — ceiling of water */
-  44%  { left: 56%; bottom: 46%; transform: rotate(-20deg); }
-  /* Pause briefly at surface then turn */
-  50%  { left: 56%; bottom: 46%; transform: scaleX(-1) rotate(20deg); }
-  /* Descend diagonally back down-left */
-  94%  { left: 20%; bottom: 10%; transform: scaleX(-1) rotate(20deg); }
-  /* Pause briefly at bed then turn */
-  100% { left: 20%; bottom: 10%; transform: rotate(-20deg); }
+  /* River bed (right water zone) — heading up */
+  0%   { left: 32%; bottom: 10%; transform: rotate(-20deg); }
+  /* Slow into water surface */
+  44%  { left: 64%; bottom: 44%; transform: rotate(-20deg); }
+  /* Turn at surface */
+  50%  { left: 64%; bottom: 44%; transform: scaleX(-1) rotate(20deg); }
+  /* Descend back */
+  94%  { left: 32%; bottom: 10%; transform: scaleX(-1) rotate(20deg); }
+  /* Turn at bed */
+  100% { left: 32%; bottom: 10%; transform: rotate(-20deg); }
 }
 
 .game-fish2 {
   position: absolute;
-  width: 115px;
+  width: clamp(85px, 7.5vw, 140px);
   height: auto;
   z-index: 3;
   filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.28));
@@ -284,19 +397,18 @@
 }
 
 @keyframes fishSwimDeep {
-  /* Outward: right surface → river bed → left surface */
-  0%   { left: 72%; bottom: 42%; transform: scaleX(-1) rotate(18deg);  }  /* facing left, diving */
-  30%  { left: 38%; bottom: 13%; transform: scaleX(-1) rotate(18deg);  }  /* mid river bed */
-  43%  { left: 18%; bottom: 11%; transform: scaleX(-1) rotate(3deg);   }  /* left river bed, level */
-  50%  { left: 9%;  bottom: 42%; transform: scaleX(-1) rotate(-18deg); }  /* arrived left surface */
-  /* Turn around at left surface */
-  52%  { left: 9%;  bottom: 42%; transform: scaleX(1)  rotate(18deg);  }  /* now facing right, diving */
-  /* Return: left surface → river bed → right surface */
-  65%  { left: 38%; bottom: 13%; transform: scaleX(1)  rotate(18deg);  }  /* mid river bed */
-  80%  { left: 58%; bottom: 11%; transform: scaleX(1)  rotate(3deg);   }  /* right river bed, level */
-  97%  { left: 72%; bottom: 42%; transform: scaleX(1)  rotate(-18deg); }  /* arrived right surface */
-  /* Turn around at right surface */
-  100% { left: 72%; bottom: 42%; transform: scaleX(-1) rotate(18deg);  }  /* facing left again, ready to dive */
+  /* Right surface → river bed → left */
+  0%   { left: 78%; bottom: 40%; transform: scaleX(-1) rotate(18deg);  }
+  30%  { left: 52%; bottom: 14%; transform: scaleX(-1) rotate(18deg);  }
+  43%  { left: 28%; bottom: 11%; transform: scaleX(-1) rotate(3deg);   }
+  50%  { left: 28%; bottom: 40%; transform: scaleX(-1) rotate(-18deg); }
+  /* Turn around */
+  52%  { left: 28%; bottom: 40%; transform: scaleX(1)  rotate(18deg);  }
+  /* Return left → right */
+  65%  { left: 52%; bottom: 14%; transform: scaleX(1)  rotate(18deg);  }
+  80%  { left: 68%; bottom: 11%; transform: scaleX(1)  rotate(3deg);   }
+  97%  { left: 78%; bottom: 40%; transform: scaleX(1)  rotate(-18deg); }
+  100% { left: 78%; bottom: 40%; transform: scaleX(-1) rotate(18deg);  }
 }
 
 /* Footer */
@@ -440,8 +552,27 @@
     justify-content: center;
   }
 
-  .game-hero-wrapper {
-    height: 60vh;
+  .game-content-row {
+    flex-direction: column;
+  }
+
+  .game-canvas-placeholder {
+    width: 100%;
+    height: 55vw;
+  }
+
+  .sticker-book-panel {
+    border-left: none;
+    border-top: 3px solid #c8a55a;
+  }
+
+  .sb-sticker-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+  }
+
+  .sb-card-hint-label {
+    display: none;
   }
 
   .footer-top {
@@ -485,4 +616,304 @@
   .footer-quote {
     font-size: 1.2rem;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   STICKER BOOK PANEL — Stage 2
+═══════════════════════════════════════════════════════════════════════ */
+
+/* Override panel base */
+.sticker-book-panel {
+  flex: 1;
+  background: #fef3d8;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-left: 3px solid #c8a55a;
+  font-family: 'Nunito', Arial, sans-serif;
+}
+
+/* ── 3a. Spiral Binding ─────────────────────────────────────────────── */
+.sb-spiral {
+  background: #b8956a;
+  padding: 5px 8px 4px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  flex-shrink: 0;
+  border-bottom: 2px solid #9a7848;
+}
+
+.sb-spiral-dot {
+  display: inline-block;
+  width: 14px;
+  height: 20px;
+  background: linear-gradient(160deg, #f2f2f2 20%, #b8b8b8 65%, #888 100%);
+  border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
+  border: 1.5px solid #8a8a8a;
+  box-shadow:
+    inset 0 3px 4px rgba(255, 255, 255, 0.55),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.18),
+    0 2px 3px rgba(0, 0, 0, 0.22);
+  flex-shrink: 0;
+}
+
+/* ── 3b. Panel Header ───────────────────────────────────────────────── */
+.sb-header {
+  background: linear-gradient(135deg, #f5b942 0%, #e8950a 100%);
+  border-bottom: 3px solid #c07800;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.sb-header-title {
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-weight: 900;
+  color: #3d1a00;
+  letter-spacing: 0.3px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sb-header-deco {
+  font-size: 1.2rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ── 3c. Action Buttons ─────────────────────────────────────────────── */
+.sb-actions {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.sb-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  font-family: 'Nunito', Arial, sans-serif;
+}
+
+.sb-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.sb-btn:active {
+  transform: translateY(0);
+}
+
+.sb-btn-hint {
+  background: linear-gradient(135deg, #9b59b6 0%, #7d3c98 100%);
+}
+
+.sb-btn-facts {
+  background: linear-gradient(135deg, #27ae60 0%, #1a8a49 100%);
+}
+
+.sb-btn-icon {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.92);
+  flex-shrink: 0;
+  width: 26px;
+  text-align: center;
+}
+
+.sb-btn-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sb-btn-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.sb-btn-sub {
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.3;
+}
+
+/* ── 3d. Your Collection ────────────────────────────────────────────── */
+.sb-collection {
+  padding: 8px 10px 4px;
+  flex-shrink: 0;
+}
+
+.sb-collection-hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sb-collection-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #4a3018;
+}
+
+.sb-collection-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #7a5030;
+}
+
+.sb-sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* Mystery sticker cards */
+.sb-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sb-card:hover {
+  transform: scale(1.1);
+}
+
+.sb-card:focus-visible {
+  outline: 2px solid #f0bc10;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.sb-card-face {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: var(--card-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+  border: 2.5px solid rgba(255, 255, 255, 0.65);
+  position: relative;
+  overflow: hidden;
+}
+
+.sb-card-face::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  pointer-events: none;
+  border-radius: 10px 10px 0 0;
+}
+
+.sb-card-qmark {
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.sb-card-name {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #4a3018;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.sb-card-hint-label {
+  font-size: 0.52rem;
+  font-weight: 600;
+  color: #7a5838;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ── 3e. Feedback Area ──────────────────────────────────────────────── */
+.sb-feedback {
+  flex: 1;
+  margin: 6px 10px;
+  padding: 10px 12px;
+  background: #fffdf5;
+  border-radius: 12px;
+  border: 1.5px solid #e0c88a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60px;
+}
+
+.sb-feedback-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #2e7d32;
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+
+.sb-feedback-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #5c3d1e;
+  line-height: 1.4;
+}
+
+/* ── 3f. Reset Button ───────────────────────────────────────────────── */
+.sb-reset-btn {
+  margin: 0 10px 10px;
+  padding: 10px;
+  background: linear-gradient(135deg, #f5a623 0%, #e8850a 100%);
+  border: none;
+  border-radius: 24px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  width: calc(100% - 20px);
+  box-shadow: 0 3px 10px rgba(232, 133, 10, 0.4);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  flex-shrink: 0;
+  font-family: 'Nunito', Arial, sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.sb-reset-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.sb-reset-btn:active {
+  transform: translateY(0);
 }

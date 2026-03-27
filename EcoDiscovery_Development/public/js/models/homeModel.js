@@ -17,10 +17,35 @@ export const homePageData = {
   hero: {
     backgroundImage: "./assets/images/lake-ecosystem-bg.png",
     altText: "Freshwater ecosystem background illustration",
+    welcomeTitle: "Welcome, Explorer!",
+    subtitle: "Discover amazing freshwater creatures in Saskatchewan!",
+    ctaText: "Start Exploring",
+    ctaHref: "game.html",
     cards: [
-      { title: "Explore Animals",   description: "Learn about 6 local freshwater creatures.", image: "./assets/images/card-animals.png",  href: "game.html" },
-      { title: "Collect Stickers",  description: "Fill your sticker book as you play.",        image: "./assets/images/card-stickers.png", href: "#" },
-      { title: "Explore Videos",   description: "Watch fun and educational videos.",           image: "./assets/images/card-videos.png",   href: "#" }
+      {
+        stepNumber: 1,
+        title: "Explore Animals",
+        description: "Meet 6 amazing freshwater creatures that live in Saskatchewan lakes and rivers.",
+        image: "./assets/images/card-animals.png",
+        href: "game.html",
+        color: "#2ECC71"
+      },
+      {
+        stepNumber: 2,
+        title: "Collect Stickers",
+        description: "Earn cool stickers as you learn and fill up your very own sticker book!",
+        image: "./assets/images/card-stickers.png",
+        href: "#",
+        color: "#F39C12"
+      },
+      {
+        stepNumber: 3,
+        title: "Watch Videos",
+        description: "Watch fun nature videos and discover the secrets of freshwater ecosystems.",
+        image: "./assets/images/card-videos.png",
+        href: "#",
+        color: "#3498DB"
+      }
     ]
   },
 

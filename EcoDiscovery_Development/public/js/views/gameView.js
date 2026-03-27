@@ -1,6 +1,6 @@
 export function renderGamePage(data) {
   renderHeader(data.header, data.siteName);
-  renderHero(data.header.navBarColor);
+  renderHero(data.header.navBarColor, data.game);
   renderFooter(data.footer);
 }
 
@@ -36,40 +36,151 @@ function renderHeader(header, siteName) {
   `;
 }
 
-function renderHero(navBarColor) {
+function renderHero(navBarColor, game) {
   const heroSection = document.getElementById("hero-section");
+
+  // ── Spiral binding dots ──────────────────────────────────────────────
+  const spiralDotsHTML = Array.from({ length: 14 }, () =>
+    `<span class="sb-spiral-dot" aria-hidden="true"></span>`
+  ).join("");
+
+  // ── Mystery sticker cards (all locked) ──────────────────────────────
+  const stickerCardsHTML = game.stickerBook.animals
+    .map(
+      (animal) =>
+        `<div class="sb-card sb-card-locked"
+              style="--card-color: ${animal.color};"
+              data-id="${animal.id}"
+              data-hint="${animal.hint}"
+              role="button"
+              tabindex="0"
+              aria-label="Mystery creature — click for a hint">
+          <div class="sb-card-face">
+            <span class="sb-card-qmark" aria-hidden="true">?</span>
+          </div>
+          <span class="sb-card-name">Mystery Fish</span>
+          <span class="sb-card-hint-label">Click for a hint!</span>
+        </div>`
+    )
+    .join("");
 
   heroSection.innerHTML = `
     <div class="game-hero-wrapper">
-      <div class="nav-wave" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70" preserveAspectRatio="none">
-          <path fill="${navBarColor}" d="
-            M0,0 L1440,0 L1440,35
-            C1380,55 1320,15 1260,35
-            C1200,55 1140,15 1080,35
-            C1020,55  960,15  900,35
-            C 840,55  780,15  720,35
-            C 660,55  600,15  540,35
-            C 480,55  420,15  360,35
-            C 300,55  240,15  180,35
-            C 120,55   60,15    0,35
-            Z
-          "/>
-        </svg>
-      </div>
-      <div class="game-canvas-placeholder">
-        <div class="game-scene-container">
-          <img src="./assets/images/Game-page-image.png" alt="Game scene" class="game-scene-img">
-          <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
-          <img src="./assets/images/Bird-hero1.png" class="game-bird game-bird-2" alt="Flying bird">
-          <img src="./assets/images/Bird-hero2.png" class="game-bird game-bird-3" alt="Flying bird">
-          <img src="./assets/images/crab.png" alt="Crab" class="game-crab">
-          <img src="./assets/images/fish1-game.png" alt="Fish" class="game-fish">
-          <img src="./assets/images/fish2-game.png" alt="Sturgeon" class="game-fish2">
+
+      <!-- ── Stage 1: Content row ──────────────────── -->
+      <div class="game-content-row">
+
+        <!-- Left 70%: game scene + glass title overlay + animated animals -->
+        <div class="game-canvas-placeholder">
+
+          <!-- HUD title strip — golden band with globe, title, timer -->
+          <div class="game-title-strip">
+
+            <!-- Left: earth + flowers icon -->
+            <div class="strip-deco">
+              <img src="./assets/images/icon_earth.png" alt="Earth with flowers" class="strip-earth-img">
+            </div>
+
+            <!-- Center: title text -->
+            <span class="strip-title-text">Play and Save the Planet!</span>
+
+            <!-- Right: countdown timer overlaid on sticker image -->
+            <div class="strip-timer-wrap">
+              <div class="strip-timer-sticker">
+                <img src="./assets/images/time_sticker.png" alt="Time Left" class="strip-timer-sticker-img">
+                <span class="strip-timer-value" id="game-timer">05:00</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="game-scene-container">
+            <img src="./assets/images/Game-page-image.png" alt="Game scene" class="game-scene-img">
+            <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
+            <img src="./assets/images/Bird-hero1.png" class="game-bird game-bird-2" alt="Flying bird">
+            <img src="./assets/images/Bird-hero2.png" class="game-bird game-bird-3" alt="Flying bird">
+            <img src="./assets/images/crab.png" alt="Crab" class="game-crab">
+            <img src="./assets/images/fish1-game.png" alt="Fish" class="game-fish">
+            <img src="./assets/images/fish2-game.png" alt="Sturgeon" class="game-fish2">
+          </div>
         </div>
+
+        <!-- Right 30%: sticker book panel -->
+        <div class="sticker-book-panel">
+
+          <!-- 3a. Spiral binding -->
+          <div class="sb-spiral" aria-hidden="true">${spiralDotsHTML}</div>
+
+          <!-- 3b. Panel header -->
+          <div class="sb-header">
+            <span class="sb-header-title">Sticker Book!</span>
+            <span class="sb-header-deco" aria-hidden="true">🐞</span>
+          </div>
+
+          <!-- 3c. Action buttons -->
+          <div class="sb-actions">
+            <button class="sb-btn sb-btn-hint" id="btn-hint" type="button">
+              <i class="fa-solid fa-lightbulb sb-btn-icon" aria-hidden="true"></i>
+              <div class="sb-btn-body">
+                <span class="sb-btn-title">Hint</span>
+                <span class="sb-btn-sub">Select a mystery sticker to get a fun hint!</span>
+              </div>
+            </button>
+            <button class="sb-btn sb-btn-facts" id="btn-facts" type="button">
+              <i class="fa-solid fa-book-open sb-btn-icon" aria-hidden="true"></i>
+              <div class="sb-btn-body">
+                <span class="sb-btn-title">Fish Facts</span>
+                <span class="sb-btn-sub">Click a fish to unlock facts in your Sticker Book!</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- 3d. Your Collection -->
+          <div class="sb-collection">
+            <div class="sb-collection-hdr">
+              <span class="sb-collection-label">Your Collection</span>
+              <span class="sb-collection-count" id="sb-count">0 / ${game.stickerBook.animals.length} found</span>
+            </div>
+            <div class="sb-sticker-grid" id="sb-grid">
+              ${stickerCardsHTML}
+            </div>
+          </div>
+
+          <!-- 3e. Feedback area -->
+          <div class="sb-feedback" id="sb-feedback">
+            <p class="sb-feedback-title">Great job!</p>
+            <p class="sb-feedback-text" id="sb-feedback-text">Pick a mystery sticker first to get hint!</p>
+          </div>
+
+          <!-- 3f. Reset button -->
+          <button class="sb-reset-btn" id="btn-reset" type="button">Reset Sticker Book</button>
+
+        </div>
+
       </div>
     </div>
   `;
+}
+
+export function startGameTimer(durationSeconds = 300) {
+  const timerEl = document.getElementById("game-timer");
+  if (!timerEl) return;
+
+  let remaining = durationSeconds;
+
+  const fmt = (s) =>
+    `${Math.floor(s / 60).toString().padStart(2, "0")}:${(s % 60).toString().padStart(2, "0")}`;
+
+  timerEl.textContent = fmt(remaining);
+
+  const interval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      remaining = 0;
+      clearInterval(interval);
+    }
+    timerEl.textContent = fmt(remaining);
+  }, 1000);
 }
 
 function renderFooter(footer) {

@@ -17,9 +17,9 @@ function renderHeader(header, siteName) {
     <div class="nav-bar" style="background-color: ${header.navBarColor};">
       <div class="container nav-content">
         <div class="site-brand">
-  <img src="./assets/images/logo-fish.png" alt="Eco Discovery Logo" class="site-logo-img">
-  <span class="site-title">Eco Discovery</span>
-</div>
+          <img src="./assets/images/logo-fish.png" alt="Eco Discovery Logo" class="site-logo-img">
+          <span class="site-title">Eco Discovery</span>
+        </div>
         <nav class="nav-menu">
           ${header.navLinks
             .map(
@@ -39,22 +39,35 @@ function renderHeader(header, siteName) {
 function renderHero(hero) {
   const heroSection = document.getElementById("hero-section");
 
-  const cardsHTML = hero.cards
+  // 5 floating sparkle particles around the CTA button
+  const sparklesHTML = Array.from({ length: 5 }, (_, i) =>
+    `<span class="sparkle sparkle-${i + 1}" aria-hidden="true"></span>`
+  ).join("");
+
+  // How-to-play cards with step badges
+  const playCardsHTML = hero.cards
     .map(
       (card) => `
-      <a href="${card.href}" class="hero-card">
-        <img src="${card.image}" alt="${card.title}" class="hero-card-img">
+      <a href="${card.href}" class="play-card" style="--card-color: ${card.color};">
+        <div class="step-badge" style="background-color: ${card.color};">${card.stepNumber}</div>
+        <img src="${card.image}" alt="${card.title}" class="play-card-img">
+        <div class="play-card-body">
+          <h3 class="play-card-title">${card.title}</h3>
+          <p class="play-card-desc">${card.description}</p>
+        </div>
       </a>`
     )
     .join("");
 
   heroSection.innerHTML = `
+    <!-- PART 1: Full-viewport hero — background, animals, welcome text, CTA -->
     <div class="hero-background-wrapper">
       <img
         src="${hero.backgroundImage}"
         alt="${hero.altText}"
         class="hero-background-image"
       />
+
       <div class="nav-wave" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70" preserveAspectRatio="none">
           <path fill="#2084BE" d="
@@ -71,27 +84,46 @@ function renderHero(hero) {
           "/>
         </svg>
       </div>
-      <img src="./assets/images/cloud1.png" class="cloud cloud1">
-      <img src="./assets/images/cloud2.png" class="cloud cloud2">
-      <img src="./assets/images/cloud3.png" class="cloud cloud3">
-      <img src="./assets/images/Bird-hero.png" class="hero-bird hero-bird-1" alt="Flying bird">
+
+      <img src="./assets/images/cloud1.png" class="cloud cloud1" alt="">
+      <img src="./assets/images/cloud2.png" class="cloud cloud2" alt="">
+      <img src="./assets/images/cloud3.png" class="cloud cloud3" alt="">
+
+      <img src="./assets/images/Bird-hero.png"  class="hero-bird hero-bird-1" alt="Flying bird">
       <img src="./assets/images/Bird-hero1.png" class="hero-bird hero-bird-2" alt="Flying bird">
       <img src="./assets/images/Bird-hero2.png" class="hero-bird hero-bird-3" alt="Flying bird">
+
       <div class="hero-overlay"></div>
-      <div class="hero-content container">
-        <a href="game.html" class="start-exploring-btn">Start Exploring</a>
-      </div>
-      <div class="hero-cards-wrapper">
-        <div class="hero-cards-row">
-          ${cardsHTML}
+
+      <div class="hero-content">
+        <h1 class="hero-title">${hero.welcomeTitle}</h1>
+        <p class="hero-subtitle">${hero.subtitle}</p>
+        <div class="hero-cta-wrapper">
+          <a href="${hero.ctaHref}" class="start-exploring-btn">
+            ${sparklesHTML}
+            ${hero.ctaText}
+          </a>
         </div>
       </div>
     </div>
+
+    <!-- PART 2: How to Play — below hero fold -->
+    <section class="how-to-play" aria-labelledby="how-to-play-heading">
+      <div class="container">
+        <h2 class="how-to-play-heading" id="how-to-play-heading">Your Adventure Awaits!</h2>
+        <p class="how-to-play-sub">Three steps to becoming an Eco Explorer</p>
+        <div class="play-cards-row">
+          ${playCardsHTML}
+        </div>
+      </div>
+    </section>
   `;
 }
 
+// Dead code — kept for reference, not called
 function renderFeatures(cards) {
   const featuresSection = document.getElementById("features-section");
+  if (!featuresSection) return;
 
   const cardsHTML = cards
     .map(
@@ -119,12 +151,12 @@ function renderFooter(footer) {
     <div class="footer-top" style="background-color: ${footer.topFooterColor};">
       <div class="container footer-top-layout">
         <div class="footer-frog">
-  <img 
-    src="${footer.frog.image}" 
-    alt="${footer.frog.altText}" 
-    class="footer-frog-img"
-  />
-</div>
+          <img
+            src="${footer.frog.image}"
+            alt="${footer.frog.altText}"
+            class="footer-frog-img"
+          />
+        </div>
 
         <div class="footer-links-area">
           <nav class="footer-link-row footer-audience-links" aria-label="Audience links">
@@ -137,15 +169,15 @@ function renderFooter(footer) {
           </nav>
 
           <div class="footer-link-row footer-social-links" aria-label="Social links">
-  ${footer.socialLinks
-    .map(
-      (link) =>
-        `<a href="${link.href}" class="social-circle" aria-label="${link.label}" title="${link.label}">
-          <i class="${link.iconClass}"></i>
-        </a>`
-    )
-    .join("")}
-</div>
+            ${footer.socialLinks
+              .map(
+                (link) =>
+                  `<a href="${link.href}" class="social-circle" aria-label="${link.label}" title="${link.label}">
+                    <i class="${link.iconClass}"></i>
+                  </a>`
+              )
+              .join("")}
+          </div>
 
           <nav class="footer-link-row footer-utility-links" aria-label="Utility links">
             ${footer.utilityLinks
@@ -166,4 +198,3 @@ function renderFooter(footer) {
     </div>
   `;
 }
-
