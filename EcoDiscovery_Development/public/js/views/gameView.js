@@ -112,6 +112,13 @@ function renderHero(navBarColor, game) {
             <img src="./assets/images/lake_whitefish.png" alt="Lake Whitefish" class="game-fish3  game-creature" data-animal-slug="lake-whitefish">
             <img src="./assets/images/goldeye.png"        alt="Goldeye"        class="game-fish4  game-creature" data-animal-slug="goldeye">
             <img src="./assets/images/northen_pike.png"   alt="Northern Pike"  class="game-fish5  game-creature" data-animal-slug="northern-pike">
+            <!-- Start overlay — removed by JS when player clicks Start -->
+            <div class="game-start-overlay" id="game-start-overlay">
+              <div class="game-start-content">
+                <p class="game-start-tagline">Can you find all the fish?</p>
+                <button class="game-start-btn" id="btn-start">&#9654; Start</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -202,7 +209,7 @@ function renderHero(navBarColor, game) {
 
 let _timerInterval = null;
 
-export function startGameTimer(durationSeconds = 300) {
+export function startGameTimer(durationSeconds = 120, onExpire = null) {
   // Clear any running timer before starting a new one
   if (_timerInterval) {
     clearInterval(_timerInterval);
@@ -223,8 +230,11 @@ export function startGameTimer(durationSeconds = 300) {
     remaining--;
     if (remaining <= 0) {
       remaining = 0;
+      timerEl.textContent = fmt(remaining);
       clearInterval(_timerInterval);
       _timerInterval = null;
+      if (onExpire) onExpire();
+      return;
     }
     timerEl.textContent = fmt(remaining);
   }, 1000);

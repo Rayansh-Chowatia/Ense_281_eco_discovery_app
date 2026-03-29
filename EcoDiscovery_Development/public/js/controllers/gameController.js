@@ -186,8 +186,7 @@ function handleCorrectGuess() {
   // Guide message
   const allDone = gameState.solvedCards.size + gameState.failedCards.size >= gameState.animals.length;
   if (allDone) {
-    updateGuide("Amazing! You found all the fish!");
-    gameState.gameStatus = "complete";
+    showEndOverlay();
   } else {
     updateGuide("Great job! Pick another mystery sticker");
   }
@@ -260,8 +259,7 @@ function handleFailure() {
 
   const allDone = gameState.solvedCards.size + gameState.failedCards.size >= gameState.animals.length;
   if (allDone) {
-    updateGuide("Amazing! You found all the fish!");
-    gameState.gameStatus = "complete";
+    showEndOverlay();
   } else {
     updateGuide("That was not correct. Pick another card and try again");
   }
@@ -302,6 +300,101 @@ function playShuffleAnimation() {
   });
 }
 
+// ── End-game overlay ─────────────────────────────────────────────────────────
+
+function showEndOverlay() {
+  gameState.gameStatus = "complete";
+
+  // Stop reset-button pulse if running
+  const resetBtn = document.getElementById("btn-reset");
+  if (resetBtn) resetBtn.classList.remove("sb-reset-btn--pulse");
+
+  const solved = gameState.solvedCards.size;
+  const total  = gameState.animals.length || 6;
+
+  let message;
+  if      (solved === total)                          message = "Great job! You found them all! 🎉";
+  else if (solved >= Math.ceil(total * 0.75))         message = "So close! Amazing work!";
+  else if (solved >= Math.ceil(total / 2))            message = "Good try! Can you beat your score?";
+  else if (solved > 0)                                message = "Keep exploring! Try again!";
+  else                                                message = "Don't give up! You'll do better next time!";
+
+  // Remove any stale overlay first
+  document.getElementById("game-end-overlay")?.remove();
+
+  const overlay = document.createElement("div");
+  overlay.className = "game-start-overlay game-end-overlay";
+  overlay.id        = "game-end-overlay";
+  overlay.innerHTML = `
+    <div class="game-start-content">
+      <p class="game-end-score">${solved}<span class="game-end-total"> / ${total}</span></p>
+      <p class="game-end-label">animals discovered</p>
+      <p class="game-start-tagline">${message}</p>
+      <button class="game-start-btn" id="btn-end-restart">&#8635; Restart</button>
+    </div>
+  `;
+
+  document.querySelector(".game-scene-container")?.appendChild(overlay);
+
+  document.getElementById("btn-end-restart")?.addEventListener("click", () => {
+    overlay.classList.add("game-start-overlay--out");
+    overlay.addEventListener("animationend", () => overlay.remove(), { once: true });
+    handleReset();
+  });
+
+  updateGuide("Press Restart or Reset Sticker Book to play again!");
+}
+
+// ── Timer expiry: force-fail all remaining cards ──────────────────────────────
+
+function handleTimerExpiry() {
+  if (gameState.animals.length === 0) return;
+
+  const cards = document.querySelectorAll("#sb-grid .sb-card");
+
+  // Cancel any active selection cleanly
+  if (gameState.activeCardId !== null) {
+    const activeCard = cards[gameState.activeCardId];
+    if (activeCard) activeCard.classList.remove("sb-card--active");
+    gameState.activeCardId     = null;
+    gameState.activeAnimalId   = null;
+    gameState.currentHintIndex = 0;
+  }
+
+  // Flip every card still unsolved/unfailed into the failed state
+  cards.forEach((cardEl, i) => {
+    if (gameState.solvedCards.has(i) || gameState.failedCards.has(i)) return;
+
+    const animalId = cardEl.dataset.animalId;
+    if (!animalId) return;
+    const animal = gameState.animals.find(a => a.id === animalId);
+    if (!animal) return;
+
+    const faceEl = cardEl.querySelector(".sb-card-face");
+    if (faceEl) {
+      faceEl.innerHTML = `
+        <span class="sb-card-face-name">${animal.name}</span>
+        <img src="./assets/images/${animal.local_asset_key}" alt="${animal.name}"
+             class="sb-card-reveal-img sb-card-reveal-img--failed">
+        <span class="sb-card-fail-x" aria-hidden="true">✕</span>
+      `;
+    }
+
+    cardEl.classList.remove("sb-card--active");
+    cardEl.classList.add("sb-card--flipped", "sb-card--failed");
+    gameState.failedCards.add(i);
+  });
+
+  // Clear hint UI
+  gameState.unlockedHints = [];
+  renderHintHistory();
+  updateFishFacts("Time's up! Better luck next time!");
+  resumeCardPulse();
+
+  // Small delay so card flip animations finish before overlay appears
+  setTimeout(showEndOverlay, 600);
+}
+
 // ── Stage 13: Reset ───────────────────────────────────────────────────────────
 
 let _resetting = false;
@@ -309,6 +402,11 @@ let _resetting = false;
 async function handleReset() {
   if (_resetting) return;
   _resetting = true;
+
+  // Remove any end overlay and reset-button pulse
+  document.getElementById("game-end-overlay")?.remove();
+  const resetBtn = document.getElementById("btn-reset");
+  if (resetBtn) resetBtn.classList.remove("sb-reset-btn--pulse");
 
   // 1. Clear game state
   gameState.solvedCards      = new Set();
@@ -341,7 +439,7 @@ async function handleReset() {
   });
 
   // 4. Restart timer right away — counts down while cards animate
-  startGameTimer(300);
+  startGameTimer(120, handleTimerExpiry);
 
   // 5. Play shuffle bounce animation on all 6 mystery cards
   await playShuffleAnimation();
@@ -356,19 +454,57 @@ async function handleReset() {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 
+function attachStartButton() {
+  const startBtn      = document.getElementById("btn-start");
+  const overlay       = document.getElementById("game-start-overlay");
+  const sceneContainer = document.querySelector(".game-scene-container");
+
+  if (!startBtn) return;
+
+  startBtn.addEventListener("click", () => {
+    // 1. Unfreeze scene creatures and birds
+    if (sceneContainer) sceneContainer.classList.remove("game-scene--frozen");
+
+    // 2. Resume sticker card pulses (only unsolved/unfailed cards)
+    resumeCardPulse();
+
+    // 3. Start the countdown timer
+    startGameTimer(120, handleTimerExpiry);
+
+    // 4. Animate the overlay out then remove it
+    if (overlay) {
+      overlay.classList.add("game-start-overlay--out");
+      overlay.addEventListener("animationend", () => overlay.remove(), { once: true });
+    }
+
+    // 5. Update guide for the real game
+    updateGuide("Select a mystery sticker to begin!");
+  });
+}
+
 export async function initGamePage() {
   // 1. Render static page shell immediately — user sees UI right away
   renderGamePage(gamePageData);
-  startGameTimer(300);
 
-  // 2. Attach card click handlers (color sync + Stage 7 selection logic)
+  // 2. Freeze scene & cards until Start is pressed
+  const sceneContainer = document.querySelector(".game-scene-container");
+  if (sceneContainer) sceneContainer.classList.add("game-scene--frozen");
+  pauseCardPulse();
+  const timerEl = document.getElementById("game-timer");
+  if (timerEl) timerEl.textContent = "02:00";
+  updateGuide("Press ▶ Start to begin your adventure!");
+
+  // 3. Attach card click handlers (color sync + Stage 7 selection logic)
   attachCardClickHandlers();
 
-  // 3. Wire reset button
+  // 4. Wire reset button
   const resetBtn = document.getElementById("btn-reset");
   if (resetBtn) resetBtn.addEventListener("click", handleReset);
 
-  // 4. Load animals + hints from Supabase
+  // 5. Wire start button
+  attachStartButton();
+
+  // 6. Load animals + hints from Supabase
   try {
     const { animals, hintsByAnimal } = await fetchGameData();
 
@@ -379,7 +515,7 @@ export async function initGamePage() {
     // Shuffle animals into card positions — stamps data-animal-id on DOM
     assignAnimalsToCards(animals);
 
-    // 5. Attach creature click handlers after animal data is ready (Stage 9)
+    // 7. Attach creature click handlers after animal data is ready (Stage 9)
     attachCreatureClickHandlers();
 
     console.log(`✅ Supabase loaded: ${animals.length} animals, cards shuffled`);

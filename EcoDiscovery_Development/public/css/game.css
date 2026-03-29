@@ -317,6 +317,121 @@ body {
   display: block;
 }
 
+/* ── Start overlay ───────────────────────────────────────────────────── */
+.game-start-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border-radius: 12px;
+  background: rgba(8, 25, 45, 0.52);
+  backdrop-filter: brightness(0.65) blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.game-start-tagline {
+  margin: 0;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+.game-start-btn {
+  padding: 14px 44px;
+  background: linear-gradient(135deg, #f9c846 0%, #f5801a 100%);
+  border: none;
+  border-radius: 50px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  box-shadow: 0 5px 22px rgba(245, 140, 26, 0.65), 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
+  animation: startBtnPulse 1.1s ease-in-out infinite;
+  transition: filter 0.15s ease;
+}
+
+.game-start-btn:hover {
+  filter: brightness(1.1);
+}
+
+@keyframes startBtnPulse {
+  0%,  100% { transform: scale(1);    box-shadow: 0 5px 22px rgba(245,140,26,0.65); }
+  50%        { transform: scale(1.06); box-shadow: 0 7px 32px rgba(245,140,26,0.90); }
+}
+
+/* End-game overlay — same backdrop as start, fades in */
+.game-end-overlay {
+  animation: overlayFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+.game-end-score {
+  margin: 0;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  line-height: 1;
+}
+
+.game-end-total {
+  font-size: 0.55em;
+  opacity: 0.8;
+}
+
+.game-end-label {
+  margin: 0;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(0.72rem, 1.2vw, 0.95rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Overlay fade + scale out on Start click */
+.game-start-overlay--out {
+  animation: overlayFadeOut 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes overlayFadeOut {
+  0%   { opacity: 1;   transform: scale(1);    }
+  60%  { opacity: 0.3; transform: scale(1.04); }
+  100% { opacity: 0;   transform: scale(1.08); }
+}
+
+/* Freeze all scene animations before Start is pressed */
+.game-scene--frozen .game-bird,
+.game-scene--frozen .game-crab,
+.game-scene--frozen .game-fish,
+.game-scene--frozen .game-fish2,
+.game-scene--frozen .game-fish3,
+.game-scene--frozen .game-fish4,
+.game-scene--frozen .game-fish5 {
+  animation-play-state: paused !important;
+}
+
 /* ── Water animation overlays ────────────────────────────────────────── */
 .water-overlay {
   position: absolute;
@@ -1249,6 +1364,16 @@ body {
 
 .sb-reset-btn:active {
   transform: translateY(0);
+}
+
+/* Pulse when timer expires — draws the child's attention to reset */
+.sb-reset-btn--pulse {
+  animation: resetAttention 0.85s ease-in-out infinite !important;
+}
+
+@keyframes resetAttention {
+  0%,  100% { transform: scale(1);    box-shadow: 0 4px 12px rgba(245, 166, 35, 0.45); }
+  50%        { transform: scale(1.08); box-shadow: 0 6px 28px rgba(245, 166, 35, 0.90); }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
