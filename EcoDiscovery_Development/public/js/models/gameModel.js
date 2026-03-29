@@ -52,12 +52,12 @@ export const gamePageData = {
   game: {
     stickerBook: {
       animals: [
-        { id: "sturgeon",  name: "Lake Sturgeon",  color: "#f9a8d4", hint: "Look in the deep river water!" },
-        { id: "perch",     name: "Yellow Perch",   color: "#93c5fd", hint: "I swim in groups near the shore!" },
-        { id: "duck",      name: "Mallard Duck",   color: "#fcd34d", hint: "Look for my green head near shallow water!" },
-        { id: "beaver",    name: "Beaver",         color: "#86efac", hint: "Check near the riverbank!" },
-        { id: "dragonfly", name: "Dragonfly",      color: "#c4b5fd", hint: "I zoom above the water surface!" },
-        { id: "turtle",    name: "Painted Turtle", color: "#fdba74", hint: "I sunbathe on logs near the water!" }
+        { id: "walleye",        name: "Walleye",        color: "#f9a8d4" },
+        { id: "lake-sturgeon",  name: "Lake Sturgeon",  color: "#93c5fd" },
+        { id: "crayfish",       name: "Crayfish",       color: "#fcd34d" },
+        { id: "lake-whitefish", name: "Lake Whitefish", color: "#86efac" },
+        { id: "goldeye",        name: "Goldeye",        color: "#c4b5fd" },
+        { id: "northern-pike",  name: "Northern Pike",  color: "#fdba74" }
       ]
     }
   }

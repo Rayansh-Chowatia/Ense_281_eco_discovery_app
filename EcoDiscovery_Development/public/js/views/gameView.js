@@ -50,8 +50,7 @@ function renderHero(navBarColor, game) {
       (animal) =>
         `<div class="sb-card sb-card-locked"
               style="--card-color: ${animal.color};"
-              data-id="${animal.id}"
-              data-hint="${animal.hint}"
+              data-card-index="${animal.id}"
               role="button"
               tabindex="0"
               aria-label="Mystery creature — click for a hint">
@@ -102,9 +101,12 @@ function renderHero(navBarColor, game) {
             <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
             <img src="./assets/images/Bird-hero1.png" class="game-bird game-bird-2" alt="Flying bird">
             <img src="./assets/images/Bird-hero2.png" class="game-bird game-bird-3" alt="Flying bird">
-            <img src="./assets/images/crab.png" alt="Crab" class="game-crab">
-            <img src="./assets/images/fish1-game.png" alt="Fish" class="game-fish">
-            <img src="./assets/images/fish2-game.png" alt="Sturgeon" class="game-fish2">
+            <img src="./assets/images/crayfish.png"       alt="Crayfish"       class="game-crab   game-creature" data-animal-slug="crayfish">
+            <img src="./assets/images/walleye.png"        alt="Walleye"        class="game-fish   game-creature" data-animal-slug="walleye">
+            <img src="./assets/images/lake_sturgeon.png"  alt="Lake Sturgeon"  class="game-fish2  game-creature" data-animal-slug="lake-sturgeon">
+            <img src="./assets/images/lake_whitefish.png" alt="Lake Whitefish" class="game-fish3  game-creature" data-animal-slug="lake-whitefish">
+            <img src="./assets/images/goldeye.png"        alt="Goldeye"        class="game-fish4  game-creature" data-animal-slug="goldeye">
+            <img src="./assets/images/northen_pike.png"   alt="Northern Pike"  class="game-fish5  game-creature" data-animal-slug="northern-pike">
           </div>
         </div>
 
@@ -122,26 +124,25 @@ function renderHero(navBarColor, game) {
 
           <!-- 3c. Action buttons -->
           <div class="sb-actions">
-            <button class="sb-btn sb-btn-hint" id="btn-hint" type="button">
+            <div class="sb-btn sb-btn-hint" id="btn-guide" aria-live="polite">
               <span class="btn-spark btn-spark-1" aria-hidden="true"></span>
               <span class="btn-spark btn-spark-2" aria-hidden="true"></span>
               <span class="btn-spark btn-spark-3" aria-hidden="true"></span>
-              <i class="fa-solid fa-lightbulb sb-btn-icon" aria-hidden="true"></i>
+              <i class="fa-solid fa-compass sb-btn-icon" aria-hidden="true"></i>
               <div class="sb-btn-body">
-                <span class="sb-btn-title">Hint</span>
-                <span class="sb-btn-sub">Select a mystery sticker to get a fun hint!</span>
+                <span class="sb-guide-message" id="guide-message">Pick a mystery sticker</span>
               </div>
-            </button>
-            <button class="sb-btn sb-btn-facts" id="btn-facts" type="button">
+            </div>
+            <div class="sb-btn sb-btn-facts" id="btn-facts">
               <span class="btn-spark btn-spark-1" aria-hidden="true"></span>
               <span class="btn-spark btn-spark-2" aria-hidden="true"></span>
               <span class="btn-spark btn-spark-3" aria-hidden="true"></span>
               <i class="fa-solid fa-book-open sb-btn-icon" aria-hidden="true"></i>
               <div class="sb-btn-body">
                 <span class="sb-btn-title">Fish Facts</span>
-                <span class="sb-btn-sub">Click a fish to unlock facts in your Sticker Book!</span>
+                <span class="sb-btn-sub" id="fish-facts-text">Select a card to see a hint!</span>
               </div>
-            </button>
+            </div>
           </div>
 
           <!-- 3d. Your Collection -->
@@ -155,10 +156,10 @@ function renderHero(navBarColor, game) {
             </div>
           </div>
 
-          <!-- 3e. Feedback area -->
+          <!-- 3e. Hint history area -->
           <div class="sb-feedback" id="sb-feedback">
-            <p class="sb-feedback-title">Great job!</p>
-            <p class="sb-feedback-text" id="sb-feedback-text">Pick a mystery sticker first to get hint!</p>
+            <p class="sb-feedback-title" id="hint-history-label">Hint History</p>
+            <div class="sb-hint-history" id="hint-history-list"></div>
           </div>
 
           <!-- 3f. Reset button -->
