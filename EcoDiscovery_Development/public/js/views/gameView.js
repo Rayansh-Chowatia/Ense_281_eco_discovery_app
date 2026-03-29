@@ -98,6 +98,11 @@ function renderHero(navBarColor, game) {
 
           <div class="game-scene-container">
             <img src="./assets/images/Game-page-image.png" alt="Game scene" class="game-scene-img">
+            <!-- Water animation overlays — purely visual, no pointer events -->
+            <div class="water-overlay water-shimmer-layer" aria-hidden="true"></div>
+            <div class="water-overlay water-caustic-1"     aria-hidden="true"></div>
+            <div class="water-overlay water-caustic-2"     aria-hidden="true"></div>
+            <div class="water-overlay water-surface-wave"  aria-hidden="true"></div>
             <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
             <img src="./assets/images/Bird-hero1.png" class="game-bird game-bird-2" alt="Flying bird">
             <img src="./assets/images/Bird-hero2.png" class="game-bird game-bird-3" alt="Flying bird">
@@ -159,7 +164,30 @@ function renderHero(navBarColor, game) {
           <!-- 3e. Hint history area -->
           <div class="sb-feedback" id="sb-feedback">
             <p class="sb-feedback-title" id="hint-history-label">Hint History</p>
-            <div class="sb-hint-history" id="hint-history-list"></div>
+            <div class="sb-hint-history" id="hint-history-list">
+
+              <div class="hint-pill" data-hint-order="1" style="--pill-color: #f9a8d4;">
+                <span class="hint-pill-spark hint-pill-spark-1" aria-hidden="true"></span>
+                <span class="hint-pill-spark hint-pill-spark-2" aria-hidden="true"></span>
+                <span class="hint-pill-order">Hint 1</span>
+                <p class="hint-pill-text"></p>
+              </div>
+
+              <div class="hint-pill" data-hint-order="2" style="--pill-color: #93c5fd;">
+                <span class="hint-pill-spark hint-pill-spark-1" aria-hidden="true"></span>
+                <span class="hint-pill-spark hint-pill-spark-2" aria-hidden="true"></span>
+                <span class="hint-pill-order">Hint 2</span>
+                <p class="hint-pill-text"></p>
+              </div>
+
+              <div class="hint-pill" data-hint-order="3" style="--pill-color: #fcd34d;">
+                <span class="hint-pill-spark hint-pill-spark-1" aria-hidden="true"></span>
+                <span class="hint-pill-spark hint-pill-spark-2" aria-hidden="true"></span>
+                <span class="hint-pill-order">Hint 3</span>
+                <p class="hint-pill-text"></p>
+              </div>
+
+            </div>
           </div>
 
           <!-- 3f. Reset button -->
@@ -172,7 +200,15 @@ function renderHero(navBarColor, game) {
   `;
 }
 
+let _timerInterval = null;
+
 export function startGameTimer(durationSeconds = 300) {
+  // Clear any running timer before starting a new one
+  if (_timerInterval) {
+    clearInterval(_timerInterval);
+    _timerInterval = null;
+  }
+
   const timerEl = document.getElementById("game-timer");
   if (!timerEl) return;
 
@@ -183,11 +219,12 @@ export function startGameTimer(durationSeconds = 300) {
 
   timerEl.textContent = fmt(remaining);
 
-  const interval = setInterval(() => {
+  _timerInterval = setInterval(() => {
     remaining--;
     if (remaining <= 0) {
       remaining = 0;
-      clearInterval(interval);
+      clearInterval(_timerInterval);
+      _timerInterval = null;
     }
     timerEl.textContent = fmt(remaining);
   }, 1000);
