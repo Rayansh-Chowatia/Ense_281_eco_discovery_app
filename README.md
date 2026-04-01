@@ -28,7 +28,7 @@ The system is designed for Grade 3 learners and introduces freshwater ecosystems
 ## Team Members
 
 - Rayansh Chowatia  
-- Jeremiah Onunkwo  
+- Jeremiah Onun  
 - Abrianna Primavera  
 - Aubin Chriss Izere  
 
