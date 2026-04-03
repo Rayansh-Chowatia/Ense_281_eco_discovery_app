@@ -17,8 +17,13 @@ function updateFishFacts(text) {
 }
 
 function updateCounter() {
-  const el = document.getElementById("sb-count");
-  if (el) el.textContent = `${gameState.solvedCards.size} / ${gameState.animals.length} found`;
+  const label = document.getElementById("sb-count");
+  const bar   = document.getElementById("sb-progress-bar");
+  const pct   = gameState.animals.length
+    ? (gameState.solvedCards.size / gameState.animals.length) * 100
+    : 0;
+  if (label) label.textContent = `${gameState.solvedCards.size} / ${gameState.animals.length}`;
+  if (bar)   bar.style.width = pct + "%";
 }
 
 // Render unlocked hints into the 3 pill slots.

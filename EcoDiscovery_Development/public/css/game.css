@@ -231,21 +231,7 @@ body {
    CRITICAL MODE  ≤ 30 s  — fast heartbeat + vignette
 ═══════════════════════════════════════════════════════ */
 
-/* ── 1. Scene — red vignette around edges ───────── */
-.game-scene-container.scene-danger::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  pointer-events: none;
-  z-index: 9;
-  animation: sceneVignette 0.75s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes sceneVignette {
-  0%, 100% { box-shadow: inset 0 0 40px 10px rgba(220, 0, 0, 0.18); }
-  50%       { box-shadow: inset 0 0 90px 35px rgba(255, 0, 0, 0.45); }
-}
+/* ── 1. Scene vignette removed per user request ─── */
 
 /* ── 2. Timer — fast heartbeat + flashing digits ── */
 .strip-timer-sticker.timer-critical {
@@ -288,6 +274,7 @@ body {
 /* ── 4. Trash — breathe glow + periodic shake ───── */
 .sinking-trash.trash-urgent {
   top: 75% !important;
+  opacity: 1 !important;
   will-change: transform, filter;
   animation: trashBreatheShake 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
   cursor: grab;
@@ -1160,19 +1147,38 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .sb-collection-label {
-  font-size: 1rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #4a3018;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .sb-collection-count {
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: #7a5030;
+}
+
+/* ── Progress bar ───────────────────────────────────────────────────── */
+.sb-progress-wrap {
+  position: relative;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.sb-progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #4ade80, #16a34a);
+  border-radius: 999px;
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sb-sticker-grid {

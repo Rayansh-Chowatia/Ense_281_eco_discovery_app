@@ -149,7 +149,10 @@ function renderHero(navBarColor, game) {
           <div class="sb-collection">
             <div class="sb-collection-hdr">
               <span class="sb-collection-label">Your Collection</span>
-              <span class="sb-collection-count" id="sb-count">0 / ${game.stickerBook.animals.length} found</span>
+              <span class="sb-collection-count" id="sb-count">0 / ${game.stickerBook.animals.length}</span>
+            </div>
+            <div class="sb-progress-wrap">
+              <div class="sb-progress-bar" id="sb-progress-bar" style="width: 0%"></div>
             </div>
             <div class="sb-sticker-grid" id="sb-grid">
               ${stickerCardsHTML}
@@ -262,10 +265,7 @@ export function showTimerBonus(label = "+20s") {
 const _URGENT_MSG = "Put trash in the bin for more time! ♻️";
 
 function _activateDangerMode() {
-  // 1. Scene red vignette
-  document.querySelector(".game-scene-container")?.classList.add("scene-danger");
-
-  // 2. Timer heartbeat + red text
+  // 1. Timer heartbeat + red text
   document.querySelector(".strip-timer-sticker")?.classList.add("timer-danger");
 
   // 3. Guide — urgent fast pulse + red border
@@ -279,8 +279,6 @@ function _activateDangerMode() {
 }
 
 function _activateCriticalMode() {
-  // Scene vignette
-  document.querySelector(".game-scene-container")?.classList.add("scene-danger");
   // Upgrade timer to fast heartbeat
   document.querySelector(".strip-timer-sticker")?.classList.add("timer-critical");
   // Upgrade guide to fast pulse + border
@@ -311,8 +309,6 @@ export function stopDangerMode() {
   if (_guideAltTimeout)  { clearTimeout(_guideAltTimeout);   _guideAltTimeout  = null; }
   _dangerActivated   = false;
   _criticalActivated = false;
-  const scene = document.querySelector(".game-scene-container");
-  scene?.classList.remove("scene-danger");
   const sticker = document.querySelector(".strip-timer-sticker");
   sticker?.classList.remove("timer-danger", "timer-critical");
   const guide = document.getElementById("btn-guide");
