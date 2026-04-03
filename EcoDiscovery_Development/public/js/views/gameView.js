@@ -89,8 +89,9 @@ function renderHero(navBarColor, game) {
             <!-- Right: countdown timer overlaid on sticker image -->
             <div class="strip-timer-wrap">
               <div class="strip-timer-sticker">
+                <span class="timer-bonus-popup" id="timer-bonus-popup" aria-hidden="true"></span>
                 <img src="./assets/images/time_sticker.png" alt="Time Left" class="strip-timer-sticker-img">
-                <span class="strip-timer-value" id="game-timer">05:00</span>
+                <span class="strip-timer-value" id="game-timer">02:00</span>
               </div>
             </div>
 
@@ -98,11 +99,12 @@ function renderHero(navBarColor, game) {
 
           <div class="game-scene-container">
             <img src="./assets/images/Game-page-image.png" alt="Game scene" class="game-scene-img">
-            <!-- Water animation overlays — purely visual, no pointer events -->
-            <div class="water-overlay water-shimmer-layer" aria-hidden="true"></div>
-            <div class="water-overlay water-caustic-1"     aria-hidden="true"></div>
-            <div class="water-overlay water-caustic-2"     aria-hidden="true"></div>
-            <div class="water-overlay water-surface-wave"  aria-hidden="true"></div>
+            <!-- Guide message overlay on game scene -->
+            <div class="game-guide-overlay" id="btn-guide" aria-live="polite">
+              <i class="fa-solid fa-compass game-guide-icon" aria-hidden="true"></i>
+              <span class="sb-guide-message" id="guide-message">Pick a mystery sticker</span>
+            </div>
+
             <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
             <img src="./assets/images/Bird-hero1.png" class="game-bird game-bird-2" alt="Flying bird">
             <img src="./assets/images/Bird-hero2.png" class="game-bird game-bird-3" alt="Flying bird">
@@ -112,6 +114,14 @@ function renderHero(navBarColor, game) {
             <img src="./assets/images/lake_whitefish.png" alt="Lake Whitefish" class="game-fish3  game-creature" data-animal-slug="lake-whitefish">
             <img src="./assets/images/goldeye.png"        alt="Goldeye"        class="game-fish4  game-creature" data-animal-slug="goldeye">
             <img src="./assets/images/northen_pike.png"   alt="Northern Pike"  class="game-fish5  game-creature" data-animal-slug="northern-pike">
+            <div class="game-trash-bin-wrap" id="trash-drop-zone">
+              <img src="./assets/images/trash_bin.png"   alt="Trash bin"       class="game-trash-img game-trash-normal">
+              <img src="./assets/images/trash_happy.png" alt="Happy trash bin" class="game-trash-img game-trash-happy">
+            </div>
+            <!-- Sinking trash items -->
+            <img src="./assets/images/trash_1.png" alt="" class="sinking-trash sinking-trash-1" aria-hidden="true">
+            <img src="./assets/images/trash_2.png" alt="" class="sinking-trash sinking-trash-2" aria-hidden="true">
+            <img src="./assets/images/trash_3.png" alt="" class="sinking-trash sinking-trash-3" aria-hidden="true">
             <!-- Start overlay — removed by JS when player clicks Start -->
             <div class="game-start-overlay" id="game-start-overlay">
               <div class="game-start-content">
@@ -134,28 +144,6 @@ function renderHero(navBarColor, game) {
             <span class="sb-header-deco" aria-hidden="true">🐞</span>
           </div>
 
-          <!-- 3c. Action buttons -->
-          <div class="sb-actions">
-            <div class="sb-btn sb-btn-hint" id="btn-guide" aria-live="polite">
-              <span class="btn-spark btn-spark-1" aria-hidden="true"></span>
-              <span class="btn-spark btn-spark-2" aria-hidden="true"></span>
-              <span class="btn-spark btn-spark-3" aria-hidden="true"></span>
-              <i class="fa-solid fa-compass sb-btn-icon" aria-hidden="true"></i>
-              <div class="sb-btn-body">
-                <span class="sb-guide-message" id="guide-message">Pick a mystery sticker</span>
-              </div>
-            </div>
-            <div class="sb-btn sb-btn-facts" id="btn-facts">
-              <span class="btn-spark btn-spark-1" aria-hidden="true"></span>
-              <span class="btn-spark btn-spark-2" aria-hidden="true"></span>
-              <span class="btn-spark btn-spark-3" aria-hidden="true"></span>
-              <i class="fa-solid fa-book-open sb-btn-icon" aria-hidden="true"></i>
-              <div class="sb-btn-body">
-                <span class="sb-btn-title">Fish Facts</span>
-                <span class="sb-btn-sub" id="fish-facts-text">Select a card to see a hint!</span>
-              </div>
-            </div>
-          </div>
 
           <!-- 3d. Your Collection -->
           <div class="sb-collection">
@@ -207,37 +195,129 @@ function renderHero(navBarColor, game) {
   `;
 }
 
-let _timerInterval = null;
+let _timerInterval      = null;
+let _timerRemaining     = 0;
+let _dangerActivated    = false;
+let _criticalActivated  = false;
+let _guideAltInterval   = null;
+let _guideAltTimeout    = null;
+
+const _fmt = (s) =>
+  `${Math.floor(s / 60).toString().padStart(2, "0")}:${(s % 60).toString().padStart(2, "0")}`;
 
 export function startGameTimer(durationSeconds = 120, onExpire = null) {
-  // Clear any running timer before starting a new one
-  if (_timerInterval) {
-    clearInterval(_timerInterval);
-    _timerInterval = null;
-  }
+  if (_timerInterval) { clearInterval(_timerInterval); _timerInterval = null; }
+  _dangerActivated = false;
 
   const timerEl = document.getElementById("game-timer");
   if (!timerEl) return;
 
-  let remaining = durationSeconds;
-
-  const fmt = (s) =>
-    `${Math.floor(s / 60).toString().padStart(2, "0")}:${(s % 60).toString().padStart(2, "0")}`;
-
-  timerEl.textContent = fmt(remaining);
+  _timerRemaining = durationSeconds;
+  timerEl.textContent = _fmt(_timerRemaining);
 
   _timerInterval = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      remaining = 0;
-      timerEl.textContent = fmt(remaining);
+    _timerRemaining--;
+
+    // Trigger danger mode at 60 s remaining
+    if (_timerRemaining === 60 && !_dangerActivated) {
+      _dangerActivated = true;
+      _activateDangerMode();
+    }
+
+    // Escalate to critical mode at 30 s remaining
+    if (_timerRemaining === 30 && !_criticalActivated) {
+      _criticalActivated = true;
+      _activateCriticalMode();
+    }
+
+    if (_timerRemaining <= 0) {
+      _timerRemaining = 0;
+      timerEl.textContent = _fmt(_timerRemaining);
       clearInterval(_timerInterval);
       _timerInterval = null;
       if (onExpire) onExpire();
       return;
     }
-    timerEl.textContent = fmt(remaining);
+    timerEl.textContent = _fmt(_timerRemaining);
   }, 1000);
+}
+
+export function addTimerSeconds(bonus) {
+  if (!_timerInterval) return;
+  _timerRemaining += bonus;
+  const timerEl = document.getElementById("game-timer");
+  if (timerEl) timerEl.textContent = _fmt(_timerRemaining);
+}
+
+export function showTimerBonus(label = "+20s") {
+  const el = document.getElementById("timer-bonus-popup");
+  if (!el) return;
+  el.textContent = label;
+  el.classList.remove("show");
+  void el.offsetWidth;
+  el.classList.add("show");
+}
+
+// ── Danger mode (triggered at 60 s remaining) ─────────────────────────────────
+const _URGENT_MSG = "Put trash in the bin for more time! ♻️";
+
+function _activateDangerMode() {
+  // 1. Scene red vignette
+  document.querySelector(".game-scene-container")?.classList.add("scene-danger");
+
+  // 2. Timer heartbeat + red text
+  document.querySelector(".strip-timer-sticker")?.classList.add("timer-danger");
+
+  // 3. Guide — urgent fast pulse + red border
+  document.getElementById("btn-guide")?.classList.add("guide-urgent");
+
+  // 4. Trash items — breathe glow + shake
+  document.querySelectorAll(".sinking-trash").forEach(t => t.classList.add("trash-urgent"));
+
+  // 5. Guide message alternation
+  _startGuideAlternation();
+}
+
+function _activateCriticalMode() {
+  // Scene vignette
+  document.querySelector(".game-scene-container")?.classList.add("scene-danger");
+  // Upgrade timer to fast heartbeat
+  document.querySelector(".strip-timer-sticker")?.classList.add("timer-critical");
+  // Upgrade guide to fast pulse + border
+  document.getElementById("btn-guide")?.classList.add("guide-critical");
+}
+
+function _startGuideAlternation() {
+  if (_guideAltInterval) return;
+
+  function cycle() {
+    const msgEl = document.getElementById("guide-message");
+    if (!msgEl) return;
+    const saved = msgEl.textContent;
+    msgEl.textContent = _URGENT_MSG;
+    _guideAltTimeout = setTimeout(() => {
+      const el = document.getElementById("guide-message");
+      // Only restore if urgent message is still showing (not overwritten by game logic)
+      if (el && el.textContent === _URGENT_MSG) el.textContent = saved;
+    }, 4000);
+  }
+
+  cycle();
+  _guideAltInterval = setInterval(cycle, 5000);
+}
+
+export function stopDangerMode() {
+  if (_guideAltInterval) { clearInterval(_guideAltInterval); _guideAltInterval = null; }
+  if (_guideAltTimeout)  { clearTimeout(_guideAltTimeout);   _guideAltTimeout  = null; }
+  _dangerActivated   = false;
+  _criticalActivated = false;
+  const scene = document.querySelector(".game-scene-container");
+  scene?.classList.remove("scene-danger");
+  const sticker = document.querySelector(".strip-timer-sticker");
+  sticker?.classList.remove("timer-danger", "timer-critical");
+  const guide = document.getElementById("btn-guide");
+  guide?.classList.remove("guide-urgent", "guide-critical");
+  document.querySelectorAll(".sinking-trash").forEach(t => t.classList.remove("trash-urgent"));
 }
 
 function renderFooter(footer) {

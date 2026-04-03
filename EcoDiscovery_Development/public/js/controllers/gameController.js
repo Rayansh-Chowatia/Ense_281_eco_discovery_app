@@ -1,7 +1,8 @@
 import { gamePageData } from "../models/gameModel.js";
-import { renderGamePage, startGameTimer } from "../views/gameView.js";
+import { renderGamePage, startGameTimer, stopDangerMode } from "../views/gameView.js";
 import { fetchGameData } from "../services/supabaseService.js";
 import { gameState, assignAnimalsToCards } from "../state/gameState.js";
+import { initTrashDrag } from "./trashDrag.js";
 
 // ── UI helpers ────────────────────────────────────────────────────────────────
 
@@ -305,6 +306,10 @@ function playShuffleAnimation() {
 function showEndOverlay() {
   gameState.gameStatus = "complete";
 
+  // Freeze all scene animations (birds, fish, crab, trash)
+  const sceneContainer = document.querySelector(".game-scene-container");
+  if (sceneContainer) sceneContainer.classList.add("game-scene--frozen");
+
   // Stop reset-button pulse if running
   const resetBtn = document.getElementById("btn-reset");
   if (resetBtn) resetBtn.classList.remove("sb-reset-btn--pulse");
@@ -349,6 +354,7 @@ function showEndOverlay() {
 
 function handleTimerExpiry() {
   if (gameState.animals.length === 0) return;
+  stopDangerMode();
 
   const cards = document.querySelectorAll("#sb-grid .sb-card");
 
@@ -408,6 +414,10 @@ async function handleReset() {
   const resetBtn = document.getElementById("btn-reset");
   if (resetBtn) resetBtn.classList.remove("sb-reset-btn--pulse");
 
+  // Unfreeze scene so animations run again
+  const sceneContainer = document.querySelector(".game-scene-container");
+  if (sceneContainer) sceneContainer.classList.remove("game-scene--frozen");
+
   // 1. Clear game state
   gameState.solvedCards      = new Set();
   gameState.failedCards      = new Set();
@@ -439,6 +449,7 @@ async function handleReset() {
   });
 
   // 4. Restart timer right away — counts down while cards animate
+  stopDangerMode();
   startGameTimer(120, handleTimerExpiry);
 
   // 5. Play shuffle bounce animation on all 6 mystery cards
@@ -492,6 +503,9 @@ export async function initGamePage() {
   pauseCardPulse();
   const timerEl = document.getElementById("game-timer");
   if (timerEl) timerEl.textContent = "02:00";
+
+  // Init trash drag-and-drop
+  initTrashDrag();
   updateGuide("Press ▶ Start to begin your adventure!");
 
   // 3. Attach card click handlers (color sync + Stage 7 selection logic)

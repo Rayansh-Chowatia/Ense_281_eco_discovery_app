@@ -1,0 +1,379 @@
+/* ═══════════════════════════════════════════════
+   ECO DISCOVERY — VIDEOS PAGE STYLES
+   ═══════════════════════════════════════════════ */
+
+
+/* ── Navigation Bar (shared styles from home.css reused) ── */
+.nav-bar {
+  color: #ffffff;
+  padding: 2px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  width: 95%;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.site-logo-img {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+}
+
+.site-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-link-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nav-link-icon:hover,
+.nav-link-icon.active {
+  transform: translateY(-4px) scale(1.1);
+  filter: brightness(1.15);
+}
+
+.nav-icon-img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-icon-label {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.nav-link-icon.active .nav-icon-label {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+/* ── Videos Hero ─────────────────────────────── */
+.videos-hero-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.videos-hero-image {
+  width: 100%;
+  display: block;
+}
+
+.videos-hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  padding-top: 2%;
+}
+
+.videos-hero-card {
+  background-color: #f5b942;
+  border-radius: 20px;
+  padding: 16px 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  border-bottom: 4px solid #c07800;
+  overflow: visible;
+}
+
+.videos-hero-title {
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  color: #3d1a00;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35), 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.videos-hero-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transform: scale(2);
+  transform-origin: center;
+}
+
+/* ── Swimming Fish ───────────────────────────── */
+.vid-fish {
+  position: absolute;
+  width: 160px;
+  height: auto;
+  z-index: 2;
+}
+
+.vid-fish-1 {
+  bottom: 6%;
+  left: 0;
+  transform: scaleX(-1);
+  animation: fishSwimRight 14s linear infinite;
+  animation-fill-mode: both;
+}
+
+.vid-fish-2 {
+  bottom: 18%;
+  left: calc(100% - 160px);
+  animation: fishSwimLeft 18s linear infinite;
+  animation-fill-mode: both;
+}
+
+@keyframes fishSwimRight {
+  0%   { left: 0; }
+  100% { left: calc(100% + 10px); }
+}
+
+@keyframes fishSwimLeft {
+  0%   { left: calc(100% - 160px); }
+  100% { left: -180px; }
+}
+
+/* ── TV Grid ─────────────────────────────────── */
+.videos-tv-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.videos-tv-row {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  justify-content: center;
+}
+
+.videos-tv-img {
+  width: 290px;
+  height: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.videos-tv-img:hover {
+  transform: translateY(-6px) scale(1.08);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+}
+
+
+/* ═══════════════════════════════════════════════
+   FOOTER (reuses home.css classes)
+   ═══════════════════════════════════════════════ */
+
+.footer-top {
+  width: 100%;
+  min-height: 300px;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.footer-top-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-frog {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+}
+
+.footer-frog-img {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.footer-links-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  width: auto;
+}
+
+.footer-link-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.footer-link {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  opacity: 0.8;
+}
+
+.footer-link-highlight {
+  color: #fff3a6;
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+
+.footer-social-links {
+  gap: 20px;
+}
+
+.social-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: rgba(41, 101, 99, 0.75);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.social-circle:hover {
+  transform: translateY(-2px);
+  background-color: rgba(41, 101, 99, 0.95);
+}
+
+.footer-bottom {
+  width: 100%;
+  min-height: 180px;
+  padding: 40px 60px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-bottom-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-quote {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 768px)
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  .nav-menu {
+    justify-content: center;
+  }
+
+  .footer-top {
+    padding: 30px 20px;
+  }
+
+  .footer-top-layout {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+    text-align: center;
+    column-gap: 0;
+  }
+
+  .footer-frog {
+    justify-content: center;
+    justify-self: center;
+  }
+
+  .footer-frog-img {
+    width: 145px;
+  }
+
+  .footer-links-area {
+    gap: 22px;
+  }
+
+  .footer-link-row {
+    gap: 18px;
+  }
+
+  .social-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 0.95rem;
+  }
+
+  .footer-bottom {
+    min-height: 120px;
+    padding: 28px 20px;
+  }
+
+  .footer-quote {
+    font-size: 1.2rem;
+  }
+}
