@@ -102,7 +102,7 @@ function renderHero(navBarColor, game) {
             <!-- Guide message overlay on game scene -->
             <div class="game-guide-overlay" id="btn-guide" aria-live="polite">
               <i class="fa-solid fa-compass game-guide-icon" aria-hidden="true"></i>
-              <span class="sb-guide-message" id="guide-message">Pick a mystery sticker</span>
+              <span class="sb-guide-message" id="guide-message">Click on a mystery box to start</span>
             </div>
 
             <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
@@ -153,6 +153,9 @@ function renderHero(navBarColor, game) {
             </div>
             <div class="sb-progress-wrap">
               <div class="sb-progress-bar" id="sb-progress-bar" style="width: 0%"></div>
+              <div class="sb-progress-stars" id="sb-stars">
+                ${'<span class="sb-star">★</span>'.repeat(game.stickerBook.animals.length - 1)}
+              </div>
             </div>
             <div class="sb-sticker-grid" id="sb-grid">
               ${stickerCardsHTML}
@@ -190,6 +193,9 @@ function renderHero(navBarColor, game) {
 
           <!-- 3f. Reset button -->
           <button class="sb-reset-btn" id="btn-reset" type="button">Reset Sticker Book</button>
+
+          <!-- DEBUG — remove before production -->
+          <button class="sb-debug-btn" id="btn-debug-end" type="button">⏱ End Game</button>
 
         </div>
 
@@ -320,52 +326,15 @@ function renderFooter(footer) {
   const footerContainer = document.getElementById("site-footer");
 
   footerContainer.innerHTML = `
-    <div class="footer-top" style="background-color: ${footer.topFooterColor};">
-      <div class="container footer-top-layout">
-        <div class="footer-frog">
-          <img
-            src="${footer.frog.image}"
-            alt="${footer.frog.altText}"
-            class="footer-frog-img"
-          />
+    <div class="site-footer" style="background-color: ${footer.backgroundColor};">
+      <div class="container footer-inner">
+        <div class="footer-logo">
+          <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
-
-        <div class="footer-links-area">
-          <nav class="footer-link-row footer-audience-links" aria-label="Audience links">
-            ${footer.audienceLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="footer-link footer-link-highlight">${link.label}</a>`
-              )
-              .join("")}
-          </nav>
-
-          <div class="footer-link-row footer-social-links" aria-label="Social links">
-            ${footer.socialLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="social-circle" aria-label="${link.label}" title="${link.label}">
-                    <i class="${link.iconClass}"></i>
-                  </a>`
-              )
-              .join("")}
-          </div>
-
-          <nav class="footer-link-row footer-utility-links" aria-label="Utility links">
-            ${footer.utilityLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="footer-link">${link.label}</a>`
-              )
-              .join("")}
-          </nav>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom" style="background-color: ${footer.bottomFooterColor};">
-      <div class="container footer-bottom-content">
-        <p class="footer-quote">${footer.quote}</p>
+        <nav class="footer-nav" aria-label="Footer links">
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link">${link.label}</a>`).join("")}
+        </nav>
+        <p class="footer-copyright">${footer.copyright}</p>
       </div>
     </div>
   `;

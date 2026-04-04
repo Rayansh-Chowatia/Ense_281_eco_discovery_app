@@ -180,24 +180,301 @@
 
 .videos-tv-row {
   display: flex;
-  gap: 48px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
 
-.videos-tv-img {
-  width: 290px;
-  height: auto;
-  object-fit: contain;
+/* ── TV wrapper ───────────────────────────────── */
+/* aspect-ratio 3/2 matches the TV PNGs (1536×1024).
+   This makes percentage top/height on children reliable. */
+.videos-tv-wrap {
+  position: relative;
+  width: 460px;
+  aspect-ratio: 3 / 2;
   cursor: pointer;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  flex-shrink: 0;
+  transition: transform 0.22s ease, filter 0.22s ease;
 }
 
-.videos-tv-img:hover {
-  transform: translateY(-6px) scale(1.08);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+.videos-tv-wrap:hover {
+  transform: translateY(-8px) scale(1.06);
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.32));
 }
 
+/* TV frame PNG — pinned to fill the wrapper exactly */
+.videos-tv-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Clipping box — fixed pixels so it never overflows the TV frame.
+   TV wrapper is 460 × 307 px.
+   Thumbnail is intentionally smaller than the TV body so the
+   colored frame is clearly visible on all sides. */
+.videos-tv-screen {
+  position: absolute;
+  top: 56px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+  overflow: hidden;
+  border-radius: 10px;
+  z-index: 3;
+}
+
+/* Thumbnail fills the screen box */
+.videos-tv-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Play button — centred, visible on hover */
+.videos-tv-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.videos-tv-wrap:hover .videos-tv-play,
+.videos-tv-wrap:focus-visible .videos-tv-play {
+  opacity: 1;
+}
+
+.videos-tv-play i {
+  font-size: 3rem;
+  color: #ffffff;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+  transition: transform 0.2s ease;
+}
+
+.videos-tv-wrap:hover .videos-tv-play i {
+  transform: scale(1.15);
+}
+
+
+/* ═══════════════════════════════════════════════
+   VIDEO CARD GRID
+   ═══════════════════════════════════════════════ */
+
+#videos-grid-section {
+  padding: 60px 40px;
+  background: linear-gradient(180deg, #e8f7f7 0%, #f0fafa 100%);
+}
+
+.videos-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.videos-section-title {
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: #1a6070;
+  text-align: center;
+  margin: 0 0 40px;
+}
+
+.videos-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ── Single card ── */
+.video-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  outline: none;
+}
+
+.video-card:hover,
+.video-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Thumbnail area ── */
+.video-card-thumb {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+.video-card-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover .video-card-thumb img {
+  transform: scale(1.05);
+}
+
+/* ── Play icon overlay ── */
+.video-card-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.2s ease;
+}
+
+.video-card:hover .video-card-play {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.video-card-play i {
+  font-size: 3rem;
+  color: #ffffff;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  transition: transform 0.2s ease;
+}
+
+.video-card:hover .video-card-play i {
+  transform: scale(1.15);
+}
+
+/* ── Card text body ── */
+.video-card-body {
+  padding: 16px 20px 20px;
+}
+
+.video-card-category {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.video-card-title {
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: 1.08rem;
+  color: #1a3a4a;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.video-card-desc {
+  font-size: 0.84rem;
+  color: #5a7080;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   VIDEO MODAL (lightbox player)
+   ═══════════════════════════════════════════════ */
+
+/* ── Page blur when modal is open ─────────────── */
+#app.app-blurred {
+  filter: blur(7px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Video Modal ─────────────────────────────── */
+.video-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.video-modal-overlay.is-open {
+  display: flex;
+}
+
+.video-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  background: #000;
+  border-radius: 12px;
+  overflow: visible;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75);
+}
+
+/* X close button — top-right corner of the box */
+.video-modal-close {
+  position: absolute;
+  top: -46px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.6rem;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.video-modal-close:hover {
+  background: rgba(220, 50, 50, 0.8);
+  transform: scale(1.1);
+}
+
+.video-modal-iframe-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-modal-iframe-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — TABLETS (≤ 960px)
+   ═══════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .videos-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 /* ═══════════════════════════════════════════════
    FOOTER (reuses home.css classes)
@@ -323,6 +600,14 @@
    RESPONSIVE — MOBILE (≤ 768px)
    ═══════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  #videos-grid-section {
+    padding: 40px 20px;
+  }
+
+  .videos-card-grid {
+    grid-template-columns: 1fr;
+  }
+
   .nav-content {
     flex-direction: column;
     justify-content: center;

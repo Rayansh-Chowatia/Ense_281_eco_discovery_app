@@ -32,7 +32,7 @@ a {
 /* ── Top Bar (shared across all pages) ──────── */
 .top-bar {
   color: #ffffff;
-  padding: 8px 0;
+  padding: 14px 0;
 }
 
 .top-bar-content {
@@ -42,9 +42,74 @@ a {
 }
 
 .top-bar-text {
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
   font-style: italic;
   letter-spacing: 0.4px;
   text-align: center;
+}
+
+/* ── Footer (shared across all pages) ───────── */
+.site-footer {
+  width: 100%;
+  padding: 14px 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-logo {
+  flex-shrink: 0;
+}
+
+.footer-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.footer-link {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: opacity 0.2s ease;
+}
+
+.footer-link:hover {
+  opacity: 0.75;
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .footer-nav {
+    gap: 18px;
+  }
+
+  .footer-copyright {
+    width: 100%;
+    text-align: center;
+  }
 }

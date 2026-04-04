@@ -148,52 +148,15 @@ function renderFooter(footer) {
   const footerContainer = document.getElementById("site-footer");
 
   footerContainer.innerHTML = `
-    <div class="footer-top" style="background-color: ${footer.topFooterColor};">
-      <div class="container footer-top-layout">
-        <div class="footer-frog">
-          <img
-            src="${footer.frog.image}"
-            alt="${footer.frog.altText}"
-            class="footer-frog-img"
-          />
+    <div class="site-footer" style="background-color: ${footer.backgroundColor};">
+      <div class="container footer-inner">
+        <div class="footer-logo">
+          <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
-
-        <div class="footer-links-area">
-          <nav class="footer-link-row footer-audience-links" aria-label="Audience links">
-            ${footer.audienceLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="footer-link footer-link-highlight">${link.label}</a>`
-              )
-              .join("")}
-          </nav>
-
-          <div class="footer-link-row footer-social-links" aria-label="Social links">
-            ${footer.socialLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="social-circle" aria-label="${link.label}" title="${link.label}">
-                    <i class="${link.iconClass}"></i>
-                  </a>`
-              )
-              .join("")}
-          </div>
-
-          <nav class="footer-link-row footer-utility-links" aria-label="Utility links">
-            ${footer.utilityLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="footer-link">${link.label}</a>`
-              )
-              .join("")}
-          </nav>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom" style="background-color: ${footer.bottomFooterColor};">
-      <div class="container footer-bottom-content">
-        <p class="footer-quote">${footer.quote}</p>
+        <nav class="footer-nav" aria-label="Footer links">
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link">${link.label}</a>`).join("")}
+        </nav>
+        <p class="footer-copyright">${footer.copyright}</p>
       </div>
     </div>
   `;

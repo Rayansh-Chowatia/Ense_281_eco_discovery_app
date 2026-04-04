@@ -24,6 +24,9 @@ function updateCounter() {
     : 0;
   if (label) label.textContent = `${gameState.solvedCards.size} / ${gameState.animals.length}`;
   if (bar)   bar.style.width = pct + "%";
+  document.querySelectorAll("#sb-stars .sb-star").forEach((star, i) => {
+    star.classList.toggle("lit", i < gameState.solvedCards.size);
+  });
 }
 
 // Render unlocked hints into the 3 pill slots.
@@ -437,7 +440,7 @@ async function handleReset() {
   if (feedback) feedback.style.removeProperty("--active-card-color");
 
   updateFishFacts("Select a card to see a hint!");
-  updateGuide("Pick a mystery sticker");
+  updateGuide("Click on a mystery box to start");
   updateCounter();
   renderHintHistory();
 
@@ -494,7 +497,7 @@ function attachStartButton() {
     }
 
     // 5. Update guide for the real game
-    updateGuide("Select a mystery sticker to begin!");
+    updateGuide("Click on a mystery box to start");
   });
 }
 
@@ -519,6 +522,10 @@ export async function initGamePage() {
   // 4. Wire reset button
   const resetBtn = document.getElementById("btn-reset");
   if (resetBtn) resetBtn.addEventListener("click", handleReset);
+
+  // DEBUG — wire end-game shortcut button
+  const debugEndBtn = document.getElementById("btn-debug-end");
+  if (debugEndBtn) debugEndBtn.addEventListener("click", handleTimerExpiry);
 
   // 5. Wire start button
   attachStartButton();

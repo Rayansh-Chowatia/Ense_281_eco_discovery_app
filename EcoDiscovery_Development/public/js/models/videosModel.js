@@ -6,11 +6,9 @@ export const videosPageData = {
     topBarColor: "#4BA8A9",
     navBarColor: "#2084BE",
     navLinks: [
-      { label: "Game",      href: "game.html",   icon: "./assets/images/Game-button.png" },
-      { label: "Videos",    href: "videos.html", icon: "./assets/images/Videos-button.png",    active: true },
-      { label: "Parents",   href: "#",           icon: "./assets/images/Parents-button.png" },
-      { label: "Educators", href: "#",           icon: "./assets/images/Educators-button.png" },
-      { label: "About Us",  href: "#",           icon: "./assets/images/About-Us-button.png" }
+      { label: "Game",     href: "game.html",   icon: "./assets/images/Game-button.png" },
+      { label: "Videos",   href: "videos.html", icon: "./assets/images/Videos-button.png", active: true },
+      { label: "About Us", href: "about.html",  icon: "./assets/images/About-Us-button.png" }
     ]
   },
 
@@ -29,6 +27,8 @@ export const videosPageData = {
     ]
   },
 
+  // youtubeId: paste the 11-character video ID from the YouTube URL
+  // e.g. youtube.com/watch?v=dQw4w9WgXcQ  →  youtubeId: "dQw4w9WgXcQ"
   videos: [
     {
       id: 1,
@@ -37,7 +37,7 @@ export const videosPageData = {
       category: "Wildlife",
       color: "#2ECC71",
       iconClass: "fa-solid fa-fish",
-      href: "#"
+      youtubeId: "EY6o8dz1PZU"
     },
     {
       id: 2,
@@ -46,7 +46,7 @@ export const videosPageData = {
       category: "Ecosystems",
       color: "#3498DB",
       iconClass: "fa-solid fa-water",
-      href: "#"
+      youtubeId: "95O7nocd2N4"
     },
     {
       id: 3,
@@ -55,7 +55,7 @@ export const videosPageData = {
       category: "Insects",
       color: "#9B59B6",
       iconClass: "fa-solid fa-bug",
-      href: "#"
+      youtubeId: "UkyAjFD6KcY"
     },
     {
       id: 4,
@@ -64,7 +64,7 @@ export const videosPageData = {
       category: "Science",
       color: "#F39C12",
       iconClass: "fa-solid fa-flask",
-      href: "#"
+      youtubeId: "VR1XXmOrJME"
     },
     {
       id: 5,
@@ -73,7 +73,7 @@ export const videosPageData = {
       category: "Conservation",
       color: "#E74C3C",
       iconClass: "fa-solid fa-leaf",
-      href: "#"
+      youtubeId: "rwXQilqrFiA"
     },
     {
       id: 6,
@@ -82,41 +82,19 @@ export const videosPageData = {
       category: "Science",
       color: "#1ABC9C",
       iconClass: "fa-solid fa-cloud-rain",
-      href: "#"
+      youtubeId: "sKJoXdrOT70"
     }
   ],
 
   footer: {
-    topFooterColor: "#4BA8A9",
-    bottomFooterColor: "#296563",
-
-    frog: {
-      image: "./assets/images/logo-fish.png",
-      altText: "Eco Discovery fish logo"
-    },
-
-    audienceLinks: [
-      { label: "Kids",      href: "#" },
-      { label: "Parents",   href: "#" },
-      { label: "Educators", href: "#" },
-      { label: "About",     href: "#" }
+    backgroundColor: "#4BA8A9",
+    logo: { image: "./assets/images/logo-fish.png", altText: "Eco Discovery fish logo" },
+    links: [
+      { label: "Credits",    href: "#" },
+      { label: "Contact Us", href: "#" },
+      { label: "Sources",    href: "#" },
+      { label: "Feedback",   href: "#" }
     ],
-
-    socialLinks: [
-      { label: "YouTube",   href: "#", iconClass: "fa-brands fa-youtube" },
-      { label: "Twitter",   href: "#", iconClass: "fa-brands fa-x-twitter" },
-      { label: "Facebook",  href: "#", iconClass: "fa-brands fa-facebook-f" },
-      { label: "Pinterest", href: "#", iconClass: "fa-brands fa-pinterest-p" }
-    ],
-
-    utilityLinks: [
-      { label: "Credits",        href: "#" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Site Map",       href: "#" },
-      { label: "Contact",        href: "#" },
-      { label: "Help",           href: "#" }
-    ],
-
-    quote: "Discover. Learn. Protect."
+    copyright: "Eco Discovery © 2026"
   }
 };

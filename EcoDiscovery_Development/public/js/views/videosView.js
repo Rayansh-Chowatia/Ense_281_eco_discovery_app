@@ -1,6 +1,8 @@
 export function renderVideosPage(data) {
   renderHeader(data.header);
-  renderHero(data.hero);
+  renderHero(data.hero, data.videos);
+  renderVideoModal();
+  initVideoModal();
   renderFooter(data.footer);
 }
 
@@ -36,23 +38,32 @@ function renderHeader(header) {
   `;
 }
 
-function renderHero(hero) {
+function renderHero(hero, videos) {
   const heroSection = document.getElementById("hero-section");
 
+  function makeTvCard(src, video) {
+    const id = video ? safeYoutubeId(video.youtubeId) : "";
+    const thumb = id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
+    const label = video ? escapeHtml(video.title) : "Video";
+    return `
+      <div class="videos-tv-wrap" data-youtube-id="${id}"
+           role="button" tabindex="0" aria-label="Play ${label}">
+        <img src="${src}" alt="TV" class="videos-tv-img">
+        <div class="videos-tv-screen">
+          ${thumb ? `<img src="${thumb}" alt="${label}" class="videos-tv-thumb" loading="lazy">` : ""}
+          <div class="videos-tv-play"><i class="fa-solid fa-circle-play"></i></div>
+        </div>
+      </div>`;
+  }
+
   const tvRow1 = hero.tvImages.slice(0, 3)
-    .map(src => `<img src="${src}" alt="TV" class="videos-tv-img">`)
-    .join("");
+    .map((src, i) => makeTvCard(src, videos[i])).join("");
   const tvRow2 = hero.tvImages.slice(3, 6)
-    .map(src => `<img src="${src}" alt="TV" class="videos-tv-img">`)
-    .join("");
+    .map((src, i) => makeTvCard(src, videos[i + 3])).join("");
 
   heroSection.innerHTML = `
     <div class="videos-hero-wrapper">
-      <img
-        src="${hero.backgroundImage}"
-        alt="${hero.altText}"
-        class="videos-hero-image"
-      />
+      <img src="${hero.backgroundImage}" alt="${hero.altText}" class="videos-hero-image"/>
       <img src="./assets/images/vid-fish1.png" alt="Swimming fish" class="vid-fish vid-fish-1">
       <img src="./assets/images/vid-fish2.png" alt="Swimming fish" class="vid-fish vid-fish-2">
       <div class="videos-hero-content">
@@ -71,56 +82,106 @@ function renderHero(hero) {
   `;
 }
 
+// ── Helpers ────────────────────────────────────────────────────
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// Allow only YouTube-safe characters (11-char alphanumeric + - _)
+function safeYoutubeId(id) {
+  return String(id).replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
+// ── Video Modal ────────────────────────────────────────────────
+function renderVideoModal() {
+  const modal = document.createElement("div");
+  modal.id = "video-modal";
+  modal.className = "video-modal-overlay";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "Video player");
+  modal.innerHTML = `
+    <div class="video-modal-box">
+      <button class="video-modal-close" aria-label="Close video">&times;</button>
+      <div class="video-modal-iframe-wrap">
+        <iframe id="video-modal-iframe"
+          src=""
+          frameborder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function initVideoModal() {
+  const modal  = document.getElementById("video-modal");
+  const iframe = document.getElementById("video-modal-iframe");
+  const app    = document.getElementById("app");
+
+  function openModal(youtubeId) {
+    const id = safeYoutubeId(youtubeId);
+    if (!id) return;
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+    modal.classList.add("is-open");
+    app.classList.add("app-blurred");
+    document.body.style.overflow = "hidden";
+    modal.querySelector(".video-modal-close").focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    app.classList.remove("app-blurred");
+    iframe.src = "";
+    document.body.style.overflow = "";
+  }
+
+  // Click any TV in the hero
+  document.getElementById("hero-section").addEventListener("click", (e) => {
+    const tv = e.target.closest(".videos-tv-wrap");
+    if (tv && tv.dataset.youtubeId) openModal(tv.dataset.youtubeId);
+  });
+
+  // Keyboard: Enter / Space on a TV
+  document.getElementById("hero-section").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const tv = e.target.closest(".videos-tv-wrap");
+      if (tv && tv.dataset.youtubeId) { e.preventDefault(); openModal(tv.dataset.youtubeId); }
+    }
+  });
+
+  // Click backdrop to close
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+  // Close button
+  modal.querySelector(".video-modal-close").addEventListener("click", closeModal);
+
+  // Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+}
+
+// ── Footer ─────────────────────────────────────────────────────
 function renderFooter(footer) {
   const footerContainer = document.getElementById("site-footer");
 
   footerContainer.innerHTML = `
-    <div class="footer-top" style="background-color: ${footer.topFooterColor};">
-      <div class="container footer-top-layout">
-        <div class="footer-frog">
-          <img
-            src="${footer.frog.image}"
-            alt="${footer.frog.altText}"
-            class="footer-frog-img"
-          />
+    <div class="site-footer" style="background-color: ${footer.backgroundColor};">
+      <div class="container footer-inner">
+        <div class="footer-logo">
+          <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
-
-        <div class="footer-links-area">
-          <nav class="footer-link-row footer-audience-links" aria-label="Audience links">
-            ${footer.audienceLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="footer-link footer-link-highlight">${link.label}</a>`
-              )
-              .join("")}
-          </nav>
-
-          <div class="footer-link-row footer-social-links" aria-label="Social links">
-            ${footer.socialLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="social-circle" aria-label="${link.label}" title="${link.label}">
-                    <i class="${link.iconClass}"></i>
-                  </a>`
-              )
-              .join("")}
-          </div>
-
-          <nav class="footer-link-row footer-utility-links" aria-label="Utility links">
-            ${footer.utilityLinks
-              .map(
-                (link) =>
-                  `<a href="${link.href}" class="footer-link">${link.label}</a>`
-              )
-              .join("")}
-          </nav>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom" style="background-color: ${footer.bottomFooterColor};">
-      <div class="container footer-bottom-content">
-        <p class="footer-quote">${footer.quote}</p>
+        <nav class="footer-nav" aria-label="Footer links">
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link">${link.label}</a>`).join("")}
+        </nav>
+        <p class="footer-copyright">${footer.copyright}</p>
       </div>
     </div>
   `;
