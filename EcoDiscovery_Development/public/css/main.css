@@ -29,6 +29,82 @@ a {
   margin: 0 auto;
 }
 
+/* ── Navigation Bar (shared across all pages) ── */
+.nav-bar {
+  color: #ffffff;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.site-logo-img {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+}
+
+.site-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-link-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nav-link-icon:hover {
+  transform: translateY(-4px) scale(1.1);
+  filter: brightness(1.1);
+}
+
+.nav-link-icon.active {
+  filter: brightness(1.25) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+
+.nav-icon-img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-icon-label {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
 /* ── Top Bar (shared across all pages) ──────── */
 .top-bar {
   color: #ffffff;
@@ -99,6 +175,16 @@ a {
 }
 
 @media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 16px;
+  }
+
+  .nav-menu {
+    justify-content: center;
+  }
+
   .footer-inner {
     flex-wrap: wrap;
     gap: 14px;

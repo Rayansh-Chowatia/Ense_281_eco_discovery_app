@@ -199,7 +199,6 @@
 
 .videos-tv-wrap:hover {
   transform: translateY(-8px) scale(1.06);
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.32));
 }
 
 /* TV frame PNG — pinned to fill the wrapper exactly */
@@ -213,10 +212,7 @@
   z-index: 2;
 }
 
-/* Clipping box — fixed pixels so it never overflows the TV frame.
-   TV wrapper is 460 × 307 px.
-   Thumbnail is intentionally smaller than the TV body so the
-   colored frame is clearly visible on all sides. */
+/* Clipping box — defines the TV screen area, does not change size */
 .videos-tv-screen {
   position: absolute;
   top: 56px;
@@ -226,15 +222,100 @@
   overflow: hidden;
   border-radius: 10px;
   z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
 }
 
-/* Thumbnail fills the screen box */
+/* Thumbnail — independent element, smaller than the screen area */
 .videos-tv-thumb {
-  width: 100%;
-  height: 100%;
+  width: 68%;
+  height: 68%;
   object-fit: cover;
   display: block;
   pointer-events: none;
+  border-radius: 6px;
+}
+
+/* ── Per-TV screen overrides ─────────────────────
+   Adjust top/left/width/height per TV to match each
+   TV image's screen position. Thumb width/height
+   controls thumbnail size independently.
+   ─────────────────────────────────────────────── */
+
+/* TV 1 — beige retro round TV */
+[data-tv="1"] .videos-tv-screen {
+  top: 50px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+}
+[data-tv="1"] .videos-tv-thumb {
+  width: 72.5%;
+  height: 71%;
+}
+
+/* TV 2 — golden legs TV */
+[data-tv="2"] .videos-tv-screen {
+  top: 50px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+}
+[data-tv="2"] .videos-tv-thumb {
+  width: 68%;
+  height: 65%;
+  margin-bottom: 10px;
+}
+
+/* TV 3 — red legs TV */
+[data-tv="3"] .videos-tv-screen {
+  top: 50px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+}
+[data-tv="3"] .videos-tv-thumb {
+  width: 68%;
+  height: 67%;
+  margin-bottom: 8px;
+}
+
+/* TV 4 — green bottom-left TV */
+[data-tv="4"] .videos-tv-screen {
+  top: 50px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+}
+[data-tv="4"] .videos-tv-thumb {
+  width: 67%;
+  height: 70%;
+}
+
+/* TV 5 — pink bottom-center TV */
+[data-tv="5"] .videos-tv-screen {
+  top: 50px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+}
+[data-tv="5"] .videos-tv-thumb {
+  width: 67%;
+  height: 70%;
+}
+
+/* TV 6 — green bottom-right TV */
+[data-tv="6"] .videos-tv-screen {
+  top: 50px;
+  left: 82px;
+  width: 296px;
+  height: 166px;
+}
+[data-tv="6"] .videos-tv-thumb {
+  width: 67%;
+  height: 70%;
 }
 
 /* Play button — centred, visible on hover */
@@ -244,7 +325,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  padding-top: 32px;
+  background: transparent;
   opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;

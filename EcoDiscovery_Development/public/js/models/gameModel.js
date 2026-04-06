@@ -18,7 +18,7 @@ export const gamePageData = {
     links: [
       { label: "Credits",    href: "#" },
       { label: "Contact Us", href: "#" },
-      { label: "Sources",    href: "#" },
+      { label: "Sources",    href: "sources.html" },
       { label: "Feedback",   href: "#" }
     ],
     copyright: "Eco Discovery © 2026"

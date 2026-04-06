@@ -41,12 +41,12 @@ function renderHeader(header) {
 function renderHero(hero, videos) {
   const heroSection = document.getElementById("hero-section");
 
-  function makeTvCard(src, video) {
+  function makeTvCard(src, video, tvNum) {
     const id = video ? safeYoutubeId(video.youtubeId) : "";
     const thumb = id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
     const label = video ? escapeHtml(video.title) : "Video";
     return `
-      <div class="videos-tv-wrap" data-youtube-id="${id}"
+      <div class="videos-tv-wrap" data-youtube-id="${id}" data-tv="${tvNum}"
            role="button" tabindex="0" aria-label="Play ${label}">
         <img src="${src}" alt="TV" class="videos-tv-img">
         <div class="videos-tv-screen">
@@ -57,9 +57,9 @@ function renderHero(hero, videos) {
   }
 
   const tvRow1 = hero.tvImages.slice(0, 3)
-    .map((src, i) => makeTvCard(src, videos[i])).join("");
+    .map((src, i) => makeTvCard(src, videos[i], i + 1)).join("");
   const tvRow2 = hero.tvImages.slice(3, 6)
-    .map((src, i) => makeTvCard(src, videos[i + 3])).join("");
+    .map((src, i) => makeTvCard(src, videos[i + 3], i + 4)).join("");
 
   heroSection.innerHTML = `
     <div class="videos-hero-wrapper">
