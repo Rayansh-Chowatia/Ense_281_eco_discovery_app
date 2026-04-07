@@ -1,11 +1,10 @@
 // ─── Eco Discovery — Admin Controller ────────────────────────────────────────
-// Uses Supabase Auth (window.supabase from CDN) + REST API to manage feedback.
+// All auth goes through the Express backend (/api/auth/*).
+// No Supabase SDK, no credentials in the browser.
 
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
-
-// ─── Supabase client (Auth) ────────────────────────────────────────────────
-const { createClient } = window.supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ─── Token storage ─────────────────────────────────────────────────────────
+// sessionStorage clears when the tab closes — intentional for admin security.
+let accessToken = sessionStorage.getItem('adm_token') || null;
 
 // ─── DOM refs ──────────────────────────────────────────────────────────────
 const loginScreen  = document.getElementById('adm-login-screen');
@@ -26,11 +25,25 @@ const statAvg     = document.getElementById('stat-avg');
 
 // ─── Init ──────────────────────────────────────────────────────────────────
 async function init() {
-  // Check for existing session (so admin stays logged in on refresh)
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    showDashboard(session.user.email);
-    await loadFeedback(session.access_token);
+  if (accessToken) {
+    // Verify the stored token is still valid
+    try {
+      const res = await fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${accessToken}` }
+      });
+      if (res.ok) {
+        const { email } = await res.json();
+        showDashboard(email);
+        await loadFeedback();
+      } else {
+        // Token expired or invalid
+        clearToken();
+        showLogin();
+      }
+    } catch {
+      clearToken();
+      showLogin();
+    }
   } else {
     showLogin();
   }
@@ -43,16 +56,14 @@ async function init() {
 
   // ── Logout ───────────────────────────────────────────────────────────────
   logoutBtn.addEventListener('click', async () => {
-    await sb.auth.signOut();
-    showLogin();
+    await handleLogout();
   });
 
   // ── Refresh table ────────────────────────────────────────────────────────
   refreshBtn.addEventListener('click', async () => {
-    const { data: { session } } = await sb.auth.getSession();
-    if (session) {
+    if (accessToken) {
       tableContainer.innerHTML = '<p class="adm-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading feedback…</p>';
-      await loadFeedback(session.access_token);
+      await loadFeedback();
     }
   });
 }
@@ -69,16 +80,48 @@ async function handleLogin() {
   setLoginLoading(true);
   hideLoginError();
 
-  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
 
-  if (error || !data.session) {
+    const data = await res.json();
+
+    if (!res.ok) {
+      setLoginLoading(false);
+      return showLoginError(data.error || 'Invalid email or password. Please try again.');
+    }
+
+    accessToken = data.accessToken;
+    sessionStorage.setItem('adm_token', accessToken);
     setLoginLoading(false);
-    return showLoginError('Invalid email or password. Please try again.');
-  }
+    showDashboard(data.email);
+    await loadFeedback();
 
-  setLoginLoading(false);
-  showDashboard(data.user.email);
-  await loadFeedback(data.session.access_token);
+  } catch {
+    setLoginLoading(false);
+    showLoginError('Connection error. Please try again.');
+  }
+}
+
+// ─── Logout handler ────────────────────────────────────────────────────────
+async function handleLogout() {
+  if (accessToken) {
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    }).catch(() => {}); // ignore network errors on logout
+  }
+  clearToken();
+  showLogin();
+}
+
+// ─── Token helpers ──────────────────────────────────────────────────────────
+function clearToken() {
+  accessToken = null;
+  sessionStorage.removeItem('adm_token');
 }
 
 // ─── Show / hide screens ───────────────────────────────────────────────────
@@ -96,18 +139,11 @@ function showDashboard(email) {
 }
 
 // ─── Fetch + render feedback ───────────────────────────────────────────────
-async function loadFeedback(accessToken) {
+async function loadFeedback() {
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/feedback?select=*&order=created_at.desc`,
-      {
-        headers: {
-          'apikey':        SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type':  'application/json'
-        }
-      }
-    );
+    const res = await fetch('/api/admin/feedback', {
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -140,7 +176,7 @@ function renderStats(rows) {
 }
 
 // ─── Table ─────────────────────────────────────────────────────────────────
-let currentRows = []; // keep a local copy so we can update stats without re-fetching
+let currentRows = [];
 
 function renderTable(rows) {
   currentRows = rows;
@@ -211,20 +247,10 @@ async function handleDelete(id, btn) {
   btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
 
   try {
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) throw new Error('No session');
-
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/feedback?id=eq.${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'apikey':        SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type':  'application/json'
-        }
-      }
-    );
+    const res = await fetch(`/api/admin/feedback/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -291,7 +317,7 @@ function hideLoginError() {
 
 function setLoginLoading(loading) {
   const btnText = document.getElementById('adm-btn-text');
-  loginBtn.disabled  = loading;
+  loginBtn.disabled = loading;
   if (btnText) btnText.textContent = loading ? 'Signing in…' : 'Sign In';
 }
 

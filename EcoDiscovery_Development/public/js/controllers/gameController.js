@@ -1,6 +1,6 @@
 import { gamePageData } from "../models/gameModel.js";
 import { renderGamePage, startGameTimer, stopDangerMode } from "../views/gameView.js";
-import { fetchGameData } from "../services/supabaseService.js";
+import { fetchGameData } from "../services/apiService.js";
 import { gameState, assignAnimalsToCards } from "../state/gameState.js";
 import { initTrashDrag } from "./trashDrag.js";
 

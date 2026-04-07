@@ -15,7 +15,8 @@ An interactive, browser-based educational web app for ENSE 281 at the University
 | Logic | Vanilla JavaScript (ES Modules) |
 | Architecture | MVC (Model / View / Controller) |
 | Backend / Database | Supabase (PostgreSQL REST API) |
-| Fonts | Google Fonts — Nunito |
+| Auth | Supabase Auth (admin login via Supabase JS SDK) |
+| Fonts | Google Fonts — Nunito, Fredoka One |
 | Icons | Font Awesome 6 |
 | Media | YouTube iframes (embedded via modal) |
 
@@ -31,7 +32,10 @@ No build tools, bundlers, or package managers are required. The project runs ent
 | Game | `game.html` | Timed card-matching game with sticker book and progressive hint system |
 | Videos | `videos.html` | Library of 6 educational YouTube videos displayed in animated TV-screen cards |
 | About | `about.html` | About the project and the development team |
-| Sources | `sources.html` | References and source citations |
+| Sources | `sources.html` | References and citations for all animal data and videos |
+| Admin | `admin.html` | Password-protected dashboard to view and manage user feedback submissions |
+
+A **Feedback modal** is also available globally on every page — triggered via the footer "Feedback" link. Users can submit their name, role, message, optional email, and a 1–5 star rating. All submissions are stored in Supabase.
 
 ---
 

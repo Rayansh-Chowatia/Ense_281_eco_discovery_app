@@ -767,7 +767,7 @@ body {
   height: auto;
   z-index: 3;
   filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.28));
-  animation: whitefishSwim 32s ease-in-out 3s infinite;
+  animation: whitefishSwim 32s ease-in-out -8s infinite;
 }
 
 @keyframes whitefishSwim {
@@ -788,7 +788,7 @@ body {
   height: auto;
   z-index: 3;
   filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.22));
-  animation: goldeyeDart 14s ease-in-out 1s infinite;
+  animation: goldeyeDart 14s ease-in-out -4s infinite;
 }
 
 @keyframes goldeyeDart {
@@ -809,7 +809,7 @@ body {
   height: auto;
   z-index: 3;
   filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.32));
-  animation: pikeStalk 15s ease-in-out 8s infinite;
+  animation: pikeStalk 15s ease-in-out -5s infinite;
 }
 
 @keyframes pikeStalk {

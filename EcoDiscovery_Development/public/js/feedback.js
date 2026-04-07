@@ -2,7 +2,6 @@
 // Global module — loaded on every page. Opens when any footer Feedback link
 // (data-action="open-feedback") is clicked.
 
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 
 // ─── Modal HTML template ───────────────────────────────────────────────────
 const MODAL_HTML = `
@@ -213,14 +212,9 @@ async function handleSubmit({ submitBtn, errorEl, form, successEl, successTitle 
   if (selectedRating > 0) body.rating = selectedRating;
 
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+    const res = await fetch('/api/feedback', {
       method: 'POST',
-      headers: {
-        'apikey':        SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type':  'application/json',
-        'Prefer':        'return=minimal'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
 
