@@ -1,0 +1,24 @@
+/* ═══════════════════════════════════════════════
+   ECO DISCOVERY — CURSOR SPARKLES
+   Same style as the Start Exploring button sparks,
+   spawned as the mouse moves.
+   ═══════════════════════════════════════════════ */
+
+.cs-sparkle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  animation: csSparkle 1.1s ease-out forwards;
+}
+
+@keyframes csSparkle {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  18%  { opacity: 1; transform: translate(-50%, calc(-50% - 10px)) scale(1.15); }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% - 34px)) scale(0.25); }
+}
+
+/* ── Respect reduced-motion ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cs-sparkle { display: none; }
+}
