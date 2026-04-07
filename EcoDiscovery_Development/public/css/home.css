@@ -461,20 +461,24 @@
   object-fit: cover;
 }
 
-.play-card:nth-child(2) .play-card-img {
+.play-card:nth-child(2) .play-card-img,
+.play-card:nth-child(3) .play-card-img {
   height: 240px;
   object-fit: cover;
 }
 
-.play-card:nth-child(2) .play-card-body {
+.play-card:nth-child(2) .play-card-body,
+.play-card:nth-child(3) .play-card-body {
   padding: 6px 14px 10px;
 }
 
-.play-card:nth-child(2) .play-card-title {
+.play-card:nth-child(2) .play-card-title,
+.play-card:nth-child(3) .play-card-title {
   font-size: 1.05rem;
 }
 
-.play-card:nth-child(2) .play-card-desc {
+.play-card:nth-child(2) .play-card-desc,
+.play-card:nth-child(3) .play-card-desc {
   font-size: 0.85rem;
 }
 

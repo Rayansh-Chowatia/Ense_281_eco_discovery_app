@@ -65,16 +65,30 @@
 /* ── Title block ─────────────────────────────── */
 .sources-title-block {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: srcFadeUp 0.75s ease-out both;
+}
+
+.src-hero-card {
+  background-color: #f5b942;
+  border-radius: 20px;
+  padding: 16px 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  border-bottom: 4px solid #c07800;
 }
 
 .sources-main-title {
-  font-family: 'Nunito', Arial, sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 900;
-  color: #1a3a5c;
-  margin-bottom: 10px;
-  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.7);
-  animation: srcFadeUp 0.75s ease-out both;
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  color: #3d1a00;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35), 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0;
 }
 
 .sources-main-sub {

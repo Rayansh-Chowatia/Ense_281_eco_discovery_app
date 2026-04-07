@@ -85,7 +85,9 @@ function renderHero(hero, fishSources, videoSources) {
       <div class="sources-overlay-content">
 
         <div class="sources-title-block">
-          <h1 class="sources-main-title">${hero.title}</h1>
+          <div class="src-hero-card">
+            <h1 class="sources-main-title">${hero.title}</h1>
+          </div>
           <p class="sources-main-sub">${hero.subtitle}</p>
         </div>
 
@@ -124,7 +126,7 @@ function renderFooter(footer) {
           <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
         <nav class="footer-nav" aria-label="Footer links">
-          ${footer.links.map(link => `<a href="${link.href}" class="footer-link${link.active ? " footer-link-active" : ""}">${link.label}</a>`).join("")}
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link${link.active ? " footer-link-active" : ""}"${link.label === 'Feedback' ? ' data-action="open-feedback"' : ''}>${link.label}</a>`).join("")}
         </nav>
         <p class="footer-copyright">${footer.copyright}</p>
       </div>

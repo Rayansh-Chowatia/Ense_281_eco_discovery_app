@@ -66,7 +66,9 @@ function renderHero(hero, mission, values, team) {
       <div class="about-hero-overlay-content">
 
         <div class="about-title-block">
-          <h1 class="about-main-title">About Eco Discovery 🌊</h1>
+          <div class="about-hero-card">
+            <h1 class="about-main-title">About Eco Discovery 🌊</h1>
+          </div>
           <p class="about-main-subtitle">Discover. Learn. Protect.</p>
         </div>
 
@@ -104,7 +106,7 @@ function renderFooter(footer) {
           <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
         <nav class="footer-nav" aria-label="Footer links">
-          ${footer.links.map(link => `<a href="${link.href}" class="footer-link">${link.label}</a>`).join("")}
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link"${link.label === 'Feedback' ? ' data-action="open-feedback"' : ''}>${link.label}</a>`).join("")}
         </nav>
         <p class="footer-copyright">${footer.copyright}</p>
       </div>

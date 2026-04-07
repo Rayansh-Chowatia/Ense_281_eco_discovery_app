@@ -523,10 +523,6 @@ export async function initGamePage() {
   const resetBtn = document.getElementById("btn-reset");
   if (resetBtn) resetBtn.addEventListener("click", handleReset);
 
-  // DEBUG — wire end-game shortcut button
-  const debugEndBtn = document.getElementById("btn-debug-end");
-  if (debugEndBtn) debugEndBtn.addEventListener("click", handleTimerExpiry);
-
   // 5. Wire start button
   attachStartButton();
 

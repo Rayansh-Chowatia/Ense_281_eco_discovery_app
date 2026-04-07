@@ -189,7 +189,7 @@ function renderFooter(footer) {
           <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
         <nav class="footer-nav" aria-label="Footer links">
-          ${footer.links.map(link => `<a href="${link.href}" class="footer-link">${link.label}</a>`).join("")}
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link"${link.label === 'Feedback' ? ' data-action="open-feedback"' : ''}>${link.label}</a>`).join("")}
         </nav>
         <p class="footer-copyright">${footer.copyright}</p>
       </div>

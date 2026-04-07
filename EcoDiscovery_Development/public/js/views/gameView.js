@@ -194,9 +194,6 @@ function renderHero(navBarColor, game) {
           <!-- 3f. Reset button -->
           <button class="sb-reset-btn" id="btn-reset" type="button">Reset Sticker Book</button>
 
-          <!-- DEBUG — remove before production -->
-          <button class="sb-debug-btn" id="btn-debug-end" type="button">⏱ End Game</button>
-
         </div>
 
       </div>
@@ -332,7 +329,7 @@ function renderFooter(footer) {
           <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
         </div>
         <nav class="footer-nav" aria-label="Footer links">
-          ${footer.links.map(link => `<a href="${link.href}" class="footer-link">${link.label}</a>`).join("")}
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link"${link.label === 'Feedback' ? ' data-action="open-feedback"' : ''}>${link.label}</a>`).join("")}
         </nav>
         <p class="footer-copyright">${footer.copyright}</p>
       </div>

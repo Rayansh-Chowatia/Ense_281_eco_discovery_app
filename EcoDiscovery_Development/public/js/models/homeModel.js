@@ -41,7 +41,7 @@ export const homePageData = {
         stepNumber: 3,
         title: "Watch Videos",
         description: "Watch fun nature videos and discover the secrets of freshwater ecosystems.",
-        image: "./assets/images/card-videos.png",
+        image: "./assets/images/home-vid.png",
         href: "#",
         color: "#3498DB"
       }
