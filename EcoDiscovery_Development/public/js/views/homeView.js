@@ -24,7 +24,7 @@ function renderHeader(header, siteName) {
           ${header.navLinks
             .map(
               (link) =>
-                `<a href="${link.href}" class="nav-link-icon" aria-label="${link.label}">
+                `<a href="${link.href}" class="nav-link-icon${link.active ? " active" : ""}" aria-label="${link.label}">
                   <img src="${link.icon}" alt="${link.label}" class="nav-icon-img">
                   <span class="nav-icon-label">${link.label}</span>
                 </a>`
@@ -49,7 +49,6 @@ function renderHero(hero) {
     .map(
       (card) => `
       <a href="${card.href}" class="play-card" style="--card-color: ${card.color};">
-        <div class="step-badge" style="background-color: ${card.color};">${card.stepNumber}</div>
         <img src="${card.image}" alt="${card.title}" class="play-card-img">
         <div class="play-card-body">
           <h3 class="play-card-title">${card.title}</h3>
@@ -86,7 +85,6 @@ function renderHero(hero) {
       </div>
 
       <img src="./assets/images/cloud1.png" class="cloud cloud1" alt="">
-      <img src="./assets/images/cloud2.png" class="cloud cloud2" alt="">
       <img src="./assets/images/cloud3.png" class="cloud cloud3" alt="">
 
       <img src="./assets/images/Bird-hero.png"  class="hero-bird hero-bird-1" alt="Flying bird">
@@ -105,18 +103,15 @@ function renderHero(hero) {
           </a>
         </div>
       </div>
-    </div>
-
-    <!-- PART 2: How to Play — below hero fold -->
-    <section class="how-to-play" aria-labelledby="how-to-play-heading">
-      <div class="container">
-        <h2 class="how-to-play-heading" id="how-to-play-heading">Your Adventure Awaits!</h2>
-        <p class="how-to-play-sub">Three steps to becoming an Eco Explorer</p>
-        <div class="play-cards-row">
-          ${playCardsHTML}
+      <!-- How to Play — overlaid on hero image -->
+      <section class="how-to-play" aria-labelledby="how-to-play-heading">
+        <div class="container">
+          <div class="play-cards-row">
+            ${playCardsHTML}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   `;
 }
 

@@ -1,7 +1,6 @@
 export function renderAboutPage(data) {
   renderHeader(data.header);
-  renderHero(data.hero);
-  renderContent(data.mission, data.values, data.team);
+  renderHero(data.hero, data.mission, data.values, data.team);
   renderFooter(data.footer);
 }
 
@@ -37,31 +36,21 @@ function renderHeader(header) {
   `;
 }
 
-function renderHero(hero) {
+function renderHero(hero, mission, values, team) {
   const heroSection = document.getElementById("hero-section");
 
-  heroSection.innerHTML = `
-    <div class="about-hero-wrapper">
-      <img src="${hero.backgroundImage}" alt="${hero.altText}" class="about-hero-image">
-    </div>
-  `;
-}
-
-function renderContent(mission, values, team) {
-  const contentSection = document.getElementById("about-content");
-
   const valuesHTML = values.map(v => `
-    <div class="about-value-card">
-      <div class="about-value-icon" style="background-color: ${v.color};">
+    <div class="about-glass-card">
+      <div class="about-glass-icon" style="background-color: ${v.color};">
         <i class="${v.icon}"></i>
       </div>
-      <h3 class="about-value-title">${v.title}</h3>
-      <p class="about-value-desc">${v.description}</p>
+      <h3 class="about-glass-card-title">${v.title}</h3>
+      <p class="about-glass-card-desc">${v.description}</p>
     </div>
   `).join("");
 
   const teamHTML = team.members.map(m => `
-    <div class="about-team-card">
+    <div class="about-team-glass-card">
       <div class="about-team-avatar">
         <i class="fa-solid fa-user"></i>
       </div>
@@ -70,33 +59,39 @@ function renderContent(mission, values, team) {
     </div>
   `).join("");
 
-  contentSection.innerHTML = `
-    <section class="about-mission-section">
-      <div class="container">
-        <h2 class="about-section-heading">${mission.heading}</h2>
-        <p class="about-mission-body">${mission.body}</p>
-      </div>
-    </section>
+  heroSection.innerHTML = `
+    <div class="about-hero-wrapper">
+      <img src="${hero.backgroundImage}" alt="${hero.altText}" class="about-hero-image">
 
-    <section class="about-values-section">
-      <div class="container">
-        <h2 class="about-section-heading">What We Stand For</h2>
-        <div class="about-values-row">
+      <div class="about-hero-overlay-content">
+
+        <div class="about-title-block">
+          <h1 class="about-main-title">About Eco Discovery 🌊</h1>
+          <p class="about-main-subtitle">Discover. Learn. Protect.</p>
+        </div>
+
+        <div class="about-glass-mission">
+          <p class="about-mission-text">${mission.body}</p>
+        </div>
+
+        <div class="about-glass-values-row">
           ${valuesHTML}
         </div>
-      </div>
-    </section>
 
-    <section class="about-team-section">
-      <div class="container">
-        <h2 class="about-section-heading">${team.heading}</h2>
-        <p class="about-team-sub">${team.subtitle}</p>
-        <div class="about-team-row">
-          ${teamHTML}
+        <div class="about-team-glass-section">
+          <h2 class="about-team-glass-heading">${team.heading}</h2>
+          <div class="about-team-glass-row">
+            ${teamHTML}
+          </div>
         </div>
+
       </div>
-    </section>
+    </div>
   `;
+
+  // Clear the old content section
+  const contentSection = document.getElementById("about-content");
+  if (contentSection) contentSection.innerHTML = "";
 }
 
 function renderFooter(footer) {

@@ -2,202 +2,228 @@
    ECO DISCOVERY — ABOUT US PAGE STYLES
    ═══════════════════════════════════════════════ */
 
-/* ── Hero ─────────────────────────────────────── */
+/* ── Hero wrapper — stretches to fit all content ── */
 .about-hero-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 520px;
+  height: auto;
+  min-height: 100vh;
   overflow: hidden;
 }
 
 .about-hero-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
 }
 
-@keyframes aboutFadeUp {
-  from { opacity: 0; transform: translateY(36px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ── All content overlaid on the hero image ──── */
+.about-hero-overlay-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 64px;
+  gap: 32px;
 }
 
-/* ── Shared section heading ───────────────────── */
-.about-section-heading {
-  font-size: clamp(1.9rem, 4vw, 2.9rem);
+/* ── Title block ─────────────────────────────── */
+.about-title-block {
+  text-align: center;
+}
+
+.about-main-title {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
   font-weight: 900;
   color: #1a3a5c;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
 }
 
-/* ── Mission Section ──────────────────────────── */
-.about-mission-section {
-  background: linear-gradient(180deg, #dff3ff 0%, #f0faff 100%);
-  padding: 80px 0 72px;
+.about-main-subtitle {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 800;
+  color: #1a3a5c;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.5);
 }
 
-.about-mission-body {
+/* ── Glassmorphic base ───────────────────────── */
+.about-glass-mission,
+.about-glass-card,
+.about-team-glass-card {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Mission glass card ──────────────────────── */
+.about-glass-mission {
   max-width: 780px;
-  margin: 0 auto;
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  font-weight: 600;
-  color: #3a5a7a;
-  line-height: 1.75;
+  width: 100%;
+  padding: 28px 36px;
   text-align: center;
 }
 
-/* ── Values Section ───────────────────────────── */
-.about-values-section {
-  background: #ffffff;
-  padding: 80px 0 80px;
+.about-mission-text {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  font-weight: 600;
+  color: #1a3a5c;
+  line-height: 1.75;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.4);
 }
 
-.about-values-row {
+/* ── Values glass cards row ──────────────────── */
+.about-glass-values-row {
   display: flex;
-  gap: 32px;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 48px;
+  width: 100%;
+  max-width: 1000px;
 }
 
-.about-value-card {
+.about-glass-card {
   flex: 1;
-  min-width: 240px;
-  max-width: 320px;
-  background: #f7fcff;
-  border-radius: 22px;
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.09);
-  padding: 36px 28px 32px;
+  min-width: 220px;
+  max-width: 300px;
+  padding: 28px 22px 26px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 14px;
+  gap: 12px;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
 }
 
-.about-value-card:hover {
+.about-glass-card:hover {
   transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
 }
 
-.about-value-icon {
-  width: 62px;
-  height: 62px;
+.about-glass-icon {
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: #ffffff;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-.about-value-title {
-  font-size: 1.15rem;
+.about-glass-card-title {
+  font-size: 1.1rem;
   font-weight: 900;
   color: #1a3a5c;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.4);
 }
 
-.about-value-desc {
-  font-size: 0.97rem;
+.about-glass-card-desc {
+  font-size: 0.92rem;
   font-weight: 600;
-  color: #5a7a9a;
+  color: #1a3a5c;
   line-height: 1.6;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
 }
 
-/* ── Team Section ─────────────────────────────── */
-.about-team-section {
-  background: linear-gradient(180deg, #dff3ff 0%, #eaf6fb 100%);
-  padding: 80px 0 96px;
-}
-
-.about-team-sub {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  font-weight: 600;
-  color: #5a7a9a;
-  text-align: center;
-  max-width: 620px;
-  margin: 0 auto 52px;
-  line-height: 1.6;
-}
-
-.about-team-row {
+/* ── Team glass section ──────────────────────── */
+.about-team-glass-section {
+  width: 100%;
+  max-width: 1000px;
   display: flex;
-  gap: 28px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.about-team-glass-heading {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: #1a3a5c;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.about-team-glass-row {
+  display: flex;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 
-.about-team-card {
+.about-team-glass-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.09);
-  padding: 32px 32px 28px;
-  min-width: 180px;
-  max-width: 220px;
+  padding: 26px 24px 22px;
+  min-width: 160px;
+  max-width: 200px;
   flex: 1;
   transition: transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.about-team-card:hover {
+.about-team-glass-card:hover {
   transform: translateY(-8px) scale(1.04);
 }
 
 .about-team-avatar {
-  width: 68px;
-  height: 68px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   background: linear-gradient(135deg, #2084BE, #4BA8A9);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(32, 132, 190, 0.35);
 }
 
 .about-team-name {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 900;
   color: #1a3a5c;
   text-align: center;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.4);
 }
 
 .about-team-role {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  color: #4BA8A9;
+  color: #1a5a6a;
   text-align: center;
   letter-spacing: 0.3px;
 }
 
 /* ── Responsive ────────────────────────────────── */
 @media (max-width: 768px) {
-  .about-hero-wrapper {
-    min-height: 480px;
-  }
-
-  .about-values-row,
-  .about-team-row {
+  .about-glass-values-row,
+  .about-team-glass-row {
     flex-direction: column;
     align-items: center;
   }
 
-  .about-value-card {
+  .about-glass-card {
     width: 88%;
     max-width: 420px;
     min-width: unset;
   }
 
-  .about-team-card {
+  .about-team-glass-card {
     width: 80%;
     max-width: 320px;
     min-width: unset;

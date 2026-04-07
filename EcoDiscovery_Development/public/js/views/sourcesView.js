@@ -1,7 +1,6 @@
 export function renderSourcesPage(data) {
   renderHeader(data.header);
-  renderHero(data.hero);
-  renderContent(data.fishSources, data.videoSources);
+  renderHero(data.hero, data.fishSources, data.videoSources);
   renderFooter(data.footer);
 }
 
@@ -37,24 +36,8 @@ function renderHeader(header) {
   `;
 }
 
-function renderHero(hero) {
+function renderHero(hero, fishSources, videoSources) {
   const heroSection = document.getElementById("hero-section");
-
-  heroSection.innerHTML = `
-    <div class="sources-hero-wrapper">
-      <img src="${hero.backgroundImage}" alt="${hero.altText}" class="sources-hero-image">
-      <img src="./assets/images/vid-fish1.png" alt="Swimming fish" class="src-fish src-fish-1">
-      <img src="./assets/images/vid-fish2.png" alt="Swimming fish" class="src-fish src-fish-2">
-      <div class="sources-hero-overlay">
-        <h1 class="sources-hero-title">${hero.title}</h1>
-        <p class="sources-hero-sub">${hero.subtitle}</p>
-      </div>
-    </div>
-  `;
-}
-
-function renderContent(fishSources, videoSources) {
-  const contentSection = document.getElementById("sources-content");
 
   const fishCardsHTML = fishSources.map(fish => {
     const sourcesHTML = fish.sources.length > 0
@@ -93,27 +76,42 @@ function renderContent(fishSources, videoSources) {
     </a>
   `).join("");
 
-  contentSection.innerHTML = `
-    <section class="src-fish-section">
-      <div class="container">
-        <h2 class="src-section-heading">Fish Information Sources</h2>
-        <p class="src-section-sub">References used for the freshwater animal facts and hints in the game.</p>
-        <div class="src-fish-grid">
-          ${fishCardsHTML}
-        </div>
-      </div>
-    </section>
+  heroSection.innerHTML = `
+    <div class="sources-hero-wrapper">
+      <img src="${hero.backgroundImage}" alt="${hero.altText}" class="sources-hero-image">
+      <img src="./assets/images/vid-fish1.png" alt="Swimming fish" class="src-fish src-fish-1">
+      <img src="./assets/images/vid-fish2.png" alt="Swimming fish" class="src-fish src-fish-2">
 
-    <section class="src-video-section">
-      <div class="container">
-        <h2 class="src-section-heading">Video Sources</h2>
-        <p class="src-section-sub">YouTube videos featured on the Videos page.</p>
-        <div class="src-video-list">
-          ${videoCardsHTML}
+      <div class="sources-overlay-content">
+
+        <div class="sources-title-block">
+          <h1 class="sources-main-title">${hero.title}</h1>
+          <p class="sources-main-sub">${hero.subtitle}</p>
         </div>
+
+        <div class="src-glass-section">
+          <h2 class="src-glass-heading">Fish Information Sources</h2>
+          <p class="src-glass-sub">References used for the freshwater animal facts and hints in the game.</p>
+          <div class="src-fish-grid">
+            ${fishCardsHTML}
+          </div>
+        </div>
+
+        <div class="src-glass-section">
+          <h2 class="src-glass-heading">Video Sources</h2>
+          <p class="src-glass-sub">YouTube videos featured on the Videos page.</p>
+          <div class="src-video-list">
+            ${videoCardsHTML}
+          </div>
+        </div>
+
       </div>
-    </section>
+    </div>
   `;
+
+  // Clear old content section
+  const contentSection = document.getElementById("sources-content");
+  if (contentSection) contentSection.innerHTML = "";
 }
 
 function renderFooter(footer) {

@@ -6,7 +6,7 @@
 /* ── Navigation Bar (shared styles from home.css reused) ── */
 .nav-bar {
   color: #ffffff;
-  padding: 2px 0;
+  padding: 1px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -51,19 +51,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 1px;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.nav-link-icon:hover,
-.nav-link-icon.active {
+.nav-link-icon:hover {
   transform: translateY(-4px) scale(1.1);
-  filter: brightness(1.15);
+  filter: brightness(1.1);
+}
+
+.nav-link-icon.active {
+  filter: brightness(1.25) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
 
 .nav-icon-img {
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   display: block;
 }
@@ -101,8 +104,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 24px;
-  padding-top: 2%;
+  gap: 10px;
+  padding-top: 1%;
 }
 
 .videos-hero-card {
@@ -174,31 +177,37 @@
 .videos-tv-grid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 6px;
   align-items: center;
 }
 
 .videos-tv-row {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 4px;
+  align-items: flex-start;
   justify-content: center;
 }
 
-/* ── TV wrapper ───────────────────────────────── */
-/* aspect-ratio 3/2 matches the TV PNGs (1536×1024).
-   This makes percentage top/height on children reliable. */
-.videos-tv-wrap {
-  position: relative;
-  width: 460px;
-  aspect-ratio: 3 / 2;
+/* ── TV unit (TV + label card together) ────────── */
+.tv-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  flex-shrink: 0;
   transition: transform 0.22s ease, filter 0.22s ease;
+  flex-shrink: 0;
 }
 
-.videos-tv-wrap:hover {
+.tv-unit:hover {
   transform: translateY(-8px) scale(1.06);
+}
+
+/* ── TV wrapper ───────────────────────────────── */
+.videos-tv-wrap {
+  position: relative;
+  width: 340px;
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
 }
 
 /* TV frame PNG — pinned to fill the wrapper exactly */
@@ -215,10 +224,10 @@
 /* Clipping box — defines the TV screen area, does not change size */
 .videos-tv-screen {
   position: absolute;
-  top: 56px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+  top: 41px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
   overflow: hidden;
   border-radius: 10px;
   z-index: 3;
@@ -245,75 +254,75 @@
    ─────────────────────────────────────────────── */
 
 /* TV 1 — beige retro round TV */
-[data-tv="1"] .videos-tv-screen {
-  top: 50px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+.tv-unit[data-tv="1"] .videos-tv-screen {
+  top: 37px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
 }
-[data-tv="1"] .videos-tv-thumb {
+.tv-unit[data-tv="1"] .videos-tv-thumb {
   width: 72.5%;
   height: 71%;
 }
 
 /* TV 2 — golden legs TV */
-[data-tv="2"] .videos-tv-screen {
-  top: 50px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+.tv-unit[data-tv="2"] .videos-tv-screen {
+  top: 37px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
 }
-[data-tv="2"] .videos-tv-thumb {
+.tv-unit[data-tv="2"] .videos-tv-thumb {
   width: 68%;
   height: 65%;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 /* TV 3 — red legs TV */
-[data-tv="3"] .videos-tv-screen {
-  top: 50px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+.tv-unit[data-tv="3"] .videos-tv-screen {
+  top: 37px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
 }
-[data-tv="3"] .videos-tv-thumb {
+.tv-unit[data-tv="3"] .videos-tv-thumb {
   width: 68%;
   height: 67%;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 /* TV 4 — green bottom-left TV */
-[data-tv="4"] .videos-tv-screen {
-  top: 50px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+.tv-unit[data-tv="4"] .videos-tv-screen {
+  top: 37px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
 }
-[data-tv="4"] .videos-tv-thumb {
+.tv-unit[data-tv="4"] .videos-tv-thumb {
   width: 67%;
   height: 70%;
 }
 
 /* TV 5 — pink bottom-center TV */
-[data-tv="5"] .videos-tv-screen {
-  top: 50px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+.tv-unit[data-tv="5"] .videos-tv-screen {
+  top: 37px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
 }
-[data-tv="5"] .videos-tv-thumb {
+.tv-unit[data-tv="5"] .videos-tv-thumb {
   width: 67%;
   height: 70%;
 }
 
 /* TV 6 — green bottom-right TV */
-[data-tv="6"] .videos-tv-screen {
-  top: 50px;
-  left: 82px;
-  width: 296px;
-  height: 166px;
+.tv-unit[data-tv="6"] .videos-tv-screen {
+  top: 37px;
+  left: 61px;
+  width: 219px;
+  height: 123px;
 }
-[data-tv="6"] .videos-tv-thumb {
+.tv-unit[data-tv="6"] .videos-tv-thumb {
   width: 67%;
   height: 70%;
 }
@@ -332,10 +341,6 @@
   pointer-events: none;
 }
 
-.videos-tv-wrap:hover .videos-tv-play,
-.videos-tv-wrap:focus-visible .videos-tv-play {
-  opacity: 1;
-}
 
 .videos-tv-play i {
   font-size: 3rem;
@@ -344,9 +349,64 @@
   transition: transform 0.2s ease;
 }
 
-.videos-tv-wrap:hover .videos-tv-play i {
+.tv-unit:hover .videos-tv-play,
+.tv-unit:focus-visible .videos-tv-play {
+  opacity: 1;
+}
+
+.tv-unit:hover .videos-tv-play i {
   transform: scale(1.15);
 }
+
+/* ── TV Label Card ───────────────────────────── */
+.tv-label-card {
+  position: relative;
+  width: 230px;
+  border-radius: 10px;
+  padding: 8px 12px 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  margin-top: -6px;
+  overflow: visible;
+}
+
+.tv-label-title {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+/* ── Label Sparkles ──────────────────────────── */
+@keyframes tvSparklePop {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  20%  { opacity: 1; transform: translateY(-10px) scale(1.1); }
+  80%  { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(-28px) scale(0.3); }
+}
+
+.tv-sparkle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  top: -4px;
+  pointer-events: none;
+  animation: tvSparklePop 2s ease-in-out infinite;
+}
+
+.tv-sparkle-1 { background: #FFD700; left: 8%;  animation-delay: 0s; }
+.tv-sparkle-2 { background: #FF6B6B; left: 26%; animation-delay: 0.4s; }
+.tv-sparkle-3 { background: #ffffff; left: 50%; animation-delay: 0.8s; }
+.tv-sparkle-4 { background: #FFE66D; left: 72%; animation-delay: 1.2s; }
+.tv-sparkle-5 { background: #A8E6CF; left: 90%; animation-delay: 1.6s; }
 
 
 /* ═══════════════════════════════════════════════

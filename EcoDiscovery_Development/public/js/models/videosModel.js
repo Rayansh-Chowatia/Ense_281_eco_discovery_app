@@ -6,6 +6,7 @@ export const videosPageData = {
     topBarColor: "#4BA8A9",
     navBarColor: "#2084BE",
     navLinks: [
+      { label: "Home",     href: "index.html",  icon: "./assets/images/home -icon.png" },
       { label: "Game",     href: "game.html",   icon: "./assets/images/Game-button.png" },
       { label: "Videos",   href: "videos.html", icon: "./assets/images/Videos-button.png", active: true },
       { label: "About Us", href: "about.html",  icon: "./assets/images/About-Us-button.png" }
@@ -37,7 +38,7 @@ export const videosPageData = {
       category: "Wildlife",
       color: "#2ECC71",
       iconClass: "fa-solid fa-fish",
-      youtubeId: "EY6o8dz1PZU"
+      youtubeId: "sKJoXdrOT70"
     },
     {
       id: 2,
@@ -64,7 +65,7 @@ export const videosPageData = {
       category: "Science",
       color: "#F39C12",
       iconClass: "fa-solid fa-flask",
-      youtubeId: "VR1XXmOrJME"
+      youtubeId: "rwXQilqrFiA"
     },
     {
       id: 5,
@@ -73,7 +74,7 @@ export const videosPageData = {
       category: "Conservation",
       color: "#E74C3C",
       iconClass: "fa-solid fa-leaf",
-      youtubeId: "rwXQilqrFiA"
+      youtubeId: "VR1XXmOrJME"
     },
     {
       id: 6,
@@ -82,7 +83,7 @@ export const videosPageData = {
       category: "Science",
       color: "#1ABC9C",
       iconClass: "fa-solid fa-cloud-rain",
-      youtubeId: "sKJoXdrOT70"
+      youtubeId: "EY6o8dz1PZU"
     }
   ],
 

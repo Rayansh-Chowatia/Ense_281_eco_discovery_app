@@ -6,6 +6,7 @@ export const homePageData = {
     topBarColor: "#4BA8A9",
     navBarColor: "#2084BE",
     navLinks: [
+      { label: "Home",     href: "index.html",  icon: "./assets/images/home -icon.png",     active: true },
       { label: "Game",     href: "game.html",   icon: "./assets/images/Game-button.png" },
       { label: "Videos",   href: "videos.html", icon: "./assets/images/Videos-button.png" },
       { label: "About Us", href: "about.html",  icon: "./assets/images/About-Us-button.png" }
@@ -24,7 +25,7 @@ export const homePageData = {
         stepNumber: 1,
         title: "Explore Animals",
         description: "Meet 6 amazing freshwater creatures that live in Saskatchewan lakes and rivers.",
-        image: "./assets/images/card-animals.png",
+        image: "./assets/images/game_interactive.png",
         href: "game.html",
         color: "#2ECC71"
       },
@@ -32,7 +33,7 @@ export const homePageData = {
         stepNumber: 2,
         title: "Collect Stickers",
         description: "Earn cool stickers as you learn and fill up your very own sticker book!",
-        image: "./assets/images/card-stickers.png",
+        image: "./assets/images/sticker-icon.png",
         href: "#",
         color: "#F39C12"
       },

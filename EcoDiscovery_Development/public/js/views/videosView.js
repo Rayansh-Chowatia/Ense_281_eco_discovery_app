@@ -45,13 +45,23 @@ function renderHero(hero, videos) {
     const id = video ? safeYoutubeId(video.youtubeId) : "";
     const thumb = id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
     const label = video ? escapeHtml(video.title) : "Video";
+    const color = video ? video.color : "#4BA8A9";
+    const sparkles = Array.from({length: 5}, (_, i) =>
+      `<span class="tv-sparkle tv-sparkle-${i+1}" aria-hidden="true"></span>`
+    ).join("");
     return `
-      <div class="videos-tv-wrap" data-youtube-id="${id}" data-tv="${tvNum}"
-           role="button" tabindex="0" aria-label="Play ${label}">
-        <img src="${src}" alt="TV" class="videos-tv-img">
-        <div class="videos-tv-screen">
-          ${thumb ? `<img src="${thumb}" alt="${label}" class="videos-tv-thumb" loading="lazy">` : ""}
-          <div class="videos-tv-play"><i class="fa-solid fa-circle-play"></i></div>
+      <div class="tv-unit" data-tv="${tvNum}">
+        <div class="videos-tv-wrap" data-youtube-id="${id}"
+             role="button" tabindex="0" aria-label="Play ${label}">
+          <img src="${src}" alt="TV" class="videos-tv-img">
+          <div class="videos-tv-screen">
+            ${thumb ? `<img src="${thumb}" alt="${label}" class="videos-tv-thumb" loading="lazy">` : ""}
+            <div class="videos-tv-play"><i class="fa-solid fa-circle-play"></i></div>
+          </div>
+        </div>
+        <div class="tv-label-card" style="background-color: ${color};">
+          ${sparkles}
+          <span class="tv-label-title">${label}</span>
         </div>
       </div>`;
   }
