@@ -161,6 +161,7 @@ function renderHero(navBarColor, game) {
 
           <!-- 3e. Hint history area -->
           <div class="sb-feedback" id="sb-feedback">
+            <p class="sb-fish-name-display" id="sb-fish-name"></p>
             <p class="sb-feedback-title" id="hint-history-label">Hint History</p>
             <div class="sb-hint-history" id="hint-history-list">
 
@@ -284,6 +285,12 @@ export function showTimerBonus(label = "+20s") {
   el.classList.remove("show");
   void el.offsetWidth;
   el.classList.add("show");
+}
+
+export function updateFishNameDisplay(name) {
+  const el = document.getElementById("sb-fish-name");
+  if (!el) return;
+  el.textContent = name ?? "";
 }
 
 // ── Danger mode (triggered at 60 s remaining) ─────────────────────────────────

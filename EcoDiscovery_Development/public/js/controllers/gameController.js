@@ -1,5 +1,5 @@
 import { gamePageData } from "../models/gameModel.js";
-import { renderGamePage, startGameTimer, stopGameTimer, stopDangerMode, setTimerDangerCallbacks } from "../views/gameView.js";
+import { renderGamePage, startGameTimer, stopGameTimer, stopDangerMode, setTimerDangerCallbacks, updateFishNameDisplay } from "../views/gameView.js";
 import { fetchGameData } from "../services/apiService.js";
 import { gameState, assignAnimalsToCards } from "../state/gameState.js";
 import { initTrashDrag } from "./trashDrag.js";
@@ -123,10 +123,12 @@ function attachCardClickHandlers() {
         if (gameState.activeCardId !== null) return; // don't disrupt an active turn
         const resolvedAnimalId = card.dataset.animalId;
         if (!resolvedAnimalId) return;
+        const reviewAnimal = gameState.animals.find(a => a.id === resolvedAnimalId);
         const allHints = gameState.hintsByAnimal[resolvedAnimalId] ?? [];
         gameState.unlockedHints = allHints.map(h => h.hint_text);
         syncFeedbackColor(card);
         renderHintHistory();
+        updateFishNameDisplay(reviewAnimal?.name ?? null);
         if (allHints.length > 0) updateFishFacts(allHints[allHints.length - 1].hint_text);
         return;
       }
@@ -145,6 +147,7 @@ function attachCardClickHandlers() {
       gameState.activeAnimalId = animalId;
       gameState.currentHintIndex = 0;
       gameState.unlockedHints    = [];
+      updateFishNameDisplay(null);
 
       // Move companion to game scene — frog tells user to click a fish
       setCompanionState('find-fish');
@@ -213,14 +216,17 @@ function handleCorrectGuess() {
     `;
   }
 
-  // Update state — leave unlockedHints intact so the child can see which clues they used.
-  // Hints are cleared when the next card is selected (in attachCardClickHandlers).
   gameState.solvedCards.add(cardIndex);
   gameState.activeCardId     = null;
   gameState.activeAnimalId   = null;
   gameState.currentHintIndex = 0;
 
+  // Reveal ALL hints now that the fish is discovered
+  gameState.unlockedHints = (gameState.hintsByAnimal[animal.id] ?? []).map(h => h.hint_text);
+  renderHintHistory();
+
   updateFishFacts("Select a card to see a hint!");
+  updateFishNameDisplay(animal.name);
   updateCounter();
   resumeCardPulse();
 
@@ -287,16 +293,16 @@ function handleFailure() {
     `;
   }
 
-  // Update state — keep unlockedHints so renderHintHistory shows ALL hints the child saw.
-  // Hints are cleared when the next card is selected (in attachCardClickHandlers).
   gameState.failedCards.add(cardIndex);
   gameState.activeCardId     = null;
   gameState.activeAnimalId   = null;
   gameState.currentHintIndex = 0;
 
-  // Show all accumulated hints in history, then clear the Fish Facts box.
+  // Reveal ALL hints now that the fish has been failed
+  gameState.unlockedHints = (gameState.hintsByAnimal[animal.id] ?? []).map(h => h.hint_text);
   renderHintHistory();
   updateFishFacts("Select a card to see a hint!");
+  updateFishNameDisplay(animal.name);
   updateCounter();
   resumeCardPulse();
 
@@ -475,6 +481,7 @@ async function handleReset() {
   if (feedback) feedback.style.removeProperty("--active-card-color");
 
   updateFishFacts("Select a card to see a hint!");
+  updateFishNameDisplay(null);
   updateCounter();
   renderHintHistory();
   setCompanionState('pick-card');
