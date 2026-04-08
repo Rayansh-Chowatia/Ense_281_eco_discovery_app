@@ -162,10 +162,6 @@ function renderHero(hero) {
         <img src="./assets/images/Frog_explorer_1.png" class="mascot-img" alt="Froggy the explorer">
         <div class="mascot-bubble">Hi, I'm Froggy!<br>Do you wanna join the adventure?</div>
       </div>
-      <div class="mascot-wrap mascot-right">
-        <img src="./assets/images/Frog_explorer_2.png" class="mascot-img" alt="Ducky the explorer">
-        <div class="mascot-bubble">Hey, I'm Ducky!<br>Sure, let's go on an adventure!</div>
-      </div>
 
       <div class="hero-content">
         <h1 class="hero-title">${hero.welcomeTitle}</h1>

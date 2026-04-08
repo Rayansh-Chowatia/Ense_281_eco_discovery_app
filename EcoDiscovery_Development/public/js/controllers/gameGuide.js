@@ -468,16 +468,47 @@ function _createCompanion() {
 /** Pin companion just above the trash bin — only valid while in danger mode */
 function _positionCompanionBottom(companion) {
   if (_dangerLevel === 0) return; // guard: don't run when timer is healthy
-  const bin = document.getElementById('trash-drop-zone')
-           || document.querySelector('.game-trash-bin-wrap');
-  if (bin) {
-    const r = bin.getBoundingClientRect();
-    // Center the avatar horizontally over the bin, place it just above
-    companion.style.left      = `${Math.round(r.left + r.width / 2 - 33)}px`;
-    companion.style.top       = `${Math.round(r.top - 80)}px`;
+
+  const scene = document.querySelector('.game-scene-container');
+  const bin   = document.getElementById('trash-drop-zone')
+             || document.querySelector('.game-trash-bin-wrap');
+
+  if (bin && scene) {
+    const br = bin.getBoundingClientRect();
+    const sr = scene.getBoundingClientRect();
+
+    // The trash bin has negative left/bottom offsets and is clipped by
+    // overflow:hidden on the scene container. Use its center but clamp
+    // the result inside the visible scene so the frog stays on the image.
+    const centerX = br.left + br.width / 2;
+    const clampedX = Math.max(sr.left + 20, Math.min(centerX, sr.right - 20));
+    const clampedBinTop = Math.max(sr.top, Math.min(br.top, sr.bottom));
+
+    let left = Math.round(clampedX - 33);
+    let top  = Math.round(clampedBinTop - 90);
+
+    // Keep entirely within the game scene image
+    left = Math.max(sr.left + 8,        Math.min(left, sr.right  - 90));
+    top  = Math.max(sr.top  + 20,       Math.min(top,  sr.bottom - 140));
+
+    companion.style.left      = `${left}px`;
+    companion.style.top       = `${top}px`;
     companion.style.transform = '';
+
+  } else if (bin) {
+    const r = bin.getBoundingClientRect();
+    companion.style.left      = `${Math.round(r.left + r.width / 2 - 33)}px`;
+    companion.style.top       = `${Math.max(50, Math.min(r.top - 90, window.innerHeight - 140))}px`;
+    companion.style.transform = '';
+
+  } else if (scene) {
+    // Fallback: lower-left corner of the game scene image
+    const sr = scene.getBoundingClientRect();
+    companion.style.left      = `${Math.round(sr.left + sr.width  * 0.08)}px`;
+    companion.style.top       = `${Math.round(sr.top  + sr.height * 0.72)}px`;
+    companion.style.transform = '';
+
   } else {
-    // Fallback: bottom-center
     companion.style.left      = `${Math.round(window.innerWidth / 2 - 33)}px`;
     companion.style.top       = `${window.innerHeight - 96}px`;
     companion.style.transform = '';

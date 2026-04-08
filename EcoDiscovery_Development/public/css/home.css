@@ -445,7 +445,6 @@
 }
 
 .mascot-left  { left: 0;  flex-direction: row;         animation-delay: 0.3s; }
-.mascot-right { right: 0; flex-direction: row-reverse; animation-delay: 0.6s; }
 
 .mascot-img {
   width: clamp(110px, 10vw, 155px);
@@ -506,16 +505,6 @@
   border-right: 9px solid #fffde8;
 }
 
-/* Right mascot: tail points RIGHT toward duck */
-.mascot-right .mascot-bubble::before {
-  right: -13px;
-  border-left: 13px solid #c9a227;
-}
-.mascot-right .mascot-bubble::after {
-  right: -9px;
-  border-left: 9px solid #fffde8;
-}
-
 /* ── Mascot Bubble Banner Reveal ────────────── */
 @keyframes bubbleBannerIn {
   from {
@@ -532,12 +521,6 @@
 .mascot-left .mascot-bubble {
   transform-origin: left center;
   animation: bubbleBannerIn 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) 1.3s both;
-}
-
-/* Ducky replies — unfurls right → left, after Froggy finishes */
-.mascot-right .mascot-bubble {
-  transform-origin: right center;
-  animation: bubbleBannerIn 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) 2.1s both;
 }
 
 /* ═══════════════════════════════════════════════

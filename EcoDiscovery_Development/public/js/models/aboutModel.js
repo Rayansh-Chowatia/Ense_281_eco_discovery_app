@@ -50,10 +50,10 @@ export const aboutPageData = {
     heading: "Meet the Team",
     subtitle: "We are ENSE 281 students at the University of Regina passionate about technology and the environment.",
     members: [
-      { name: "Aubin Iradukunda",    role: "Developer & Designer" },
-      { name: "Team Member 2",       role: "Developer" },
-      { name: "Team Member 3",       role: "Developer" },
-      { name: "Team Member 4",       role: "Developer" }
+      { name: "Rayansh",   role: "ENSE 281" },
+      { name: "Aubin",     role: "ENSE 281" },
+      { name: "Abrianna",  role: "ENSE 281" },
+      { name: "Jeremiah",  role: "ENSE 281" }
     ]
   },
 

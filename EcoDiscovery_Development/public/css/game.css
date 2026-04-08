@@ -595,7 +595,6 @@ body {
 
 .game-scene--frozen .sinking-trash {
   opacity: 0 !important;
-  animation-play-state: paused !important;
 }
 
 
@@ -657,8 +656,7 @@ body {
   height: auto;
   pointer-events: auto;
   z-index: 2;
-  opacity: 0;
-  animation-fill-mode: forwards;
+  opacity: 1;
   cursor: grab;
   transition: filter 0.18s ease;
   user-select: none;
@@ -698,27 +696,20 @@ body {
 
 .sinking-trash-1 {
   left: 20%;
-  animation: trashSink 7s ease-in forwards;
-  animation-delay: 0s;
+  top: 75%;
+  transform: rotate(-4deg) translateX(-3px);
 }
 
 .sinking-trash-2 {
   left: 46%;
-  animation: trashSink 8s ease-in forwards;
-  animation-delay: 2.5s;
+  top: 76%;
+  transform: rotate(5deg) translateX(3px);
 }
 
 .sinking-trash-3 {
   left: 76%;
-  animation: trashSink 6.5s ease-in forwards;
-  animation-delay: 1.2s;
-}
-
-@keyframes trashSink {
-  0%   { top: 34%; opacity: 0;    transform: rotate(-8deg)  translateX(0); }
-  8%   { opacity: 1; }
-  50%  { transform: rotate(6deg)  translateX(4px); }
-  100% { top: 75%; opacity: 1;    transform: rotate(-4deg) translateX(-3px); }
+  top: 74%;
+  transform: rotate(-6deg) translateX(2px);
 }
 
 .game-crab {
