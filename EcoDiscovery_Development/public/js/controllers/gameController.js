@@ -1,5 +1,5 @@
 import { gamePageData } from "../models/gameModel.js";
-import { renderGamePage, startGameTimer, stopDangerMode } from "../views/gameView.js";
+import { renderGamePage, startGameTimer, stopGameTimer, stopDangerMode } from "../views/gameView.js";
 import { fetchGameData } from "../services/apiService.js";
 import { gameState, assignAnimalsToCards } from "../state/gameState.js";
 import { initTrashDrag } from "./trashDrag.js";
@@ -313,6 +313,10 @@ function playShuffleAnimation() {
 
 function showEndOverlay() {
   gameState.gameStatus = "complete";
+
+  // Stop the timer and clear danger mode
+  stopGameTimer();
+  stopDangerMode();
 
   // Freeze all scene animations (birds, fish, crab, trash)
   const sceneContainer = document.querySelector(".game-scene-container");

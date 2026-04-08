@@ -133,17 +133,22 @@ a {
 /* ── Footer (shared across all pages) ───────── */
 .site-footer {
   width: 100%;
-  padding: 14px 0;
+  padding: 40px 0;
 }
 
 .footer-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 10px;
+  position: relative;
 }
 
 .footer-logo {
-  flex-shrink: 0;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .footer-logo-img {

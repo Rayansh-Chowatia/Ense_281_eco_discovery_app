@@ -47,7 +47,7 @@
 
 .nav-menu {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 14px;
   flex-wrap: wrap;
 }
@@ -356,6 +356,190 @@
   to   { transform: translateX(100px); }
 }
 
+/* ── Wooden Slate Panels ────────────────────── */
+.slate-panel {
+  position: absolute;
+  z-index: 5;
+  width: 300px;
+  min-height: 340px;
+  background-image: url('../assets/images/Wooden_Slate.png');
+  background-size: 100% 100%;
+  padding: 40px 30px 36px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.slate-left {
+  left: 0;
+  top: 40%;
+  transform: rotate(-3deg);
+}
+
+.slate-right {
+  right: 0;
+  top: 40%;
+  transform: rotate(3deg);
+}
+
+.slate-title {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff3c0;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.75), 0 0 8px rgba(0,0,0,0.4);
+  margin: 0 0 14px 0;
+  letter-spacing: 0.3px;
+}
+
+.slate-content {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.slate-row {
+  background: rgba(255, 238, 195, 0.90);
+  border-radius: 10px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #3d1a00;
+  border: 1px solid rgba(180, 120, 40, 0.35);
+  white-space: nowrap;
+}
+
+.slate-progress {
+  background: rgba(255, 220, 100, 0.95);
+  border-color: rgba(180, 120, 40, 0.55);
+  margin-top: 4px;
+  font-size: 0.97rem;
+  font-weight: 900;
+  color: #5a2d00;
+}
+
+.slate-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── Mascots ────────────────────────────────── */
+@keyframes mascotEntrance {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.mascot-wrap {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+  animation: mascotEntrance 0.7s ease-out both;
+}
+
+.mascot-left  { left: 0;  flex-direction: row;         animation-delay: 0.3s; }
+.mascot-right { right: 0; flex-direction: row-reverse; animation-delay: 0.6s; }
+
+.mascot-img {
+  width: clamp(110px, 10vw, 155px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(2px 6px 8px rgba(0,0,0,0.28));
+}
+
+.mascot-bubble {
+  background: #fffde8;
+  border: 2.5px solid #c9a227;
+  border-radius: 18px;
+  padding: 9px 16px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(0.78rem, 1.05vw, 0.96rem);
+  font-weight: 800;
+  color: #3d1a00;
+  white-space: normal;
+  max-width: 180px;
+  text-align: center;
+  line-height: 1.4;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+  position: relative;
+  margin-bottom: 28px; /* lift bubble to roughly head level */
+}
+
+/* Border triangle (outline layer) */
+.mascot-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+}
+
+/* Fill triangle (inner layer) */
+.mascot-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+/* Left mascot: tail points LEFT toward frog */
+.mascot-left .mascot-bubble::before {
+  left: -13px;
+  border-right: 13px solid #c9a227;
+}
+.mascot-left .mascot-bubble::after {
+  left: -9px;
+  border-right: 9px solid #fffde8;
+}
+
+/* Right mascot: tail points RIGHT toward duck */
+.mascot-right .mascot-bubble::before {
+  right: -13px;
+  border-left: 13px solid #c9a227;
+}
+.mascot-right .mascot-bubble::after {
+  right: -9px;
+  border-left: 9px solid #fffde8;
+}
+
+/* ── Mascot Bubble Banner Reveal ────────────── */
+@keyframes bubbleBannerIn {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Froggy speaks first — unfurls left → right */
+.mascot-left .mascot-bubble {
+  transform-origin: left center;
+  animation: bubbleBannerIn 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) 1.3s both;
+}
+
+/* Ducky replies — unfurls right → left, after Froggy finishes */
+.mascot-right .mascot-bubble {
+  transform-origin: right center;
+  animation: bubbleBannerIn 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) 2.1s both;
+}
+
 /* ═══════════════════════════════════════════════
    HOW TO PLAY SECTION
    ═══════════════════════════════════════════════ */
@@ -470,6 +654,101 @@
 .play-card:nth-child(2) .play-card-body,
 .play-card:nth-child(3) .play-card-body {
   padding: 6px 14px 10px;
+}
+
+/* ── Bubbles ────────────────────────────────── */
+@keyframes bubbleRise {
+  0%   { transform: translateY(0)      translateX(0px);   opacity: 0;   }
+  8%   { opacity: 0.88; }
+  40%  { transform: translateY(-38vh)  translateX(12px);  }
+  65%  { transform: translateY(-62vh)  translateX(-10px); }
+  88%  { opacity: 0.55; }
+  100% { transform: translateY(-100vh) translateX(6px);   opacity: 0;   }
+}
+
+@keyframes bsShine {
+  0%,100% { opacity: 0;    transform: scale(0.3) rotate(0deg);   }
+  40%      { opacity: 0.95; transform: scale(1.15) rotate(45deg); }
+  60%      { opacity: 0.7;  transform: scale(0.9)  rotate(90deg); }
+}
+
+.bubble-wrap {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.bubble-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* 4-point star sparkle shape */
+.bsparkle {
+  position: absolute;
+  clip-path: polygon(50% 0%, 56% 44%, 100% 50%, 56% 56%, 50% 100%, 44% 56%, 0% 50%, 44% 44%);
+  background: #ffffff;
+  filter: drop-shadow(0 0 3px #ffffffcc) drop-shadow(0 0 6px #a8f0ffaa);
+  pointer-events: none;
+}
+
+/* sparkle positions inside each bubble */
+.bsp1 { width: 9px;  height: 9px;  top: 22%; left: 24%; animation: bsShine 1.9s ease-in-out -0.2s infinite; }
+.bsp2 { width: 6px;  height: 6px;  top: 38%; left: 64%; animation: bsShine 2.4s ease-in-out -0.8s infinite; }
+.bsp3 { width: 11px; height: 11px; top: 60%; left: 32%; animation: bsShine 1.6s ease-in-out -1.3s infinite; }
+.bsp4 { width: 7px;  height: 7px;  top: 28%; left: 52%; animation: bsShine 2.1s ease-in-out -0.5s infinite; }
+
+/* ── Bubble Burst (page-load curtain transition) ── */
+@keyframes bubbleRiseBurst {
+  0%   { transform: translateY(0)        translateX(0);              opacity: 0;    }
+  6%   { opacity: 0.92; }
+  45%  { transform: translateY(-50vh)    translateX(var(--sway, 10px)); opacity: 0.8; }
+  82%  { transform: translateY(-90vh)    translateX(var(--sway, 10px)); opacity: 0.3; }
+  100% { transform: translateY(-115vh)   translateX(var(--sway, 10px)); opacity: 0;   }
+}
+
+.bubble-burst-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  transition: opacity 1.6s ease-out;
+}
+
+.bubble-burst-wrap--fade {
+  opacity: 0;
+}
+
+.bburst {
+  position: absolute;
+  pointer-events: none;
+  animation-name: bubbleRiseBurst;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+/* Individual bubble sizes, positions, and staggered rise timings */
+.bubble-1 {
+  width: 72px;
+  left: 16%;
+  bottom: -80px;
+  animation: bubbleRise 20s ease-in-out -6s infinite;
+}
+
+.bubble-2 {
+  width: 52px;
+  left: 48%;
+  bottom: -60px;
+  animation: bubbleRise 25s ease-in-out -14s infinite;
+}
+
+.bubble-3 {
+  width: 86px;
+  left: 76%;
+  bottom: -95px;
+  animation: bubbleRise 17s ease-in-out -9s infinite;
 }
 
 .play-card:nth-child(2) .play-card-title,

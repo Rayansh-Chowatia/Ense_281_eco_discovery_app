@@ -307,6 +307,10 @@ function _startGuideAlternation() {
   _guideAltInterval = setInterval(cycle, 5000);
 }
 
+export function stopGameTimer() {
+  if (_timerInterval) { clearInterval(_timerInterval); _timerInterval = null; }
+}
+
 export function stopDangerMode() {
   if (_guideAltInterval) { clearInterval(_guideAltInterval); _guideAltInterval = null; }
   if (_guideAltTimeout)  { clearTimeout(_guideAltTimeout);   _guideAltTimeout  = null; }

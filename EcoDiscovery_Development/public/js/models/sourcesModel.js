@@ -147,7 +147,6 @@ export const sourcesPageData = {
     backgroundColor: "#4BA8A9",
     logo: { image: "./assets/images/logo-fish.png", altText: "Eco Discovery fish logo" },
     links: [
-      { label: "Credits",    href: "#" },
       { label: "Contact Us", href: "#" },
       { label: "Sources",    href: "sources.html", active: true },
       { label: "Feedback",   href: "#" }

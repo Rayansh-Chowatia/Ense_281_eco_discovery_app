@@ -36,6 +36,51 @@ function renderHeader(header, siteName) {
   `;
 }
 
+function triggerBubbleBurst(heroEl) {
+  const wrap = document.createElement('div');
+  wrap.className = 'bubble-burst-wrap';
+  heroEl.appendChild(wrap);
+
+  const COUNT = 26;
+  for (let i = 0; i < COUNT; i++) {
+    const bbl  = document.createElement('div');
+    bbl.className = 'bburst';
+
+    const size  = 22 + Math.random() * 66;                          // 22–88px
+    const left  = (i / COUNT) * 100 + (Math.random() - 0.5) * 5;  // evenly spread with jitter
+    const delay = Math.random() * 0.5;                              // 0–0.5s stagger
+    const dur   = 2.6 + Math.random() * 2.0;                       // 2.6–4.6s rise
+    const sway  = ((Math.random() - 0.5) * 44).toFixed(1);         // ±22px horizontal sway
+
+    bbl.style.width            = `${size}px`;
+    bbl.style.left             = `${Math.max(0.5, Math.min(98.5, left))}%`;
+    bbl.style.bottom           = `-${size + 8}px`;
+    bbl.style.animationDuration = `${dur}s`;
+    bbl.style.animationDelay   = `${delay}s`;
+    bbl.style.setProperty('--sway', `${sway}px`);
+
+    const img = document.createElement('img');
+    img.src = './assets/images/bubble.png';
+    img.className = 'bubble-img';
+    img.alt = '';
+    bbl.appendChild(img);
+
+    // 2 sparkles per burst bubble (lighter than ambient)
+    ['bsp1', 'bsp3'].forEach(cls => {
+      const sp = document.createElement('span');
+      sp.className = `bsparkle ${cls}`;
+      bbl.appendChild(sp);
+    });
+
+    wrap.appendChild(bbl);
+  }
+
+  // Start fading out the whole burst after the peak density clears
+  setTimeout(() => wrap.classList.add('bubble-burst-wrap--fade'), 900);
+  // Remove from DOM once fully gone
+  setTimeout(() => wrap.remove(), 5200);
+}
+
 function renderHero(hero) {
   const heroSection = document.getElementById("hero-section");
 
@@ -93,6 +138,35 @@ function renderHero(hero) {
 
       <div class="hero-overlay"></div>
 
+      <!-- Wooden Slate Panels -->
+      <div class="slate-panel slate-left">
+        <div class="slate-content">
+          <h3 class="slate-title">What You'll Learn</h3>
+          <div class="slate-row"><span class="slate-icon">🔍</span><span>Discover Animals</span></div>
+          <div class="slate-row"><span class="slate-icon">💡</span><span>Solve Hints</span></div>
+          <div class="slate-row"><span class="slate-icon">🏷️</span><span>Collect Stickers</span></div>
+        </div>
+      </div>
+      <div class="slate-panel slate-right">
+        <div class="slate-content">
+          <h3 class="slate-title">Your Mission</h3>
+          <div class="slate-row"><span class="slate-icon">🐸</span><span>Find an Animal</span></div>
+          <div class="slate-row"><span class="slate-icon">🌿</span><span>Nature Helper</span></div>
+          <div class="slate-row"><span class="slate-icon">🏆</span><span>Eco Explorer</span></div>
+
+        </div>
+      </div>
+
+      <!-- Mascots -->
+      <div class="mascot-wrap mascot-left">
+        <img src="./assets/images/Frog_explorer_1.png" class="mascot-img" alt="Froggy the explorer">
+        <div class="mascot-bubble">Hi, I'm Froggy!<br>Do you wanna join the adventure?</div>
+      </div>
+      <div class="mascot-wrap mascot-right">
+        <img src="./assets/images/Frog_explorer_2.png" class="mascot-img" alt="Ducky the explorer">
+        <div class="mascot-bubble">Hey, I'm Ducky!<br>Sure, let's go on an adventure!</div>
+      </div>
+
       <div class="hero-content">
         <h1 class="hero-title">${hero.welcomeTitle}</h1>
         <p class="hero-subtitle">${hero.subtitle}</p>
@@ -111,8 +185,35 @@ function renderHero(hero) {
           </div>
         </div>
       </section>
+
+      <!-- Ambient bubbles (always present) -->
+      <div class="bubble-wrap bubble-1" aria-hidden="true">
+        <img src="./assets/images/bubble.png" class="bubble-img" alt="">
+        <span class="bsparkle bsp1"></span>
+        <span class="bsparkle bsp2"></span>
+        <span class="bsparkle bsp3"></span>
+        <span class="bsparkle bsp4"></span>
+      </div>
+      <div class="bubble-wrap bubble-2" aria-hidden="true">
+        <img src="./assets/images/bubble.png" class="bubble-img" alt="">
+        <span class="bsparkle bsp1"></span>
+        <span class="bsparkle bsp2"></span>
+        <span class="bsparkle bsp3"></span>
+        <span class="bsparkle bsp4"></span>
+      </div>
+      <div class="bubble-wrap bubble-3" aria-hidden="true">
+        <img src="./assets/images/bubble.png" class="bubble-img" alt="">
+        <span class="bsparkle bsp1"></span>
+        <span class="bsparkle bsp2"></span>
+        <span class="bsparkle bsp3"></span>
+        <span class="bsparkle bsp4"></span>
+      </div>
     </div>
   `;
+
+  // Fire the burst curtain on every page load / reload
+  const heroWrapper = heroSection.querySelector('.hero-background-wrapper');
+  if (heroWrapper) triggerBubbleBurst(heroWrapper);
 }
 
 // Dead code — kept for reference, not called
