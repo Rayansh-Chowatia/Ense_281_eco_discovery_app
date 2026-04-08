@@ -23,13 +23,10 @@ export const videosPageData = {
       "./assets/images/tv2.png",
       "./assets/images/tv3.png",
       "./assets/images/tv4.png",
-      "./assets/images/tv5.png",
-      "./assets/images/tv6.png"
+      "./assets/images/tv5.png"
     ]
   },
 
-  // youtubeId: paste the 11-character video ID from the YouTube URL
-  // e.g. youtube.com/watch?v=dQw4w9WgXcQ  →  youtubeId: "dQw4w9WgXcQ"
   videos: [
     {
       id: 1,
@@ -38,7 +35,7 @@ export const videosPageData = {
       category: "Wildlife",
       color: "#2ECC71",
       iconClass: "fa-solid fa-fish",
-      youtubeId: "sKJoXdrOT70"
+      videoSrc: "./assets/videos/walleye-vid.mp4"
     },
     {
       id: 2,
@@ -47,25 +44,26 @@ export const videosPageData = {
       category: "Ecosystems",
       color: "#3498DB",
       iconClass: "fa-solid fa-water",
-      youtubeId: "95O7nocd2N4"
+      videoSrc: "./assets/videos/fresheco-vid.mp4"
     },
     {
       id: 3,
-      title: "The Amazing Dragonfly",
-      description: "Learn how dragonflies start life underwater and become incredible aerial hunters.",
-      category: "Insects",
+      title: "The Amazing Sturgeon",
+      description: "Discover the ancient and incredible sturgeon fish that have roamed our waterways for millions of years.",
+      category: "Wildlife",
       color: "#9B59B6",
-      iconClass: "fa-solid fa-bug",
-      youtubeId: "UkyAjFD6KcY"
+      iconClass: "fa-solid fa-fish",
+      videoSrc: "./assets/videos/sturg-vid.mp4",
+      thumbnail: "./assets/images/thumbnail1.png"
     },
     {
       id: 4,
-      title: "How Do Fish Breathe?",
-      description: "Find out the science behind gills and how fish get oxygen from the water.",
+      title: "Life of a Crayfish",
+      description: "Find out how crayfish survive and thrive in freshwater streams and lakes.",
       category: "Science",
       color: "#F39C12",
       iconClass: "fa-solid fa-flask",
-      youtubeId: "rwXQilqrFiA"
+      videoSrc: "./assets/videos/crayfish-vid.mp4"
     },
     {
       id: 5,
@@ -74,16 +72,8 @@ export const videosPageData = {
       category: "Conservation",
       color: "#E74C3C",
       iconClass: "fa-solid fa-leaf",
-      youtubeId: "VR1XXmOrJME"
-    },
-    {
-      id: 6,
-      title: "The Water Cycle Adventure",
-      description: "Follow a water droplet on its incredible journey from a lake to a cloud and back again.",
-      category: "Science",
-      color: "#1ABC9C",
-      iconClass: "fa-solid fa-cloud-rain",
-      youtubeId: "EY6o8dz1PZU"
+      videoSrc: "./assets/videos/rivdelta-vid.mp4",
+      thumbnail: "./assets/images/thumbnail2.png"
     }
   ],
 
@@ -91,7 +81,6 @@ export const videosPageData = {
     backgroundColor: "#4BA8A9",
     logo: { image: "./assets/images/logo-fish.png", altText: "Eco Discovery fish logo" },
     links: [
-      { label: "Contact Us", href: "#" },
       { label: "Sources",    href: "sources.html" },
       { label: "Feedback",   href: "#" }
     ],

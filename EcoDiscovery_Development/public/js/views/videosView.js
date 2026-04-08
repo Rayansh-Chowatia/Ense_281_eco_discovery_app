@@ -42,20 +42,25 @@ function renderHero(hero, videos) {
   const heroSection = document.getElementById("hero-section");
 
   function makeTvCard(src, video, tvNum) {
-    const id = video ? safeYoutubeId(video.youtubeId) : "";
-    const thumb = id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
+    const videoSrc = video ? video.videoSrc : "";
+    const thumbnail = video ? video.thumbnail : "";
     const label = video ? escapeHtml(video.title) : "Video";
     const color = video ? video.color : "#4BA8A9";
     const sparkles = Array.from({length: 5}, (_, i) =>
       `<span class="tv-sparkle tv-sparkle-${i+1}" aria-hidden="true"></span>`
     ).join("");
+    const thumbEl = thumbnail
+      ? `<img src="${thumbnail}" alt="${label}" class="videos-tv-thumb" loading="lazy">`
+      : videoSrc
+        ? `<video src="${videoSrc}" class="videos-tv-thumb" preload="metadata" muted playsinline></video>`
+        : "";
     return `
       <div class="tv-unit" data-tv="${tvNum}">
-        <div class="videos-tv-wrap" data-youtube-id="${id}"
+        <div class="videos-tv-wrap" data-video-src="${videoSrc}"
              role="button" tabindex="0" aria-label="Play ${label}">
           <img src="${src}" alt="TV" class="videos-tv-img">
           <div class="videos-tv-screen">
-            ${thumb ? `<img src="${thumb}" alt="${label}" class="videos-tv-thumb" loading="lazy">` : ""}
+            ${thumbEl}
             <div class="videos-tv-play"><i class="fa-solid fa-circle-play"></i></div>
           </div>
         </div>
@@ -68,7 +73,7 @@ function renderHero(hero, videos) {
 
   const tvRow1 = hero.tvImages.slice(0, 3)
     .map((src, i) => makeTvCard(src, videos[i], i + 1)).join("");
-  const tvRow2 = hero.tvImages.slice(3, 6)
+  const tvRow2 = hero.tvImages.slice(3, 5)
     .map((src, i) => makeTvCard(src, videos[i + 3], i + 4)).join("");
 
   heroSection.innerHTML = `
@@ -101,11 +106,6 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
-// Allow only YouTube-safe characters (11-char alphanumeric + - _)
-function safeYoutubeId(id) {
-  return String(id).replace(/[^a-zA-Z0-9_-]/g, "");
-}
-
 // ── Video Modal ────────────────────────────────────────────────
 function renderVideoModal() {
   const modal = document.createElement("div");
@@ -118,12 +118,7 @@ function renderVideoModal() {
     <div class="video-modal-box">
       <button class="video-modal-close" aria-label="Close video">&times;</button>
       <div class="video-modal-iframe-wrap">
-        <iframe id="video-modal-iframe"
-          src=""
-          frameborder="0"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+        <video id="video-modal-player" controls playsinline></video>
       </div>
     </div>
   `;
@@ -132,13 +127,13 @@ function renderVideoModal() {
 
 function initVideoModal() {
   const modal  = document.getElementById("video-modal");
-  const iframe = document.getElementById("video-modal-iframe");
+  const player = document.getElementById("video-modal-player");
   const app    = document.getElementById("app");
 
-  function openModal(youtubeId) {
-    const id = safeYoutubeId(youtubeId);
-    if (!id) return;
-    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  function openModal(videoSrc) {
+    if (!videoSrc) return;
+    player.src = videoSrc;
+    player.play();
     modal.classList.add("is-open");
     app.classList.add("app-blurred");
     document.body.style.overflow = "hidden";
@@ -148,21 +143,22 @@ function initVideoModal() {
   function closeModal() {
     modal.classList.remove("is-open");
     app.classList.remove("app-blurred");
-    iframe.src = "";
+    player.pause();
+    player.src = "";
     document.body.style.overflow = "";
   }
 
   // Click any TV in the hero
   document.getElementById("hero-section").addEventListener("click", (e) => {
     const tv = e.target.closest(".videos-tv-wrap");
-    if (tv && tv.dataset.youtubeId) openModal(tv.dataset.youtubeId);
+    if (tv && tv.dataset.videoSrc) openModal(tv.dataset.videoSrc);
   });
 
   // Keyboard: Enter / Space on a TV
   document.getElementById("hero-section").addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       const tv = e.target.closest(".videos-tv-wrap");
-      if (tv && tv.dataset.youtubeId) { e.preventDefault(); openModal(tv.dataset.youtubeId); }
+      if (tv && tv.dataset.videoSrc) { e.preventDefault(); openModal(tv.dataset.videoSrc); }
     }
   });
 
@@ -175,6 +171,11 @@ function initVideoModal() {
   // Escape key
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  // Seek TV thumbnails to 1s for a meaningful preview frame
+  document.querySelectorAll(".videos-tv-thumb").forEach(vid => {
+    vid.addEventListener("loadedmetadata", () => { vid.currentTime = 1; });
   });
 }
 

@@ -1,15 +1,12 @@
 import { gamePageData } from "../models/gameModel.js";
-import { renderGamePage, startGameTimer, stopGameTimer, stopDangerMode } from "../views/gameView.js";
+import { renderGamePage, startGameTimer, stopGameTimer, stopDangerMode, setTimerDangerCallbacks } from "../views/gameView.js";
 import { fetchGameData } from "../services/apiService.js";
 import { gameState, assignAnimalsToCards } from "../state/gameState.js";
 import { initTrashDrag } from "./trashDrag.js";
+import { initGameGuide, setCompanionState, setCompanionDanger } from "./gameGuide.js";
 
 // ── UI helpers ────────────────────────────────────────────────────────────────
 
-function updateGuide(message) {
-  const el = document.getElementById("guide-message");
-  if (el) el.textContent = message;
-}
 
 function updateFishFacts(text) {
   const el = document.getElementById("fish-facts-text");
@@ -65,8 +62,39 @@ function resumeCardPulse() {
 function shakeCreature(slug) {
   const el = document.querySelector(`[data-animal-slug="${slug}"]`);
   if (!el) return;
-  el.classList.add("game-creature--shake");
-  el.addEventListener("animationend", () => el.classList.remove("game-creature--shake"), { once: true });
+  // Use the Web Animations API with composite:'add' so the shake is layered on top
+  // of the running swimming animation — the swimming keyframes are never interrupted
+  // and the fish returns to exactly where it was with no position jump.
+  el.animate(
+    [
+      { transform: "translateX(0)     rotate(0deg)",  filter: "drop-shadow(0 0 8px rgba(231,76,60,0.9))" },
+      { transform: "translateX(-8px)  rotate(-5deg)", filter: "none" },
+      { transform: "translateX(8px)   rotate(5deg)",  filter: "none" },
+      { transform: "translateX(-5px)  rotate(-3deg)", filter: "none" },
+      { transform: "translateX(5px)   rotate(3deg)",  filter: "none" },
+      { transform: "translateX(0)     rotate(0deg)",  filter: "none" },
+    ],
+    { duration: 450, easing: "ease", composite: "add" }
+  );
+}
+
+function showCreatureFeedback(slug, type) {
+  const creature = document.querySelector(`[data-animal-slug="${slug}"]`);
+  const scene    = document.querySelector(".game-scene-container");
+  if (!creature || !scene) return;
+
+  const cRect = creature.getBoundingClientRect();
+  const sRect = scene.getBoundingClientRect();
+
+  const overlay = document.createElement("div");
+  overlay.className = `creature-feedback creature-feedback--${type}`;
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.textContent = type === "correct" ? "✓" : "✕";
+  overlay.style.left = (cRect.left - sRect.left + cRect.width  / 2) + "px";
+  overlay.style.top  = (cRect.top  - sRect.top  + cRect.height / 2) + "px";
+
+  scene.appendChild(overlay);
+  overlay.addEventListener("animationend", () => overlay.remove(), { once: true });
 }
 
 // Sync all hint-pill backgrounds and sb-feedback to the clicked card's color
@@ -118,6 +146,9 @@ function attachCardClickHandlers() {
       gameState.currentHintIndex = 0;
       gameState.unlockedHints    = [];
 
+      // Move companion to game scene — frog tells user to click a fish
+      setCompanionState('find-fish');
+
       // Sync hint area color to this card's color
       syncFeedbackColor(card);
 
@@ -134,7 +165,6 @@ function attachCardClickHandlers() {
       }
       renderHintHistory();
 
-      updateGuide("Now tap the fish you think matches");
     });
   });
 }
@@ -168,6 +198,8 @@ function handleCorrectGuess() {
   const cardEl    = document.querySelectorAll("#sb-grid .sb-card")[cardIndex];
   if (!cardEl || !animal) return;
 
+  showCreatureFeedback(animal.slug, "correct");
+
   // Flip + reveal
   cardEl.classList.remove("sb-card--active");
   cardEl.classList.add("sb-card--flipped", "sb-card--solved");
@@ -192,12 +224,13 @@ function handleCorrectGuess() {
   updateCounter();
   resumeCardPulse();
 
-  // Guide message
+  // Guide message + companion
   const allDone = gameState.solvedCards.size + gameState.failedCards.size >= gameState.animals.length;
   if (allDone) {
     showEndOverlay();
   } else {
-    updateGuide("Great job! Pick another mystery sticker");
+    setCompanionState('celebrate');
+    setTimeout(() => setCompanionState('pick-card'), 2400);
   }
 }
 
@@ -205,6 +238,7 @@ function handleCorrectGuess() {
 
 function handleWrongGuess(clickedSlug) {
   shakeCreature(clickedSlug);
+  showCreatureFeedback(clickedSlug, "wrong");
 
   // Flash the active card red to reinforce the wrong feedback
   const activeCardEl = document.querySelectorAll("#sb-grid .sb-card")[gameState.activeCardId];
@@ -225,7 +259,7 @@ function handleWrongGuess(clickedSlug) {
     gameState.unlockedHints.push(newHint);
     updateFishFacts(newHint);
     renderHintHistory();
-    updateGuide("Wrong guess, read another hint and try again");
+    setCompanionState('read-hint');
   } else {
     // All hints exhausted → failure
     handleFailure();
@@ -270,7 +304,7 @@ function handleFailure() {
   if (allDone) {
     showEndOverlay();
   } else {
-    updateGuide("That was not correct. Pick another card and try again");
+    setCompanionState('next-card');
   }
 }
 
@@ -336,6 +370,9 @@ function showEndOverlay() {
   else if (solved > 0)                                message = "Keep exploring! Try again!";
   else                                                message = "Don't give up! You'll do better next time!";
 
+  // Remove floating companion — Froggy is now inside the overlay itself
+  document.getElementById("game-frog-companion")?.remove();
+
   // Remove any stale overlay first
   document.getElementById("game-end-overlay")?.remove();
 
@@ -343,11 +380,16 @@ function showEndOverlay() {
   overlay.className = "game-start-overlay game-end-overlay";
   overlay.id        = "game-end-overlay";
   overlay.innerHTML = `
-    <div class="game-start-content">
-      <p class="game-end-score">${solved}<span class="game-end-total"> / ${total}</span></p>
-      <p class="game-end-label">animals discovered</p>
-      <p class="game-start-tagline">${message}</p>
-      <button class="game-start-btn" id="btn-end-restart">&#8635; Restart</button>
+    <div class="game-end-frog-scene">
+      <img src="./assets/images/Frog_explorer_1.png"
+           alt="Froggy the explorer"
+           class="game-end-frog-img">
+      <div class="game-end-bubble">
+        <p class="game-end-score">${solved}<span class="game-end-total"> / ${total}</span></p>
+        <p class="game-end-label">animals discovered</p>
+        <p class="game-end-message">${message}</p>
+        <button class="game-start-btn" id="btn-end-restart">&#8635; Restart</button>
+      </div>
     </div>
   `;
 
@@ -359,7 +401,6 @@ function showEndOverlay() {
     handleReset();
   });
 
-  updateGuide("Press Restart or Reset Sticker Book to play again!");
 }
 
 // ── Timer expiry: force-fail all remaining cards ──────────────────────────────
@@ -444,9 +485,9 @@ async function handleReset() {
   if (feedback) feedback.style.removeProperty("--active-card-color");
 
   updateFishFacts("Select a card to see a hint!");
-  updateGuide("Click on a mystery box to start");
   updateCounter();
   renderHintHistory();
+  setCompanionState('pick-card');
 
   // 3. Restore all cards to clean mystery state before animating
   document.querySelectorAll("#sb-grid .sb-card").forEach(card => {
@@ -462,7 +503,7 @@ async function handleReset() {
 
   // 4. Restart timer right away — counts down while cards animate
   stopDangerMode();
-  startGameTimer(120, handleTimerExpiry);
+  startGameTimer(120, handleTimerExpiry, () => setCompanionDanger(1));
 
   // 5. Play shuffle bounce animation on all 6 mystery cards
   await playShuffleAnimation();
@@ -492,7 +533,7 @@ function attachStartButton() {
     resumeCardPulse();
 
     // 3. Start the countdown timer
-    startGameTimer(120, handleTimerExpiry);
+    startGameTimer(120, handleTimerExpiry, () => setCompanionDanger(1));
 
     // 4. Animate the overlay out then remove it
     if (overlay) {
@@ -501,13 +542,25 @@ function attachStartButton() {
     }
 
     // 5. Update guide for the real game
-    updateGuide("Click on a mystery box to start");
+  
+    // 6. Move companion to sticker grid — tell user to pick a card
+    setCompanionState('pick-card');
   });
 }
 
 export async function initGamePage() {
   // 1. Render static page shell immediately — user sees UI right away
   renderGamePage(gamePageData);
+
+  // 1b. Launch Froggy guide overlay
+  initGameGuide();
+
+  // 1c. Register timer danger callbacks → companion visual states
+  setTimerDangerCallbacks({
+    onCritical: () => setCompanionDanger(2),
+    onDemote:   () => setCompanionDanger(1),
+    onStop:     () => setCompanionDanger(0),
+  });
 
   // 2. Freeze scene & cards until Start is pressed
   const sceneContainer = document.querySelector(".game-scene-container");
@@ -518,7 +571,6 @@ export async function initGamePage() {
 
   // Init trash drag-and-drop
   initTrashDrag();
-  updateGuide("Press ▶ Start to begin your adventure!");
 
   // 3. Attach card click handlers (color sync + Stage 7 selection logic)
   attachCardClickHandlers();

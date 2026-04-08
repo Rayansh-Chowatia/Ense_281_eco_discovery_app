@@ -216,16 +216,7 @@ body {
   50%       { filter: drop-shadow(0 0 16px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 30px rgba(200, 0, 0, 0.35)); }
 }
 
-/* ── Guide — slow red pulse, no border ─────────── */
-#btn-guide.guide-urgent {
-  will-change: transform, box-shadow;
-  animation: guideSlowPulse 1.5s ease-in-out infinite !important;
-}
 
-@keyframes guideSlowPulse {
-  0%, 100% { transform: scale(1);    box-shadow: 0 0 6px  rgba(255,80,80,0.45), 0 3px 12px rgba(0,0,0,0.35); }
-  50%       { transform: scale(1.03); box-shadow: 0 0 20px rgba(255,50,50,0.85), 0 3px 12px rgba(0,0,0,0.35); }
-}
 
 /* ═══════════════════════════════════════════════════════
    CRITICAL MODE  ≤ 30 s  — fast heartbeat + vignette
@@ -257,19 +248,6 @@ body {
   14%, 42%        { color: #ff3b3b; text-shadow: 0 0 14px rgba(255,60,60,1), 0 2px 6px rgba(0,0,0,0.4); }
 }
 
-/* ── 3. Guide — fast red pulse + red border ─────── */
-#btn-guide.guide-critical {
-  border: 2px solid rgba(255, 80, 80, 0.75) !important;
-  animation: guideUrgentPulse 0.55s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
-}
-
-@keyframes guideUrgentPulse {
-  0%   { transform: scale(1);    box-shadow: 0 0 6px  rgba(255,50,50,0.5),  0 3px 12px rgba(0,0,0,0.35); }
-  25%  { transform: scale(1.03); box-shadow: 0 0 16px rgba(255,50,50,0.85), 0 3px 12px rgba(0,0,0,0.35); }
-  50%  { transform: scale(1.06); box-shadow: 0 0 32px rgba(255,50,50,1),    0 0 64px rgba(200,0,0,0.5);  }
-  75%  { transform: scale(1.03); box-shadow: 0 0 16px rgba(255,50,50,0.85), 0 3px 12px rgba(0,0,0,0.35); }
-  100% { transform: scale(1);    box-shadow: 0 0 6px  rgba(255,50,50,0.5),  0 3px 12px rgba(0,0,0,0.35); }
-}
 
 /* ── 4. Trash — breathe glow + periodic shake ───── */
 .sinking-trash.trash-urgent {
@@ -505,30 +483,91 @@ body {
   to   { opacity: 1; transform: scale(1);    }
 }
 
+/* ── Froggy + bubble presentation layout ──────────────────────────── */
+.game-end-frog-scene {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+}
+
+.game-end-frog-img {
+  width: clamp(80px, 9vw, 128px);
+  height: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.5));
+  transform-origin: bottom center;
+  animation: endFrogPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes endFrogPop {
+  from { transform: scale(0.35) translateY(40px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+
+.game-end-bubble {
+  position: relative;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 18px;
+  padding: clamp(14px, 2vw, 22px) clamp(16px, 2.5vw, 26px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.38);
+  animation: endBubblePop 0.5s 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Tail pointing left → Froggy */
+.game-end-bubble::before {
+  content: '';
+  position: absolute;
+  left: -13px;
+  bottom: 28%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 13px solid rgba(255, 255, 255, 0.97);
+}
+
+@keyframes endBubblePop {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
 .game-end-score {
   margin: 0;
   font-family: 'Nunito', Arial, sans-serif;
   font-size: clamp(2.8rem, 5vw, 4rem);
   font-weight: 900;
-  color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  color: #1a3a5c;
+  text-shadow: none;
   line-height: 1;
 }
 
 .game-end-total {
   font-size: 0.55em;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .game-end-label {
   margin: 0;
   font-family: 'Nunito', Arial, sans-serif;
-  font-size: clamp(0.72rem, 1.2vw, 0.95rem);
+  font-size: clamp(0.68rem, 1.1vw, 0.88rem);
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.82);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  color: #4a6a8a;
+  text-shadow: none;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+}
+
+.game-end-message {
+  margin: 0;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(0.88rem, 1.5vw, 1.1rem);
+  font-weight: 800;
+  color: #1a3a5c;
+  text-align: center;
 }
 
 /* Overlay fade + scale out on Start click */
@@ -792,13 +831,13 @@ body {
 }
 
 @keyframes goldeyeDart {
-  0%   { left: 28%; bottom: 36%; transform: scaleX(-1) rotate(-4deg); }
-  35%  { left: 58%; bottom: 44%; transform: scaleX(-1) rotate(-2deg); }
-  50%  { left: 70%; bottom: 40%; transform: scaleX(-1) rotate(6deg);  }
-  52%  { left: 70%; bottom: 40%; transform: scaleX(1)  rotate(-6deg); }
-  75%  { left: 46%; bottom: 42%; transform: scaleX(1)  rotate(-3deg); }
-  98%  { left: 28%; bottom: 36%; transform: scaleX(1)  rotate(-4deg); }
-  100% { left: 28%; bottom: 36%; transform: scaleX(-1) rotate(-4deg); }
+  0%   { left: 28%; bottom: 43%; transform: scaleX(-1) rotate(-4deg); }
+  35%  { left: 58%; bottom: 51%; transform: scaleX(-1) rotate(-2deg); }
+  50%  { left: 70%; bottom: 47%; transform: scaleX(-1) rotate(6deg);  }
+  52%  { left: 70%; bottom: 47%; transform: scaleX(1)  rotate(-6deg); }
+  75%  { left: 46%; bottom: 49%; transform: scaleX(1)  rotate(-3deg); }
+  98%  { left: 28%; bottom: 43%; transform: scaleX(1)  rotate(-4deg); }
+  100% { left: 28%; bottom: 43%; transform: scaleX(-1) rotate(-4deg); }
 }
 
 /* ── Northern Pike ──────────────────────────────────────────────────── */
@@ -1095,48 +1134,6 @@ body {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
-/* ── Guide overlay on game scene ────────────────────────────────────── */
-.game-guide-overlay {
-  position: absolute;
-  top: 12px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: fit-content;
-  max-width: 95%;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 48px;
-  background: linear-gradient(135deg, #9b59b6 0%, #7d3c98 100%);
-  border-radius: 10px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
-  pointer-events: none;
-}
-
-.game-guide-icon {
-  font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.92);
-  flex-shrink: 0;
-}
-
-.sb-guide-message {
-  font-size: 1.15rem;
-  font-weight: 900;
-  color: #ffffff;
-  line-height: 1.3;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 1px rgba(0, 0, 0, 0.3);
-}
-
-#btn-guide {
-  animation: guidePulse 1.4s ease-in-out infinite;
-}
-
-@keyframes guidePulse {
-  0%, 100% { transform: scale(1);    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35); }
-  50%       { transform: scale(1.02); box-shadow: 0 6px 22px rgba(155, 89, 182, 0.65); }
-}
 
 /* ── 3d. Your Collection ────────────────────────────────────────────── */
 .sb-collection {
@@ -1693,16 +1690,458 @@ body {
   filter: drop-shadow(0 0 10px rgba(255,255,255,0.7)) brightness(1.15) !important;
 }
 
-/* ── Fish shake on wrong guess ────────────────────────────────────── */
-.game-creature--shake {
-  animation: fishShake 0.45s ease !important;
+/* ── Fish shake on wrong guess (handled via Web Animations API in JS) ── */
+/* .game-creature--shake is no longer used — shake is applied with
+   el.animate(..., { composite: 'add' }) so the swimming animation
+   is never interrupted and the fish never jumps position.            */
+
+/* ── Creature feedback overlay (✓ correct / ✕ wrong) ────────────────── */
+.creature-feedback {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: clamp(56px, 7vw, 100px);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 15;
+  animation: creatureFeedbackPop 0.85s ease forwards;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
 }
 
-@keyframes fishShake {
-  0%   { filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.9)); }
-  20%  { transform: translateX(-8px) rotate(-5deg); }
-  40%  { transform: translateX(8px)  rotate(5deg);  }
-  60%  { transform: translateX(-5px) rotate(-3deg); }
-  80%  { transform: translateX(5px)  rotate(3deg);  }
-  100% { transform: translateX(0)    rotate(0deg);  filter: none; }
+.creature-feedback--correct { color: #22c55e; }
+.creature-feedback--wrong   { color: #ef4444; }
+
+@keyframes creatureFeedbackPop {
+  0%   { transform: translate(-50%, -50%) scale(0.15); opacity: 0; }
+  35%  { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
+  60%  { transform: translate(-50%, -50%) scale(0.92); opacity: 1; }
+  78%  { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+  88%  { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1);    opacity: 0; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   FROGGY GUIDE OVERLAY
+   Step-by-step walkthrough that appears when the game page loads.
+══════════════════════════════════════════════════════════════════ */
+
+/* Root overlay — fixed, above everything */
+#game-guide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;       /* let children handle events */
+  animation: guideOverlayIn 0.4s ease forwards;
+}
+
+@keyframes guideOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#game-guide-overlay.guide-dismiss {
+  animation: guideOverlayOut 0.35s ease forwards !important;
+  pointer-events: none !important;
+}
+
+@keyframes guideOverlayOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ── 4-piece spotlight frame ─────────────────────────────────── */
+/* Four dark rectangles that together surround the spotlight hole */
+.guide-frame {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.72);
+  pointer-events: all;
+  transition: left 0.35s ease, top 0.35s ease,
+              width 0.35s ease, height 0.35s ease;
+}
+
+/* ── Skip button (top-right corner) ──────────────────────────── */
+#guide-skip-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  pointer-events: all;
+  background: rgba(255, 255, 255, 0.14);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  color: #ffffff;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 0.83rem;
+  font-weight: 700;
+  padding: 7px 18px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+  z-index: 1;
+}
+
+#guide-skip-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Frog + bubble wrapper ───────────────────────────────────── */
+#guide-frog-wrap {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: all;
+  z-index: 1;
+  transition: left 0.45s cubic-bezier(0.34, 1.1, 0.64, 1),
+              top  0.45s cubic-bezier(0.34, 1.1, 0.64, 1),
+              bottom 0.45s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+/* ── Frog image ─────────────────────────────────────────────── */
+#guide-frog-img {
+  width: clamp(80px, 8vw, 120px);
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(2px 6px 10px rgba(0, 0, 0, 0.45));
+  animation: guideFrogBob 2s ease-in-out infinite;
+}
+
+@keyframes guideFrogBob {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-7px); }
+}
+
+/* ── Speech bubble (matches home page mascot-bubble style) ───── */
+#guide-frog-bubble {
+  background: #fffde8;
+  border: 2.5px solid #c9a227;
+  border-radius: 18px;
+  padding: 12px 16px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(0.8rem, 1vw, 0.94rem);
+  font-weight: 800;
+  color: #3d1a00;
+  max-width: 205px;
+  text-align: center;
+  line-height: 1.55;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  position: relative;
+  margin-bottom: 22px;
+}
+
+/* Tail — pointing LEFT toward frog (frog is on the left) */
+#guide-frog-bubble.bubble-left {
+  transform-origin: left center;
+  animation: guideBubbleInLeft 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+@keyframes guideBubbleInLeft {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+#guide-frog-bubble.bubble-left::before {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  left: -13px;
+  width: 0; height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 13px solid #c9a227;
+}
+#guide-frog-bubble.bubble-left::after {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  left: -9px;
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 9px solid #fffde8;
+}
+
+/* Tail — pointing RIGHT toward frog (frog is on the right) */
+#guide-frog-bubble.bubble-right {
+  transform-origin: right center;
+  animation: guideBubbleInRight 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+@keyframes guideBubbleInRight {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+#guide-frog-bubble.bubble-right::before {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: -13px;
+  width: 0; height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 13px solid #c9a227;
+}
+#guide-frog-bubble.bubble-right::after {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: -9px;
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 9px solid #fffde8;
+}
+
+/* Tail — pointing UP (fallback: frog placed below) */
+#guide-frog-bubble.bubble-top {
+  transform-origin: center bottom;
+  animation: guideBubbleInTop 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+@keyframes guideBubbleInTop {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+#guide-frog-bubble.bubble-top::before {
+  content: '';
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 13px solid #c9a227;
+}
+#guide-frog-bubble.bubble-top::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 9px solid #fffde8;
+}
+
+/* ── Bubble text ─────────────────────────────────────────────── */
+#guide-bubble-text {
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── Action buttons inside bubble ───────────────────────────── */
+.guide-bubble-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.guide-action-btn {
+  border: none;
+  border-radius: 50px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 0.83rem;
+  font-weight: 900;
+  padding: 7px 18px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: filter 0.15s;
+}
+
+.guide-action-btn:hover {
+  filter: brightness(1.1);
+}
+
+.guide-action-btn--next {
+  background: linear-gradient(135deg, #f9c846 0%, #f5801a 100%);
+  color: #ffffff;
+  box-shadow: 0 3px 12px rgba(245, 140, 26, 0.5);
+}
+
+.guide-action-btn--play {
+  background: linear-gradient(135deg, #43e97b 0%, #38a169 100%);
+  color: #ffffff;
+  box-shadow: 0 3px 12px rgba(56, 161, 105, 0.5);
+  font-size: 0.88rem;
+  padding: 8px 20px;
+  animation: playBtnPulse 1.1s ease-in-out infinite;
+}
+
+@keyframes playBtnPulse {
+  0%,  100% { transform: scale(1);    box-shadow: 0 3px 12px rgba(56,161,105,0.5); }
+  50%        { transform: scale(1.05); box-shadow: 0 5px 20px rgba(56,161,105,0.8); }
+}
+
+/* ── Spotlight ring on highlighted element ───────────────────── */
+.guide-spotlight-el {
+  outline: 3px solid rgba(255, 220, 60, 0.95) !important;
+  outline-offset: 8px !important;
+  position: relative !important;
+  z-index: 9001 !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   IN-GAME FROGGY COMPANION
+   Circular avatar that tracks game state and moves around the screen
+══════════════════════════════════════════════════════════════════ */
+
+#game-frog-companion {
+  position: fixed;
+  z-index: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  pointer-events: all;
+  /* Smooth repositioning when state changes */
+  transition: left 0.45s cubic-bezier(0.34, 1.1, 0.64, 1),
+              top  0.45s cubic-bezier(0.34, 1.1, 0.64, 1);
+  /* First-appear animation */
+  animation: companionFirstAppear 0.55s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+
+@keyframes companionFirstAppear {
+  from { opacity: 0; transform: scale(0.5) translateX(-20px); }
+  to   { opacity: 1; transform: scale(1)   translateX(0);     }
+}
+
+/* ── Circular frog avatar ────────────────────────────────────── */
+.companion-avatar {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #fffde8;
+  border: 3px solid #c9a227;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.28),
+    0 0 0 5px rgba(201, 162, 39, 0.22);
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: guideFrogBob 2.4s ease-in-out infinite;
+}
+
+.companion-avatar:hover {
+  transform: scale(1.1) !important;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.35),
+    0 0 0 7px rgba(201, 162, 39, 0.4);
+}
+
+.companion-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 10%;
+}
+
+/* ── Celebrate bounce ────────────────────────────────────────── */
+.companion-celebrate .companion-avatar {
+  animation: companionBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+@keyframes companionBounce {
+  0%   { transform: scale(1)    rotate(0deg);   }
+  30%  { transform: scale(1.35) rotate(-12deg); }
+  60%  { transform: scale(0.9)  rotate(6deg);   }
+  100% { transform: scale(1)    rotate(0deg);   }
+}
+
+/* ── Speech bubble ───────────────────────────────────────────── */
+.companion-bubble {
+  background: #fffde8;
+  border: 2.5px solid #c9a227;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: clamp(0.74rem, 0.92vw, 0.86rem);
+  font-weight: 800;
+  color: #3d1a00;
+  max-width: 175px;
+  text-align: center;
+  line-height: 1.55;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+  position: relative;
+  /* Text updates cross-fade */
+  transition: opacity 0.2s ease;
+  /* Bubble slides in on first appearance */
+  transform-origin: left center;
+  animation: companionBubbleIn 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) 0.25s both;
+}
+
+@keyframes companionBubbleIn {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* Tail pointing LEFT — avatar is on the left */
+.companion-bubble.bubble-left::before {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  left: -13px;
+  width: 0; height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 13px solid #c9a227;
+}
+.companion-bubble.bubble-left::after {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  left: -9px;
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 9px solid #fffde8;
+}
+
+/* Hidden state (toggled by avatar click) */
+.companion-bubble.bubble-hidden {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+  pointer-events: none;
+}
+
+/* ── Danger mode (timer < 60 s) — red glow + normal pulse ───── */
+#game-frog-companion.companion-danger .companion-avatar {
+  border-color: #ef4444;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.28),
+    0 0 0 5px rgba(239, 68, 68, 0.3);
+  animation:
+    guideFrogBob 2.4s ease-in-out infinite,
+    companionDangerGlow 1.4s ease-in-out infinite;
+}
+
+/* ── Critical mode (timer < 30 s) — fast pulse, override danger  */
+#game-frog-companion.companion-critical .companion-avatar {
+  border-color: #dc2626;
+  animation:
+    guideFrogBob 2.4s ease-in-out infinite,
+    companionDangerGlow 0.55s ease-in-out infinite;
+}
+
+@keyframes companionDangerGlow {
+  0%, 100% {
+    box-shadow:
+      0 4px 14px rgba(0, 0, 0, 0.28),
+      0 0 0 4px rgba(239, 68, 68, 0.35),
+      0 0 10px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 4px 14px rgba(0, 0, 0, 0.28),
+      0 0 0 9px rgba(239, 68, 68, 0.15),
+      0 0 22px rgba(239, 68, 68, 0.75);
+  }
 }

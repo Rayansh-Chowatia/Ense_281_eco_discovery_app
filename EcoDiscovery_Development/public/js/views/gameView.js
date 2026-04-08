@@ -100,10 +100,7 @@ function renderHero(navBarColor, game) {
           <div class="game-scene-container">
             <img src="./assets/images/Game-page-image.png" alt="Game scene" class="game-scene-img">
             <!-- Guide message overlay on game scene -->
-            <div class="game-guide-overlay" id="btn-guide" aria-live="polite">
-              <i class="fa-solid fa-compass game-guide-icon" aria-hidden="true"></i>
-              <span class="sb-guide-message" id="guide-message">Click on a mystery box to start</span>
-            </div>
+
 
             <img src="./assets/images/Bird-hero.png"  class="game-bird game-bird-1" alt="Flying bird">
             <img src="./assets/images/Bird-hero1.png" class="game-bird game-bird-2" alt="Flying bird">
@@ -205,15 +202,30 @@ let _timerInterval      = null;
 let _timerRemaining     = 0;
 let _dangerActivated    = false;
 let _criticalActivated  = false;
-let _guideAltInterval   = null;
-let _guideAltTimeout    = null;
+let _guideAltInterval   = null; // kept for stopDangerMode cleanup
+let _guideAltTimeout    = null; // kept for stopDangerMode cleanup
+let _onDangerCb         = null;
+let _onCriticalCb       = null;
+let _onDemoteCb         = null;
+let _onStopCb           = null;
+
+/**
+ * Register callbacks for timer danger-level transitions.
+ * Call once after initialising the game page.
+ */
+export function setTimerDangerCallbacks({ onCritical, onDemote, onStop } = {}) {
+  _onCriticalCb = onCritical ?? null;
+  _onDemoteCb   = onDemote   ?? null;
+  _onStopCb     = onStop     ?? null;
+}
 
 const _fmt = (s) =>
   `${Math.floor(s / 60).toString().padStart(2, "0")}:${(s % 60).toString().padStart(2, "0")}`;
 
-export function startGameTimer(durationSeconds = 120, onExpire = null) {
+export function startGameTimer(durationSeconds = 120, onExpire = null, onDanger = null) {
   if (_timerInterval) { clearInterval(_timerInterval); _timerInterval = null; }
   _dangerActivated = false;
+  _onDangerCb = onDanger;
 
   const timerEl = document.getElementById("game-timer");
   if (!timerEl) return;
@@ -253,6 +265,16 @@ export function addTimerSeconds(bonus) {
   _timerRemaining += bonus;
   const timerEl = document.getElementById("game-timer");
   if (timerEl) timerEl.textContent = _fmt(_timerRemaining);
+
+  // Bonus pushes timer back above 60 s → fully exit danger mode
+  if (_timerRemaining > 60 && _dangerActivated) {
+    stopDangerMode(); // fires _onStopCb → setCompanionDanger(0)
+  } else if (_timerRemaining > 30 && _criticalActivated) {
+    // Demote from critical → danger (still below 60 s but above 30 s)
+    _criticalActivated = false;
+    document.querySelector(".strip-timer-sticker")?.classList.remove("timer-critical");
+    if (_onDemoteCb) _onDemoteCb();
+  }
 }
 
 export function showTimerBonus(label = "+20s") {
@@ -265,46 +287,22 @@ export function showTimerBonus(label = "+20s") {
 }
 
 // ── Danger mode (triggered at 60 s remaining) ─────────────────────────────────
-const _URGENT_MSG = "Put trash in the bin for more time! ♻️";
 
 function _activateDangerMode() {
-  // 1. Timer heartbeat + red text
+  if (_onDangerCb) _onDangerCb();
+
+  // Timer heartbeat + red text
   document.querySelector(".strip-timer-sticker")?.classList.add("timer-danger");
 
-  // 3. Guide — urgent fast pulse + red border
-  document.getElementById("btn-guide")?.classList.add("guide-urgent");
-
-  // 4. Trash items — breathe glow + shake
+  // Trash items — breathe glow + shake
   document.querySelectorAll(".sinking-trash").forEach(t => t.classList.add("trash-urgent"));
-
-  // 5. Guide message alternation
-  _startGuideAlternation();
 }
 
 function _activateCriticalMode() {
+  if (_onCriticalCb) _onCriticalCb();
+
   // Upgrade timer to fast heartbeat
   document.querySelector(".strip-timer-sticker")?.classList.add("timer-critical");
-  // Upgrade guide to fast pulse + border
-  document.getElementById("btn-guide")?.classList.add("guide-critical");
-}
-
-function _startGuideAlternation() {
-  if (_guideAltInterval) return;
-
-  function cycle() {
-    const msgEl = document.getElementById("guide-message");
-    if (!msgEl) return;
-    const saved = msgEl.textContent;
-    msgEl.textContent = _URGENT_MSG;
-    _guideAltTimeout = setTimeout(() => {
-      const el = document.getElementById("guide-message");
-      // Only restore if urgent message is still showing (not overwritten by game logic)
-      if (el && el.textContent === _URGENT_MSG) el.textContent = saved;
-    }, 4000);
-  }
-
-  cycle();
-  _guideAltInterval = setInterval(cycle, 5000);
 }
 
 export function stopGameTimer() {
@@ -318,9 +316,8 @@ export function stopDangerMode() {
   _criticalActivated = false;
   const sticker = document.querySelector(".strip-timer-sticker");
   sticker?.classList.remove("timer-danger", "timer-critical");
-  const guide = document.getElementById("btn-guide");
-  guide?.classList.remove("guide-urgent", "guide-critical");
   document.querySelectorAll(".sinking-trash").forEach(t => t.classList.remove("trash-urgent"));
+  if (_onStopCb) _onStopCb();
 }
 
 function renderFooter(footer) {

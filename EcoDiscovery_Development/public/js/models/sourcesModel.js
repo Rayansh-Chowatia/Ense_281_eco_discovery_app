@@ -56,7 +56,16 @@ export const sourcesPageData = {
       name: "Walleye",
       icon: "./assets/images/walleye.png",
       color: "#E74C3C",
-      sources: []
+      sources: [
+        {
+          label: "The Canadian Encyclopedia — Walleye",
+          url: "https://thecanadianencyclopedia.ca/en/article/walleye"
+        },
+        {
+          label: "Fisheries & Oceans Canada — Walleye Species Profile",
+          url: "https://www.dfo-mpo.gc.ca/species-especes/profiles-profils/walleye-dorejaune-eng.html"
+        }
+      ]
     },
     {
       name: "Lake Whitefish",
@@ -147,7 +156,6 @@ export const sourcesPageData = {
     backgroundColor: "#4BA8A9",
     logo: { image: "./assets/images/logo-fish.png", altText: "Eco Discovery fish logo" },
     links: [
-      { label: "Contact Us", href: "#" },
       { label: "Sources",    href: "sources.html", active: true },
       { label: "Feedback",   href: "#" }
     ],
