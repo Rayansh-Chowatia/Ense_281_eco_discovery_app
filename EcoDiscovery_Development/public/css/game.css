@@ -2136,3 +2136,71 @@ body {
       0 0 22px rgba(239, 68, 68, 0.75);
   }
 }
+
+/* ── End-game companion — column layout, centered presenter ─────────── */
+#game-frog-companion.companion-end-game {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 600;   /* above the end overlay (z-index 20 inside scene) */
+}
+
+#game-frog-companion.companion-end-game .companion-avatar {
+  width: 86px;
+  height: 86px;
+}
+
+/* End-game bubble — wider, column-friendly, tail pointing UP toward avatar */
+.companion-bubble--end {
+  max-width: clamp(210px, 22vw, 280px);
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transform-origin: top center;
+  animation: companionBubbleIn 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) 0.3s both;
+}
+
+/* Upward tail (border trick) — outer stroke */
+.companion-bubble--end::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid #c9a227;
+}
+
+/* Upward tail — inner fill */
+.companion-bubble--end::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 10px solid #fffde8;
+}
+
+/* Score / label / message inside the companion bubble */
+.companion-bubble--end .game-end-score {
+  color: #1a3a5c;
+  text-shadow: none;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+}
+
+.companion-bubble--end .game-end-label {
+  color: #4a6a8a;
+  text-shadow: none;
+}
+
+.companion-bubble--end .game-end-message {
+  color: #1a3a5c;
+  font-size: clamp(0.82rem, 1.3vw, 1rem);
+}

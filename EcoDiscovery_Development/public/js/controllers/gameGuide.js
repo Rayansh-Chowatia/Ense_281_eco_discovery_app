@@ -515,6 +515,46 @@ function _positionCompanionBottom(companion) {
   }
 }
 
+// ══════════════════════════════════════════════════════════════
+//  END-GAME COMPANION — centered result presenter
+// ══════════════════════════════════════════════════════════════
+
+/**
+ * Recreate the companion in "end-game" mode, centered over the game scene.
+ * The companion shows a column layout (avatar on top, score bubble below)
+ * with the score, message, and restart button inside the bubble.
+ */
+export function showEndGameCompanion(solved, total, message) {
+  // Always start fresh so no stale state/class leaks in
+  document.getElementById('game-frog-companion')?.remove();
+  _createCompanion();
+
+  const companion = document.getElementById('game-frog-companion');
+  const speech    = document.getElementById('companion-speech');
+  if (!companion || !speech) return;
+
+  // Switch to column layout and end-game size
+  companion.classList.add('companion-end-game', 'companion-celebrate');
+
+  // Replace bubble class — removes bubble-left tail, adds upward tail
+  speech.className = 'companion-bubble companion-bubble--end';
+  speech.innerHTML = `
+    <p class="game-end-score">${solved}<span class="game-end-total"> / ${total}</span></p>
+    <p class="game-end-label">animals discovered</p>
+    <p class="game-end-message">${message}</p>
+    <button class="game-start-btn" id="btn-end-restart">&#8635; Restart</button>
+  `;
+
+  // Center over the game scene container
+  const scene = document.querySelector('.game-scene-container');
+  if (!scene) return;
+  const r = scene.getBoundingClientRect();
+  // Avatar end-game width is 86 px — offset by 43 to center it
+  companion.style.left      = `${Math.round(r.left + r.width / 2 - 43)}px`;
+  companion.style.top       = `${Math.round(r.top  + r.height * 0.22)}px`;
+  companion.style.transform = '';
+}
+
 function _positionCompanion(companion, state, targetSel) {
   const AVT  = 66;   // avatar diameter px
   const BUB  = 175;  // estimated bubble width px

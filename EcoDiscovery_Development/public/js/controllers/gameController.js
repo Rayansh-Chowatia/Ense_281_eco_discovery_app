@@ -3,7 +3,7 @@ import { renderGamePage, startGameTimer, stopGameTimer, stopDangerMode, setTimer
 import { fetchGameData } from "../services/apiService.js";
 import { gameState, assignAnimalsToCards } from "../state/gameState.js";
 import { initTrashDrag } from "./trashDrag.js";
-import { initGameGuide, setCompanionState, setCompanionDanger } from "./gameGuide.js";
+import { initGameGuide, setCompanionState, setCompanionDanger, showEndGameCompanion } from "./gameGuide.js";
 
 // ── UI helpers ────────────────────────────────────────────────────────────────
 
@@ -370,34 +370,24 @@ function showEndOverlay() {
   else if (solved > 0)                                message = "Keep exploring! Try again!";
   else                                                message = "Don't give up! You'll do better next time!";
 
-  // Remove floating companion — Froggy is now inside the overlay itself
-  document.getElementById("game-frog-companion")?.remove();
-
   // Remove any stale overlay first
   document.getElementById("game-end-overlay")?.remove();
 
+  // Backdrop only — Froggy companion is the content presenter
   const overlay = document.createElement("div");
   overlay.className = "game-start-overlay game-end-overlay";
   overlay.id        = "game-end-overlay";
-  overlay.innerHTML = `
-    <div class="game-end-frog-scene">
-      <img src="./assets/images/Frog_explorer_1.png"
-           alt="Froggy the explorer"
-           class="game-end-frog-img">
-      <div class="game-end-bubble">
-        <p class="game-end-score">${solved}<span class="game-end-total"> / ${total}</span></p>
-        <p class="game-end-label">animals discovered</p>
-        <p class="game-end-message">${message}</p>
-        <button class="game-start-btn" id="btn-end-restart">&#8635; Restart</button>
-      </div>
-    </div>
-  `;
 
   document.querySelector(".game-scene-container")?.appendChild(overlay);
 
+  // Spawn the companion centered over the overlay, showing score + message
+  showEndGameCompanion(solved, total, message);
+
+  // Restart button lives inside the companion bubble — listen for it here
   document.getElementById("btn-end-restart")?.addEventListener("click", () => {
     overlay.classList.add("game-start-overlay--out");
     overlay.addEventListener("animationend", () => overlay.remove(), { once: true });
+    document.getElementById("game-frog-companion")?.remove();
     handleReset();
   });
 

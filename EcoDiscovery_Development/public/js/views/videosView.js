@@ -4,6 +4,7 @@ export function renderVideosPage(data) {
   renderVideoModal();
   initVideoModal();
   renderFooter(data.footer);
+  initVideosFrogGuide();
 }
 
 function renderHeader(header) {
@@ -176,6 +177,32 @@ function initVideoModal() {
   // Seek TV thumbnails to 1s for a meaningful preview frame
   document.querySelectorAll(".videos-tv-thumb").forEach(vid => {
     vid.addEventListener("loadedmetadata", () => { vid.currentTime = 1; });
+  });
+}
+
+// ── Froggy Guide ──────────────────────────────────────────────
+function initVideosFrogGuide() {
+  const el = document.createElement('div');
+  el.id = 'videos-frog-guide';
+  el.innerHTML = `
+    <div class="vfg-avatar" id="vfg-avatar">
+      <img src="./assets/images/Frog_explorer_1.png" alt="Froggy the guide">
+    </div>
+    <div class="vfg-bubble" id="vfg-bubble">
+      Here you will watch interesting videos about fishes and fresh water ecosystems 🐟
+    </div>
+  `;
+  document.body.appendChild(el);
+
+  // Auto-hide bubble after 2 s
+  const bubble = document.getElementById('vfg-bubble');
+  setTimeout(() => {
+    bubble.classList.add('vfg-bubble-hidden');
+  }, 2000);
+
+  // Click avatar: toggle bubble
+  document.getElementById('vfg-avatar').addEventListener('click', () => {
+    bubble.classList.toggle('vfg-bubble-hidden');
   });
 }
 
