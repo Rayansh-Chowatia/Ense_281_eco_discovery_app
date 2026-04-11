@@ -1,70 +1,36 @@
 # Ecosystem Discovery Application
 
-> A web-based interactive educational application designed to help elementary school students explore a Saskatchewan-inspired freshwater ecosystem through discovery-based learning.
+## Project Background
+
+Many traditional learning methods for young students rely heavily on text and static diagrams. This makes it difficult for children to stay engaged and fully understand concepts like ecosystems.
+
+Our project focuses on solving this problem by creating an interactive platform where children can explore a freshwater ecosystem in a fun and engaging way.
 
 ---
 
-## 🎯 Project Overview
+## Project Goals
 
-EcoDiscovery is an interactive learning platform designed for Grade 3 students. It helps children explore freshwater ecosystems through a simple, engaging, and visual experience.
-
-The system focuses on three main learning experiences:
-
-- **Play** → Explore the ecosystem and discover animals  
-- **Watch** → Learn through short educational videos  
-- **Discover** → Unlock stickers and track progress  
+- Make learning about ecosystems simple and interactive  
+- Encourage exploration-based learning instead of passive reading  
+- Help children understand environmental responsibility  
+- Provide an engaging and visual learning experience  
 
 ---
 
-## 👨‍🏫 Course Information
+## Project Features (MVP)
 
-- Course: ENSE 281 – Software Engineering Management  
-- Institution: University of Regina  
-- Team: Group G  
-
----
-
-## 👥 Team Members
-
-- Rayansh Chowatia  
-- Aubin Chriss Izere  
-- Jeremiah Onunkwo  
-- Abrianna Primavera  
-
----
-
-## ❗ Problem
-
-Traditional learning methods are text-heavy and not engaging for young learners.
-
-EcoDiscovery solves this by providing an interactive, visual, and exploration-based learning experience.
-
----
-
-## 🎮 Features (MVP)
-
-- Interactive ecosystem scene  
-- Hint-based animal discovery  
-- Sticker unlock system  
+- Interactive ecosystem game  
+- Hint-based animal discovery system  
+- Sticker unlock and progress tracking  
 - Timer-based gameplay  
-- Trash collection (environmental feature)  
-- Educational video integration  
+- Trash collection feature (environmental awareness)  
+- Educational video section  
 
 ---
 
-## 🏗️ System Architecture
+## Project Installation & Setup
 
-The application follows an MVC (Model-View-Controller) architecture:
-
-- **Model** → Animal and hint data  
-- **View** → User interface (HTML, CSS)  
-- **Controller** → Game logic (JavaScript)  
-
-Backend is implemented using Node.js and Express, with Supabase as the database.
-
----
-
-## 🔧 Project Installation & Setup
+To run the application locally:
 
 ### 1. Clone the Repository
 ```bash
