@@ -101,3 +101,5 @@ This video demonstrates:
 ```bash
 git clone https://github.com/Rayansh-Chowatia/Ense_281_eco_discovery_app.git
 cd Ense_281_eco_discovery_app
+npm install
+npm start
