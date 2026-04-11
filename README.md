@@ -25,7 +25,7 @@ The system allows children to discover aquatic animals, learn fun facts, and und
 ---
 
 
-=======
+
 ##  The “Why” (Reason)
 
 
@@ -36,7 +36,7 @@ EcoDiscovery addresses this by transforming learning into an interactive and vis
 ---
 
 
-=======
+
 ##  The “Who” (Target Users)
 
 
@@ -71,9 +71,9 @@ Everything beyond this — the admin dashboard, Froggy companion guide, danger/c
 ---
 
 
-=======
+
 ##  Tech Stack & Architecture
->>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
+
 
 [![Watch the Commercial Video](https://img.youtube.com/vi/2_klvhG9HdE/0.jpg)](https://youtu.be/2_klvhG9HdE)
 
@@ -82,9 +82,9 @@ The video demonstrates the interactive ecosystem exploration, animal discovery a
 ---
 
 
-=======
+
 ##  Commercial Video
->>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
+
 
 | Layer | Technology |
 |---|---|
@@ -202,7 +202,7 @@ Ense_281_eco_discovery_app/
 For full technical details — MVC architecture diagram, complete folder tree, API endpoints, database schema, and security notes — see:
 
 **[Code_Base/README.md](Code_Base/README.md)**
-=======
+
 cd Ense_281_eco_discovery_app
 npm install
 npm start
