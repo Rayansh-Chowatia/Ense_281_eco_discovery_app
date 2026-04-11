@@ -6,12 +6,12 @@
 
 ## 🎯 Project Overview
 
-EcoDiscovery is designed for Grade 3 students to learn about freshwater ecosystems in a simple and interactive way.
+EcoDiscovery is an interactive learning platform designed for Grade 3 students. It helps children explore freshwater ecosystems through a simple, engaging, and visual experience.
 
-The system focuses on three main experiences:
+The system focuses on three main learning experiences:
 
-- **Play** → Explore the lake and discover animals  
-- **Watch** → Learn through educational videos  
+- **Play** → Explore the ecosystem and discover animals  
+- **Watch** → Learn through short educational videos  
 - **Discover** → Unlock stickers and track progress  
 
 ---
@@ -35,9 +35,9 @@ The system focuses on three main experiences:
 
 ## ❗ Problem
 
-Traditional learning methods are text-heavy and difficult for young learners to engage with.
+Traditional learning methods are text-heavy and not engaging for young learners.
 
-EcoDiscovery solves this by providing a visual, interactive, and engaging learning experience.
+EcoDiscovery solves this by providing an interactive, visual, and exploration-based learning experience.
 
 ---
 
@@ -47,27 +47,26 @@ EcoDiscovery solves this by providing a visual, interactive, and engaging learni
 - Hint-based animal discovery  
 - Sticker unlock system  
 - Timer-based gameplay  
-- Trash collection feature  
-- Educational video page  
+- Trash collection (environmental feature)  
+- Educational video integration  
 
 ---
 
 ## 🏗️ System Architecture
 
-The application follows an MVC structure:
+The application follows an MVC (Model-View-Controller) architecture:
 
 - **Model** → Animal and hint data  
-- **View** → HTML/CSS interface  
-- **Controller** → JavaScript logic  
+- **View** → User interface (HTML, CSS)  
+- **Controller** → Game logic (JavaScript)  
 
-Backend uses Node.js and Express with Supabase database.
+Backend is implemented using Node.js and Express, with Supabase as the database.
 
 ---
 
-## 🚀 How to Run
+## 🔧 Project Installation & Setup
 
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Rayansh-Chowatia/Ense_281_eco_discovery_app.git
 cd Ense_281_eco_discovery_app
-npm install
-npm run dev
