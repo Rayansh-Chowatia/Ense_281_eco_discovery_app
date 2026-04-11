@@ -1,12 +1,12 @@
-# Ecosystem Discovery Application
+# 🌿 Ecosystem Discovery Application
 
-Course: ENSE 281 – Software Engineering Management  
-Institution: University of Regina  
-Team: Group G  
+**Course:** ENSE 281 – Software Engineering Management  
+**Institution:** University of Regina  
+**Team:** Group G  
 
 ---
 
-## Project Description
+## 📌 Project Description
 
 EcoDiscovery is a web-based educational application designed to help young learners explore freshwater ecosystems through an interactive and engaging experience.
 
@@ -14,7 +14,7 @@ The system allows children to discover aquatic animals, learn fun facts, and und
 
 ---
 
-## The “Why” (Reason)
+## ❓ The “Why” (Reason)
 
 Traditional learning methods are often text-heavy and difficult for children to engage with.
 
@@ -24,7 +24,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## The “Who” (Target Users)
+## 👥 The “Who” (Target Users)
 
 ### Primary Users
 - Elementary school students (Grades 2–3)
@@ -35,7 +35,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## Project Goals
+## 🎯 Project Goals
 
 - Make learning interactive  
 - Encourage exploration-based learning  
@@ -44,7 +44,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## Minimum Viable Product (MVP)
+## 🚀 Minimum Viable Product (MVP)
 
 - Interactive ecosystem scene  
 - Hint-based animal discovery  
@@ -55,16 +55,40 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## Tech Stack & Architecture
+## 🛠 Tech Stack & Architecture
 
-- Frontend: HTML, CSS, JavaScript  
-- Backend: Node.js, Express  
-- Database: Supabase  
-- Architecture: MVC (Model-View-Controller)  
+### Frontend
+- HTML  
+- CSS  
+- JavaScript  
+
+### Backend
+- Node.js  
+- Express  
+
+### Database
+- Supabase  
+
+### Architecture
+- MVC (Model-View-Controller)  
 
 ---
 
-## Project Installation & Setup
+## 🎥 Commercial Video
+
+Watch our project in action:
+
+[![Watch the video](https://img.youtube.com/vi/2_klvhG9HdE/0.jpg)](https://youtu.be/2_klvhG9HdE)
+
+This video demonstrates:
+- Interactive ecosystem exploration  
+- Animal discovery and sticker unlock system  
+- Educational gameplay experience  
+- Environmental awareness features (trash cleanup & restoration)  
+
+---
+
+## ⚙️ Project Installation & Setup
 
 ### Clone Repository
 ```bash
