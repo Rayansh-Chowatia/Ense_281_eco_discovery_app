@@ -4,7 +4,7 @@
 **Institution:** University of Regina  
 **Team:** Group G  
 
-## 👥 Team Members (Group G)
+##  Team Members (Group G)
 
 - Rayansh Chowatia  
 - Jeremiah Onunkwo  
