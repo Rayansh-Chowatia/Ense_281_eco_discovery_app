@@ -135,7 +135,7 @@ Before running the project you need:
 ---
 
 ##  Installation & Setup
-=======
+
 ##  Project Installation & Setup
 >>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
 
@@ -206,4 +206,4 @@ For full technical details — MVC architecture diagram, complete folder tree, A
 cd Ense_281_eco_discovery_app
 npm install
 npm start
->>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
+
