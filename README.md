@@ -4,9 +4,16 @@
 **Institution:** University of Regina  
 **Team:** Group G  
 
+## 👥 Team Members (Group G)
+
+- Rayansh Chowatia  
+- Jeremiah Onunkwo  
+- Abrianna Primavera  
+- Aubin Chriss Izere  
+
 ---
 
-## 📌 Project Description
+##  Project Description
 
 EcoDiscovery is a web-based educational application designed to help young learners explore freshwater ecosystems through an interactive and engaging experience.
 
@@ -14,7 +21,7 @@ The system allows children to discover aquatic animals, learn fun facts, and und
 
 ---
 
-## ❓ The “Why” (Reason)
+##  The “Why” (Reason)
 
 Traditional learning methods are often text-heavy and difficult for children to engage with.
 
@@ -24,7 +31,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## 👥 The “Who” (Target Users)
+##  The “Who” (Target Users)
 
 ### Primary Users
 - Elementary school students (Grades 2–3)
@@ -35,7 +42,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## 🎯 Project Goals
+##  Project Goals
 
 - Make learning interactive  
 - Encourage exploration-based learning  
@@ -44,7 +51,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## 🚀 Minimum Viable Product (MVP)
+##  Minimum Viable Product (MVP)
 
 - Interactive ecosystem scene  
 - Hint-based animal discovery  
@@ -55,7 +62,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## 🛠 Tech Stack & Architecture
+##  Tech Stack & Architecture
 
 ### Frontend
 - HTML  
@@ -74,7 +81,7 @@ EcoDiscovery addresses this problem by transforming learning into an interactive
 
 ---
 
-## 🎥 Commercial Video
+##  Commercial Video
 
 Watch our project in action:
 
@@ -88,7 +95,7 @@ This video demonstrates:
 
 ---
 
-## ⚙️ Project Installation & Setup
+##  Project Installation & Setup
 
 ### Clone Repository
 ```bash
