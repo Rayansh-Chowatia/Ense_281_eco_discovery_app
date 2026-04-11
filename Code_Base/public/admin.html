@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Discovery — Admin</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/admin.css" />
+</head>
+<body>
+
+  <!-- ── Login Screen ─────────────────────────────────────────────────── -->
+  <div id="adm-login-screen">
+    <div class="adm-login-bg"></div>
+    <div class="adm-login-card">
+
+      <div class="adm-login-brand">
+        <img src="./assets/images/logo-fish.png" alt="Eco Discovery Logo" class="adm-brand-img">
+        <span class="adm-brand-name">Eco Discovery</span>
+      </div>
+
+      <div class="adm-lock-icon"><i class="fa-solid fa-lock"></i></div>
+      <h1 class="adm-login-title">Admin Access</h1>
+      <p class="adm-login-sub">Sign in with your admin credentials</p>
+
+      <form id="adm-login-form" class="adm-login-form" novalidate>
+        <div class="adm-field">
+          <label class="adm-label" for="adm-email">Email</label>
+          <div class="adm-input-wrap">
+            <i class="fa-solid fa-envelope adm-input-icon"></i>
+            <input class="adm-input" id="adm-email" type="email"
+                   placeholder="admin@gmail.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="adm-field">
+          <label class="adm-label" for="adm-password">Password</label>
+          <div class="adm-input-wrap">
+            <i class="fa-solid fa-key adm-input-icon"></i>
+            <input class="adm-input" id="adm-password" type="password"
+                   placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <p class="adm-login-error" id="adm-login-error" role="alert"></p>
+
+        <button class="adm-login-btn" id="adm-login-btn" type="submit">
+          <span id="adm-btn-text">Sign In</span>
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+      </form>
+
+      <a href="index.html" class="adm-back-link">← Back to Eco Discovery</a>
+    </div>
+  </div>
+
+  <!-- ── Dashboard ────────────────────────────────────────────────────── -->
+  <div id="adm-dashboard" style="display:none;">
+
+    <header class="adm-header">
+      <div class="adm-header-brand">
+        <img src="./assets/images/logo-fish.png" alt="Logo" class="adm-header-logo">
+        <span class="adm-header-title">Eco Discovery <span class="adm-header-badge">Admin</span></span>
+      </div>
+      <div class="adm-header-right">
+        <span class="adm-header-user" id="adm-user-email"></span>
+        <button class="adm-logout-btn" id="adm-logout" type="button">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+    </header>
+
+    <main class="adm-main">
+
+      <!-- Stats bar -->
+      <div class="adm-stats-row">
+        <div class="adm-stat-card">
+          <span class="adm-stat-num" id="stat-total">—</span>
+          <span class="adm-stat-label">Total Submissions</span>
+        </div>
+        <div class="adm-stat-card">
+          <span class="adm-stat-num" id="stat-parents">—</span>
+          <span class="adm-stat-label">Parents</span>
+        </div>
+        <div class="adm-stat-card">
+          <span class="adm-stat-num" id="stat-kids">—</span>
+          <span class="adm-stat-label">Kids</span>
+        </div>
+        <div class="adm-stat-card">
+          <span class="adm-stat-num" id="stat-avg">—</span>
+          <span class="adm-stat-label">Avg Rating</span>
+        </div>
+      </div>
+
+      <!-- Feedback table -->
+      <div class="adm-table-card">
+        <div class="adm-table-header">
+          <h2 class="adm-table-title">
+            <i class="fa-solid fa-comments"></i> Feedback Submissions
+          </h2>
+          <button class="adm-refresh-btn" id="adm-refresh" type="button" title="Refresh">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+        <div id="adm-table-container">
+          <p class="adm-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading feedback…</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script type="module" src="./js/adminApp.js"></script>
+</body>
+</html>

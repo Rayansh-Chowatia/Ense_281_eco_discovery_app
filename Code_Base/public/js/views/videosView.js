@@ -1,0 +1,226 @@
+export function renderVideosPage(data) {
+  renderHeader(data.header);
+  renderHero(data.hero, data.videos);
+  renderVideoModal();
+  initVideoModal();
+  renderFooter(data.footer);
+  initVideosFrogGuide();
+}
+
+function renderHeader(header) {
+  const headerContainer = document.getElementById("site-header");
+
+  headerContainer.innerHTML = `
+    <div class="top-bar" style="background-color: ${header.topBarColor};">
+      <div class="container top-bar-content">
+        <p class="top-bar-text">${header.topBarText}</p>
+      </div>
+    </div>
+
+    <div class="nav-bar" style="background-color: ${header.navBarColor};">
+      <div class="container nav-content">
+        <a href="index.html" class="site-brand" aria-label="Go to home page">
+          <img src="./assets/images/logo-fish.png" alt="Eco Discovery Logo" class="site-logo-img">
+          <span class="site-title">Eco Discovery</span>
+        </a>
+        <nav class="nav-menu">
+          ${header.navLinks
+            .map(
+              (link) =>
+                `<a href="${link.href}" class="nav-link-icon${link.active ? " active" : ""}" aria-label="${link.label}">
+                  <img src="${link.icon}" alt="${link.label}" class="nav-icon-img">
+                  <span class="nav-icon-label">${link.label}</span>
+                </a>`
+            )
+            .join("")}
+        </nav>
+      </div>
+    </div>
+  `;
+}
+
+function renderHero(hero, videos) {
+  const heroSection = document.getElementById("hero-section");
+
+  function makeTvCard(src, video, tvNum) {
+    const videoSrc = video ? video.videoSrc : "";
+    const thumbnail = video ? video.thumbnail : "";
+    const label = video ? escapeHtml(video.title) : "Video";
+    const color = video ? video.color : "#4BA8A9";
+    const sparkles = Array.from({length: 5}, (_, i) =>
+      `<span class="tv-sparkle tv-sparkle-${i+1}" aria-hidden="true"></span>`
+    ).join("");
+    const thumbEl = thumbnail
+      ? `<img src="${thumbnail}" alt="${label}" class="videos-tv-thumb" loading="lazy">`
+      : videoSrc
+        ? `<video src="${videoSrc}" class="videos-tv-thumb" preload="metadata" muted playsinline></video>`
+        : "";
+    return `
+      <div class="tv-unit" data-tv="${tvNum}">
+        <div class="videos-tv-wrap" data-video-src="${videoSrc}"
+             role="button" tabindex="0" aria-label="Play ${label}">
+          <img src="${src}" alt="TV" class="videos-tv-img">
+          <div class="videos-tv-screen">
+            ${thumbEl}
+            <div class="videos-tv-play"><i class="fa-solid fa-circle-play"></i></div>
+          </div>
+        </div>
+        <div class="tv-label-card" style="background-color: ${color};">
+          ${sparkles}
+          <span class="tv-label-title">${label}</span>
+        </div>
+      </div>`;
+  }
+
+  const tvRow1 = hero.tvImages.slice(0, 3)
+    .map((src, i) => makeTvCard(src, videos[i], i + 1)).join("");
+  const tvRow2 = hero.tvImages.slice(3, 5)
+    .map((src, i) => makeTvCard(src, videos[i + 3], i + 4)).join("");
+
+  heroSection.innerHTML = `
+    <div class="videos-hero-wrapper">
+      <img src="${hero.backgroundImage}" alt="${hero.altText}" class="videos-hero-image"/>
+      <img src="./assets/images/vid-fish1.png" alt="Swimming fish" class="vid-fish vid-fish-1">
+      <img src="./assets/images/vid-fish2.png" alt="Swimming fish" class="vid-fish vid-fish-2">
+      <div class="videos-hero-content">
+        <div class="videos-hero-card">
+          <h1 class="videos-hero-title">
+            ${hero.title}
+            <img src="${hero.videoIcon}" alt="play" class="videos-hero-icon">
+          </h1>
+        </div>
+        <div class="videos-tv-grid">
+          <div class="videos-tv-row">${tvRow1}</div>
+          <div class="videos-tv-row">${tvRow2}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Helpers ────────────────────────────────────────────────────
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// ── Video Modal ────────────────────────────────────────────────
+function renderVideoModal() {
+  const modal = document.createElement("div");
+  modal.id = "video-modal";
+  modal.className = "video-modal-overlay";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "Video player");
+  modal.innerHTML = `
+    <div class="video-modal-box">
+      <button class="video-modal-close" aria-label="Close video">&times;</button>
+      <div class="video-modal-iframe-wrap">
+        <video id="video-modal-player" controls playsinline></video>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function initVideoModal() {
+  const modal  = document.getElementById("video-modal");
+  const player = document.getElementById("video-modal-player");
+  const app    = document.getElementById("app");
+
+  function openModal(videoSrc) {
+    if (!videoSrc) return;
+    player.src = videoSrc;
+    player.play();
+    modal.classList.add("is-open");
+    app.classList.add("app-blurred");
+    document.body.style.overflow = "hidden";
+    modal.querySelector(".video-modal-close").focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    app.classList.remove("app-blurred");
+    player.pause();
+    player.src = "";
+    document.body.style.overflow = "";
+  }
+
+  // Click any TV in the hero
+  document.getElementById("hero-section").addEventListener("click", (e) => {
+    const tv = e.target.closest(".videos-tv-wrap");
+    if (tv && tv.dataset.videoSrc) openModal(tv.dataset.videoSrc);
+  });
+
+  // Keyboard: Enter / Space on a TV
+  document.getElementById("hero-section").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const tv = e.target.closest(".videos-tv-wrap");
+      if (tv && tv.dataset.videoSrc) { e.preventDefault(); openModal(tv.dataset.videoSrc); }
+    }
+  });
+
+  // Click backdrop to close
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+  // Close button
+  modal.querySelector(".video-modal-close").addEventListener("click", closeModal);
+
+  // Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  // Seek TV thumbnails to 1s for a meaningful preview frame
+  document.querySelectorAll(".videos-tv-thumb").forEach(vid => {
+    vid.addEventListener("loadedmetadata", () => { vid.currentTime = 1; });
+  });
+}
+
+// ── Froggy Guide ──────────────────────────────────────────────
+function initVideosFrogGuide() {
+  const el = document.createElement('div');
+  el.id = 'videos-frog-guide';
+  el.innerHTML = `
+    <div class="vfg-avatar" id="vfg-avatar">
+      <img src="./assets/images/Frog_explorer_1.png" alt="Froggy the guide">
+    </div>
+    <div class="vfg-bubble" id="vfg-bubble">
+      Here you will watch interesting videos about fishes and fresh water ecosystems 🐟
+    </div>
+  `;
+  document.body.appendChild(el);
+
+  // Auto-hide bubble after 2 s
+  const bubble = document.getElementById('vfg-bubble');
+  setTimeout(() => {
+    bubble.classList.add('vfg-bubble-hidden');
+  }, 2000);
+
+  // Click avatar: toggle bubble
+  document.getElementById('vfg-avatar').addEventListener('click', () => {
+    bubble.classList.toggle('vfg-bubble-hidden');
+  });
+}
+
+// ── Footer ─────────────────────────────────────────────────────
+function renderFooter(footer) {
+  const footerContainer = document.getElementById("site-footer");
+
+  footerContainer.innerHTML = `
+    <div class="site-footer" style="background-color: ${footer.backgroundColor};">
+      <div class="container footer-inner">
+        <div class="footer-logo">
+          <img src="${footer.logo.image}" alt="${footer.logo.altText}" class="footer-logo-img" />
+        </div>
+        <nav class="footer-nav" aria-label="Footer links">
+          ${footer.links.map(link => `<a href="${link.href}" class="footer-link"${link.label === 'Feedback' ? ' data-action="open-feedback"' : ''}>${link.label}</a>`).join("")}
+        </nav>
+        <p class="footer-copyright">${footer.copyright}</p>
+      </div>
+    </div>
+  `;
+}
