@@ -6,12 +6,6 @@
 
 ---
 
-## 👥 Team Members
-
-- Rayansh Chowatia
-- Jeremiah Onunkwo
-- Abrianna Primavera
-- Aubin Chriss Izere
 
 ##  Team Members (Group G)
 
@@ -30,8 +24,7 @@ The system allows children to discover aquatic animals, learn fun facts, and und
 
 ---
 
-<<<<<<< HEAD
-## ❓ The Why
+
 =======
 ##  The “Why” (Reason)
 
@@ -42,8 +35,7 @@ EcoDiscovery addresses this by transforming learning into an interactive and vis
 
 ---
 
-<<<<<<< HEAD
-## 👥 The Who
+
 =======
 ##  The “Who” (Target Users)
 
@@ -78,8 +70,7 @@ Everything beyond this — the admin dashboard, Froggy companion guide, danger/c
 
 ---
 
-<<<<<<< HEAD
-## 🎥 Demo
+
 =======
 ##  Tech Stack & Architecture
 >>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
@@ -90,8 +81,7 @@ The video demonstrates the interactive ecosystem exploration, animal discovery a
 
 ---
 
-<<<<<<< HEAD
-## 🛠 Tech Stack
+
 =======
 ##  Commercial Video
 >>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
@@ -111,8 +101,6 @@ No frontend framework is used — the app is built with a hand-rolled MVC patter
 
 ---
 
-<<<<<<< HEAD
-## 📄 Pages
 
 | Page | File | Description |
 |---|---|---|
@@ -146,7 +134,7 @@ Before running the project you need:
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 =======
 ##  Project Installation & Setup
 >>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
