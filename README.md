@@ -34,7 +34,7 @@ The system allows children to discover aquatic animals, learn fun facts, and und
 ## ❓ The Why
 =======
 ##  The “Why” (Reason)
->>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
+
 
 Traditional learning methods are often text-heavy and difficult for children to engage with. Students struggle to understand ecosystem concepts through static diagrams and written content.
 
@@ -46,7 +46,7 @@ EcoDiscovery addresses this by transforming learning into an interactive and vis
 ## 👥 The Who
 =======
 ##  The “Who” (Target Users)
->>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
+
 
 **Primary users:** Elementary school students (Grades 2–3)
 
