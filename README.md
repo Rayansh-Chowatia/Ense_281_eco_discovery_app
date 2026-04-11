@@ -137,7 +137,7 @@ Before running the project you need:
 ##  Installation & Setup
 
 ##  Project Installation & Setup
->>>>>>> e088c05bc21416b879428ca27f11f80d23e7c9e2
+
 
 ### Clone Repository
 
