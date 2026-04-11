@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(wc -l /c/Users/izere/Downloads/Ense_281_eco_discovery_app/EcoDiscovery_Development/public/css/*.css)"
-    ]
-  }
-}
