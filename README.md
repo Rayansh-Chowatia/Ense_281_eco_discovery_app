@@ -6,7 +6,7 @@
 
 ---
 
-## Team Members
+## 👥 Team Members
 
 - Rayansh Chowatia
 - Jeremiah Onunkwo
@@ -15,7 +15,7 @@
 
 ---
 
-## Project Description
+## 📌 Project Description
 
 EcoDiscovery is a web-based educational application designed to help young learners explore freshwater ecosystems through an interactive and engaging experience.
 
@@ -23,7 +23,7 @@ The system allows children to discover aquatic animals, learn fun facts, and und
 
 ---
 
-## The Why
+## ❓ The Why
 
 Traditional learning methods are often text-heavy and difficult for children to engage with. Students struggle to understand ecosystem concepts through static diagrams and written content.
 
@@ -31,7 +31,7 @@ EcoDiscovery addresses this by transforming learning into an interactive and vis
 
 ---
 
-## The Who
+## 👥 The Who
 
 **Primary users:** Elementary school students (Grades 2–3)
 
@@ -39,7 +39,7 @@ EcoDiscovery addresses this by transforming learning into an interactive and vis
 
 ---
 
-## Project Goals
+## 🎯 Project Goals
 
 - Make learning interactive
 - Encourage exploration-based learning
@@ -48,7 +48,7 @@ EcoDiscovery addresses this by transforming learning into an interactive and vis
 
 ---
 
-## Minimum Viable Product (MVP)
+## 🚀 Minimum Viable Product (MVP)
 
 The MVP scope defines what the application must deliver to be considered a working product:
 
@@ -63,7 +63,7 @@ Everything beyond this — the admin dashboard, Froggy companion guide, danger/c
 
 ---
 
-## Demo
+## 🎥 Demo
 
 [![Watch the Commercial Video](https://img.youtube.com/vi/2_klvhG9HdE/0.jpg)](https://youtu.be/2_klvhG9HdE)
 
@@ -71,7 +71,7 @@ The video demonstrates the interactive ecosystem exploration, animal discovery a
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -88,7 +88,7 @@ No frontend framework is used — the app is built with a hand-rolled MVC patter
 
 ---
 
-## Pages
+## 📄 Pages
 
 | Page | File | Description |
 |---|---|---|
@@ -101,7 +101,7 @@ No frontend framework is used — the app is built with a hand-rolled MVC patter
 
 ---
 
-## Prerequisites
+## ⚙️ Prerequisites
 
 Before running the project you need:
 
@@ -122,7 +122,7 @@ Before running the project you need:
 
 ---
 
-## Installation & Setup
+## ⚙️ Installation & Setup
 
 ### Clone Repository
 
@@ -164,7 +164,7 @@ The app is available at **http://localhost:3000**
 
 ---
 
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 Ense_281_eco_discovery_app/
@@ -181,7 +181,7 @@ Ense_281_eco_discovery_app/
 
 ---
 
-## Developer Documentation
+## 📖 Developer Documentation
 
 For full technical details — MVC architecture diagram, complete folder tree, API endpoints, database schema, and security notes — see:
 
